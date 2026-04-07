@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – SIR Research Consultancy, Nagpur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root { --navy:#050d1a;--navy-2:#0a1628;--navy-3:#0f2040;--navy-4:#162840;--gold:#c9a227;--gold-light:#e8c250;--gold-dark:#a07c10;--white:#ffffff;--off-white:#e8edf5;--text-muted:#8a9ab5;--card-bg:rgba(15,32,64,0.8);--border:rgba(201,162,39,0.2);--shadow:0 20px 60px rgba(0,0,0,0.4);--glow:0 0 30px rgba(201,162,39,0.3);--font-head:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;--radius:16px;--transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:var(--navy);color:var(--white);overflow-x:hidden;line-height:1.7}a{text-decoration:none;color:inherit}ul{list-style:none}::selection{background:var(--gold);color:var(--navy)}::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+    body::before{content:'';position:fixed;inset:0;z-index:-3;background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(15,32,64,0.9) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 80% 20%,rgba(201,162,39,0.08) 0%,transparent 60%),var(--navy)}
+    .bg-grid{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.4}
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:9998;width:0%;box-shadow:0 0 10px rgba(201,162,39,0.5);transition:width 0.1s ease}
+    /* NAVBAR */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:900;padding:18px 0;transition:var(--transition)}.navbar.scrolled{background:rgba(5,13,26,0.95);backdrop-filter:blur(20px);padding:12px 0;box-shadow:0 4px 30px rgba(0,0,0,0.5);border-bottom:1px solid var(--border)}
+    .nav-container{max-width:1300px;margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}.logo-img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,0.06);padding:4px;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
+    .logo-sir{font-family:var(--font-head);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.05em}
+    .logo-text{display:flex;flex-direction:column;line-height:1.2}.logo-main{font-size:0.9rem;font-weight:600;color:var(--white)}.logo-sub{font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:8px}.nav-links a{padding:8px 14px;border-radius:8px;font-size:0.9rem;font-weight:500;color:var(--off-white);transition:var(--transition);position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;right:50%;height:2px;background:var(--gold);transition:var(--transition);border-radius:2px}.nav-links a:hover::after{left:14px;right:14px}.nav-links a:hover{color:var(--gold)}.nav-links .nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy)!important;font-weight:700;padding:10px 22px}.nav-links .nav-cta:hover{transform:translateY(-2px);box-shadow:var(--glow)}.nav-links .nav-cta::after{display:none}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}.hamburger span{display:block;width:25px;height:2px;background:var(--white);border-radius:2px;transition:var(--transition)}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    .float-contacts{position:fixed;right:20px;bottom:30px;z-index:1000;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateX(30px);transition:all 0.4s ease}
+    .float-btn{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:50px;font-family:var(--font-body);font-weight:600;font-size:0.85rem;cursor:pointer;transition:var(--transition);box-shadow:0 8px 25px rgba(0,0,0,0.4);white-space:nowrap;overflow:hidden;max-width:52px}.float-btn:hover{max-width:160px;transform:translateX(-5px)}.float-btn i{font-size:1.1rem;flex-shrink:0}.float-btn.call{background:linear-gradient(135deg,#1a73e8,#0d47a1);color:white}.float-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:white}.float-btn.sms{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy)}
+    /* HERO */
+    .page-hero{min-height:55vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:140px 30px 80px;text-align:center}
+    .particle{position:absolute;width:3px;height:3px;background:var(--gold);border-radius:50%;animation:floatP linear infinite;opacity:0}
+    @keyframes floatP{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.3}100%{transform:translateY(-100px) scale(1.5);opacity:0}}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.12;pointer-events:none}.orb-l{width:500px;height:500px;background:var(--gold);top:-150px;left:-150px;animation:orbf 7s ease-in-out infinite}.orb-r{width:300px;height:300px;background:#1a73e8;bottom:-80px;right:-80px;animation:orbf 5s ease-in-out infinite reverse}
+    @keyframes orbf{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+    .page-hero-content{position:relative;z-index:1;max-width:860px}
+    .breadcrumb{display:inline-flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--text-muted);margin-bottom:20px}.breadcrumb a{color:var(--gold)}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:50px;font-size:0.8rem;font-weight:600;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,39,0.05);margin-bottom:24px}.hero-tag::before{content:'✦';animation:spin 3s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .page-hero h1{font-family:var(--font-head);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:24px}.gold{background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .page-hero p{font-size:1.05rem;color:var(--text-muted);line-height:1.8;max-width:620px;margin:0 auto}
+    /* SECTIONS */
+    .section{padding:90px 0;position:relative}.container{max-width:1300px;margin:0 auto;padding:0 30px}
+    .section-tag{display:inline-block;padding:6px 18px;border:1px solid var(--border);border-radius:50px;font-size:0.75rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;background:rgba(201,162,39,0.05)}
+    .section-title{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:16px}
+    .sec-header{text-align:center;margin-bottom:60px}.sec-header p{color:var(--text-muted);max-width:500px;margin:0 auto}
+    .reveal,.reveal-left,.reveal-right{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal-left{transform:translateX(-50px)}.reveal-right{transform:translateX(50px)}.revealed{opacity:1!important;transform:translate(0,0)!important}
+    /* TABS */
+    .services-section{background:var(--navy)}
+    .service-tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:50px}
+    .tab-btn{display:flex;align-items:center;gap:8px;padding:11px 24px;background:var(--card-bg);border:1px solid var(--border);border-radius:50px;color:var(--text-muted);font-family:var(--font-body);font-size:0.88rem;font-weight:600;cursor:pointer;transition:var(--transition)}.tab-btn:hover,.tab-btn.active{background:rgba(201,162,39,0.1);border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+    .tab-content{display:none}.tab-content.active{display:block}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+    .service-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:34px;transition:var(--transition);position:relative;overflow:hidden;cursor:default}
+    .service-card::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:var(--transition)}
+    .service-card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--gold)}.service-card:hover::before{width:100%}
+    .sc-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;background:rgba(201,162,39,0.1);border-radius:12px;font-size:1.5rem;color:var(--gold);margin-bottom:20px;transition:var(--transition)}.service-card:hover .sc-icon{background:rgba(201,162,39,0.2);transform:rotate(10deg) scale(1.1)}
+    .service-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}.service-card p{color:var(--text-muted);font-size:0.9rem;line-height:1.6}
+    .sc-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--gold);font-size:0.85rem;font-weight:600;transition:var(--transition)}.sc-link:hover{gap:12px}
+    /* PRICING CTA */
+    .pricing-cta{background:rgba(10,22,40,0.6);padding:80px 0}
+    .pricing-inner{text-align:center;max-width:700px;margin:0 auto}
+    .pricing-inner p{color:var(--text-muted);margin-bottom:32px;font-size:1rem}
+    .pricing-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);font-family:var(--font-body);font-weight:700;font-size:0.95rem;border:none;border-radius:50px;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden}.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,162,39,0.4)}
+    .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:transparent;color:var(--white);font-family:var(--font-body);font-weight:600;font-size:0.95rem;border:1px solid rgba(255,255,255,0.3);border-radius:50px;cursor:pointer;transition:var(--transition)}.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,162,39,0.05);transform:translateY(-3px)}
+    /* FEATURES STRIP */
+    .features-strip{background:linear-gradient(135deg,var(--navy-3),var(--navy-4));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 0}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+    .feat-card{text-align:center;padding:30px 20px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);transition:var(--transition)}.feat-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:var(--glow)}
+    .feat-icon{font-size:2rem;color:var(--gold);margin-bottom:14px;display:block;transition:var(--transition)}.feat-card:hover .feat-icon{transform:scale(1.2) rotate(8deg)}
+    .feat-card h4{font-size:0.95rem;font-weight:700;margin-bottom:6px}.feat-card p{font-size:0.82rem;color:var(--text-muted)}
+    /* CTA BAND */
+    .cta-band{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));padding:80px 30px;text-align:center}
+    .cta-band h2{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--navy);margin-bottom:16px}
+    .cta-band > p{color:rgba(5,13,26,0.75);font-size:1rem;margin-bottom:36px;max-width:550px;margin-left:auto;margin-right:auto}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-dark{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--navy);color:var(--gold);font-family:var(--font-body);font-weight:700;font-size:0.95rem;border-radius:50px;transition:var(--transition)}.btn-dark:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+    .btn-wa-cta{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:rgba(37,211,102,0.15);color:var(--navy);border:2px solid rgba(5,13,26,0.3);font-family:var(--font-body);font-weight:700;font-size:0.95rem;border-radius:50px;transition:var(--transition)}.btn-wa-cta:hover{background:rgba(37,211,102,0.35);transform:translateY(-3px)}
+    /* FOOTER */
+    .footer{background:var(--navy-2);border-top:1px solid var(--border)}.footer-top{padding:80px 0 60px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:60px}
+    .footer-brand p{color:var(--text-muted);font-size:0.9rem;margin:16px 0 24px;line-height:1.7}.footer-contacts{display:flex;flex-direction:column;gap:10px}.footer-contacts a{display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:0.9rem;transition:var(--transition)}.footer-contacts a:hover{color:var(--gold)}.footer-contacts a i{color:var(--gold)}
+    .footer-links h4{font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}.footer-links ul{display:flex;flex-direction:column;gap:10px}.footer-links a{color:var(--text-muted);font-size:0.9rem;transition:var(--transition)}.footer-links a:hover{color:var(--gold);padding-left:6px}
+    .footer-cta h4{font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}.footer-cta p{color:var(--text-muted);font-size:0.85rem;margin-bottom:20px}
+    .btn-wa-footer{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 28px;background:rgba(37,211,102,0.15);border:1px solid #25d366;border-radius:50px;color:#25d366;font-weight:700;font-size:0.9rem;margin-top:12px;transition:var(--transition);font-family:var(--font-body)}.btn-wa-footer:hover{background:rgba(37,211,102,0.25);transform:translateY(-2px)}
+    .footer-bottom{border-top:1px solid var(--border);padding:24px 0}.footer-bottom .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}.footer-bottom p{color:var(--text-muted);font-size:0.82rem}
+    @media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,13,26,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:20px;border-top:1px solid var(--border)}.nav-links.open{display:flex}.hamburger{display:flex}.footer-grid{grid-template-columns:1fr;gap:30px}.float-btn span{display:none}.float-btn,.float-btn:hover{max-width:52px!important;transform:none!important}}
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="float-contacts" id="fc">
+    <a href="tel:8788209773" class="float-btn call"><i class="fas fa-phone"></i><span>Call</span></a>
+    <a href="https://wa.me/918788209773" target="_blank" class="float-btn whatsapp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+    <a href="sms:8788209773" class="float-btn sms"><i class="fas fa-comment-sms"></i><span>Message</span></a>
+  </div>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="window.location.href='index.html'">
+        <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR" onerror="this.style.display='none'" />
+        <span class="logo-sir">SIR</span>
+        <div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div>
+      </div>
+       <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="hero-orb orb-l"></div><div class="hero-orb orb-r"></div>
+    <div id="particles" style="position:absolute;inset:0;pointer-events:none;"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb reveal"><a href="index.html">Home</a><i class="fas fa-chevron-right" style="font-size:0.6rem"></i><span>Services</span></div>
+      <div class="hero-tag reveal">Comprehensive Research Support</div>
+      <h1 class="reveal">Our Complete <span class="gold">Services</span></h1>
+      <p class="reveal">From research paper writing to patent filing — we are your end-to-end academic and research partner trusted by 5000+ clients across India.</p>
+    </div>
+  </section>
+
+  <section class="services-section section">
+    <div class="container">
+      <div class="sec-header reveal">
+        <div class="section-tag">What We Offer</div>
+        <h2 class="section-title">Explore Our <span class="gold">Services</span></h2>
+        <p>Comprehensive research support solutions for every academic stage and requirement.</p>
+      </div>
+      <div class="service-tabs reveal">
+        <button class="tab-btn active" data-tab="writing"><i class="fas fa-pen-nib"></i> Writing</button>
+        <button class="tab-btn" data-tab="publication"><i class="fas fa-newspaper"></i> Publication</button>
+        <button class="tab-btn" data-tab="phd"><i class="fas fa-graduation-cap"></i> PhD</button>
+        <button class="tab-btn" data-tab="ipr"><i class="fas fa-shield-alt"></i> IPR</button>
+        <button class="tab-btn" data-tab="editing"><i class="fas fa-spell-check"></i> Editing</button>
+        <button class="tab-btn" data-tab="books"><i class="fas fa-book"></i> Books</button>
+        <button class="tab-btn" data-tab="data"><i class="fas fa-chart-bar"></i> Data</button>
+      </div>
+      <div class="tab-content active" id="tab-writing">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-file-alt"></i></div><h3>Technical Paper Writing</h3><p>Q1–Q4 Scopus & WoS quality research papers with precise methodology, impactful findings, and expert writing by domain PhDs. Full support from drafting to submission.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-search"></i></div><h3>Research Paper Writing</h3><p>Comprehensive research papers designed for publication in top-indexed international journals. We handle every aspect — literature, methodology, results, and discussion.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-list-alt"></i></div><h3>Review Paper Writing</h3><p>Systematic and narrative literature review papers crafted by subject matter experts with comprehensive citation mapping and gap analysis.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-scroll"></i></div><h3>Thesis & Dissertation</h3><p>Full thesis writing, chapter-wise support, and dissertation writing for PhD & Masters programs. University-specific formatting and compliance guaranteed.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-file-signature"></i></div><h3>Synopsis Writing</h3><p>Structured research synopsis and PhD registration proposals that clearly define your research objectives, methodology, and contribution to knowledge.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-pen-fancy"></i></div><h3>Case Study Writing</h3><p>In-depth case studies for journals, conferences, and academic submissions with proper methodology and scholarly presentation.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-publication">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-globe"></i></div><h3>Scopus Publication</h3><p>End-to-end Scopus indexed journal publication support — from selecting the right journal to getting acceptance. We manage the entire submission process.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-star"></i></div><h3>Web of Science (WoS)</h3><p>WoS indexed publication assistance with high impact factor journals worldwide. Reviewer response writing and revision support included.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-microphone"></i></div><h3>Conference Papers</h3><p>Research paper preparation for national and international Scopus/IEEE indexed conferences with full presentation support and poster design.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chart-line"></i></div><h3>UGC Care Journals</h3><p>Publication support for UGC Care List journals for faculty and scholars requiring API score and promotion-related publications.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-building"></i></div><h3>IEEE Publications</h3><p>IEEE journal and conference paper support with precise formatting, LaTeX typesetting, and technical review guidance.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-reply-all"></i></div><h3>Reviewer Response</h3><p>Expert assistance in responding to journal reviewer comments to maximize chances of paper acceptance after revisions.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-phd">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-lightbulb"></i></div><h3>Topic Selection</h3><p>Expert guidance to identify innovative, publishable, and research-gap-filling PhD topics aligned with current trends and your background.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-book-reader"></i></div><h3>Literature Review</h3><p>Comprehensive literature review writing with proper citation, gap analysis, and thematic synthesis for all research disciplines.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chalkboard-teacher"></i></div><h3>Viva Preparation</h3><p>Mock viva sessions, anticipated question banks, and presentation preparation to help you ace your PhD viva voce with confidence.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-project-diagram"></i></div><h3>Research Methodology</h3><p>Research design, questionnaire development, sample selection, and methodology chapter writing for quantitative and qualitative research.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-comments"></i></div><h3>Guide Coordination</h3><p>Assistance in communication with PhD guides, committee preparation, and presentation support for pre-submission seminars.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-tasks"></i></div><h3>Chapter Writing</h3><p>Chapter-by-chapter PhD thesis writing support from Introduction to Conclusion — fully customized to your university norms.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-ipr">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-certificate"></i></div><h3>Patent Writing & Filing</h3><p>Complete patent drafting, complete patent specification writing, application filing with IP India. Utility, design, and plant patents handled.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-globe-americas"></i></div><h3>PCT International Patent</h3><p>International patent applications under the Patent Cooperation Treaty for global intellectual property protection across 150+ countries.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-trademark"></i></div><h3>Trademark Registration</h3><p>End-to-end trademark search, application, and registration process. Brand name, logo, and slogan trademark protection nationwide.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-palette"></i></div><h3>Design Patent</h3><p>Industrial design and ornamental design patent filing and registration for product designs and UI/UX innovations.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-copyright"></i></div><h3>Copyright Registration</h3><p>Copyright protection for literary, artistic, software, musical works and academic publications with official registration support.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-exchange-alt"></i></div><h3>Technology Transfer</h3><p>Assistance in technology licensing agreements, transfer documentation, and commercialization of patented innovations.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-editing">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-spell-check"></i></div><h3>Proofreading</h3><p>Grammar, language, syntax, coherence, and style editing by expert academic editors. British and American English both supported.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-align-left"></i></div><h3>Journal Formatting</h3><p>Journal-specific formatting (APA, IEEE, Elsevier, Springer, Taylor & Francis, etc.) done precisely as per author guidelines.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-copy"></i></div><h3>Plagiarism Check</h3><p>Turnitin/iThenticate reports with comprehensive similarity reduction to below 10% as required by most international journals.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-robot"></i></div><h3>AI Content Removal</h3><p>Detection and expert rewriting of AI-generated content for journal acceptance compliance. Humanization of academic text.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-language"></i></div><h3>Translation Services</h3><p>Academic paper translation between English and regional languages with subject-specific terminology accuracy.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-superscript"></i></div><h3>Reference Management</h3><p>Citation formatting, reference list preparation, and bibliography management using EndNote, Mendeley, Zotero.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-books">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-pen-fancy"></i></div><h3>Book Writing</h3><p>Academic, educational, and professional book writing support for authors. Complete manuscript development from outline to final draft.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-paint-brush"></i></div><h3>Design & Formatting</h3><p>Professional book design, interior layout, typesetting, and cover design. Print-ready and digital versions both available.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-barcode"></i></div><h3>ISBN & Barcode</h3><p>Official ISBN number registration and barcode generation through authorized publishers for your book publication.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-upload"></i></div><h3>Digital Publishing</h3><p>E-book formatting and publishing on Amazon KDP, Google Play Books, and other digital platforms for wider international reach.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-book-open"></i></div><h3>Edited Book Chapters</h3><p>Chapter writing, editing, and compilation for edited volumes and multi-contributor academic books with proper peer review.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-print"></i></div><h3>Self-Publishing</h3><p>Complete self-publishing support including print-on-demand, distribution setup, and marketing materials for academic books.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+      <div class="tab-content" id="tab-data">
+        <div class="services-grid">
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chart-bar"></i></div><h3>SPSS Analysis</h3><p>Complete statistical analysis using IBM SPSS — descriptive, inferential, regression, ANOVA, factor analysis for research papers and thesis.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-project-diagram"></i></div><h3>SEM/AMOS Analysis</h3><p>Structural Equation Modeling using AMOS for research studies requiring path analysis and confirmatory factor analysis.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-code"></i></div><h3>R & Python Analysis</h3><p>Advanced statistical computing with R and Python for big data, machine learning models, and complex statistical analyses.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-table"></i></div><h3>MATLAB Analysis</h3><p>MATLAB simulation and analysis for engineering research, signal processing, image analysis, and numerical computations.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-poll"></i></div><h3>Survey Design</h3><p>Questionnaire design, pilot testing, reliability analysis (Cronbach Alpha), and validity assessment for primary data collection.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chart-pie"></i></div><h3>Data Visualization</h3><p>Professional charts, graphs, infographics, and visual data presentation for journals, theses, and conference presentations.</p><a href="index.html#contact" class="sc-link">Get Started →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-strip">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feat-card reveal"><i class="fas fa-check-double feat-icon"></i><h4>100% Original Work</h4><p>Every paper is written from scratch with zero plagiarism guaranteed</p></div>
+        <div class="feat-card reveal"><i class="fas fa-bolt feat-icon"></i><h4>Express Delivery</h4><p>Urgent requirements handled with fast turnaround without quality compromise</p></div>
+        <div class="feat-card reveal"><i class="fas fa-sync feat-icon"></i><h4>Unlimited Revisions</h4><p>We revise until you are 100% satisfied with the final output</p></div>
+        <div class="feat-card reveal"><i class="fas fa-lock feat-icon"></i><h4>NDA Protected</h4><p>Your research and identity are 100% confidential at all times</p></div>
+        <div class="feat-card reveal"><i class="fas fa-headset feat-icon"></i><h4>24/7 Support</h4><p>Dedicated support team available round the clock via WhatsApp & call</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-cta">
+    <div class="container">
+      <div class="pricing-inner reveal">
+        <div class="section-tag">Get Pricing</div>
+        <h2 class="section-title">Ready to Get <span class="gold">Started?</span></h2>
+        <p>Contact us for a free consultation and customized pricing for your specific research requirement. No hidden charges, no commitments.</p>
+        <div class="pricing-btns">
+          <a href="index.html#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Enquiry</a>
+          <a href="https://wa.me/918788209773" target="_blank" class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Trusted by 5000+ Researchers Across India</h2>
+    <p>Join thousands of satisfied scholars, faculty, and institutions who have transformed their research journey with SIR.</p>
+    <div class="cta-btns">
+      <a href="tel:8788209773" class="btn-dark"><i class="fas fa-phone"></i> Call Now: 8788209773</a>
+      <a href="https://wa.me/918788209773" target="_blank" class="btn-wa-cta"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-top"><div class="container"><div class="footer-grid">
+      <div class="footer-brand"><div class="nav-logo"><img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR" onerror="this.style.display='none'" /><span class="logo-sir">SIR</span><div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div></div><p>Your trusted partner for research excellence, publication support, and academic advancement.</p><div class="footer-contacts"><a href="tel:8788209773"><i class="fas fa-phone"></i> 8788209773</a><a href="https://wa.me/918788209773"><i class="fab fa-whatsapp"></i> WhatsApp</a></div></div>
+      <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
+      <div class="footer-links"><h4>Services</h4><ul><li><a href="services.html">Research Paper</a></li><li><a href="services.html">Scopus/WoS</a></li><li><a href="services.html">PhD Thesis</a></li><li><a href="services.html">Patent Filing</a></li><li><a href="services.html">Data Analysis</a></li><li><a href="services.html">Plagiarism Removal</a></li></ul></div>
+      <div class="footer-cta"><h4>Free Consultation</h4><p>No charges, no commitment — just expert guidance.</p><a href="tel:8788209773" class="btn-primary">Call: 8788209773</a><a href="https://wa.me/918788209773" target="_blank" class="btn-wa-footer"><i class="fab fa-whatsapp"></i> WhatsApp Us</a></div>
+    </div></div></div>
+    <div class="footer-bottom"><div class="container"><p>© 2024 SIR Research Consultancy, Nagpur. All Rights Reserved.</p><p>Designed with excellence for academic advancement.</p></div></div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const sp=document.getElementById('scrollProgress');window.addEventListener('scroll',()=>{sp.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%'});
+      const nb=document.getElementById('navbar');window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>60));
+      const hb=document.getElementById('hamburger'),nl=document.getElementById('navLinks');hb.addEventListener('click',()=>{hb.classList.toggle('active');nl.classList.toggle('open')});nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hb.classList.remove('active');nl.classList.remove('open')}));
+      const fc=document.getElementById('fc');window.addEventListener('scroll',()=>{fc.style.opacity=window.scrollY>300?'1':'0';fc.style.transform=window.scrollY>300?'translateX(0)':'translateX(30px)'});
+      const pc=document.getElementById('particles');for(let i=0;i<25;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.width=p.style.height=(Math.random()*3+1)+'px';p.style.animationDuration=(Math.random()*15+8)+'s';p.style.animationDelay=(Math.random()*10)+'s';if(Math.random()>0.7)p.style.background='rgba(255,255,255,0.5)';pc.appendChild(p)}
+      const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const s=[...e.target.parentElement.querySelectorAll('.reveal,.reveal-left,.reveal-right')];setTimeout(()=>e.target.classList.add('revealed'),s.indexOf(e.target)*80);ro.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+      document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+      document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));btn.classList.add('active');const c=document.getElementById('tab-'+btn.dataset.tab);if(c){c.classList.add('active');c.querySelectorAll('.reveal').forEach((el,i)=>{el.classList.remove('revealed');setTimeout(()=>el.classList.add('revealed'),i*80)})}})});
+      document.getElementById('tab-writing').querySelectorAll('.reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('revealed'),i*80+400));
+      if(window.innerWidth>1024){const g=document.createElement('div');g.style.cssText='position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.3s,top 0.3s;';document.body.appendChild(g);document.addEventListener('mousemove',e=>{g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'})}
+    });
+  </script>
+</body>
+</html>

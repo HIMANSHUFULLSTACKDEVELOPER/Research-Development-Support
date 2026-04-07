@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – SIR Research Consultancy, Nagpur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --navy: #050d1a;
+      --navy-2: #0a1628;
+      --navy-3: #0f2040;
+      --navy-4: #162840;
+      --gold: #c9a227;
+      --gold-light: #e8c250;
+      --gold-dark: #a07c10;
+      --white: #ffffff;
+      --off-white: #e8edf5;
+      --text-muted: #8a9ab5;
+      --card-bg: rgba(15, 32, 64, 0.8);
+      --border: rgba(201, 162, 39, 0.2);
+      --shadow: 0 20px 60px rgba(0,0,0,0.4);
+      --glow: 0 0 30px rgba(201, 162, 39, 0.3);
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; }
+    ::selection { background: var(--gold); color: var(--navy); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -3;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(15, 32, 64, 0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(201, 162, 39, 0.08) 0%, transparent 60%),
+        var(--navy);
+    }
+
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -2;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+    }
+
+    /* ============================================
+       SCROLL PROGRESS
+    ============================================ */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 9998; width: 0%;
+      box-shadow: 0 0 10px rgba(201,162,39,0.5);
+      transition: width 0.1s ease;
+    }
+
+    /* ============================================
+       NAVBAR (EXACT COPY)
+    ============================================ */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 900;
+      padding: 18px 0;
+      transition: var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(5, 13, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-container {
+      max-width: 1300px; margin: 0 auto;
+      padding: 0 30px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .logo-img {
+      width: 44px; height: 44px;
+      object-fit: contain; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      padding: 4px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .logo-sir {
+      font-family: var(--font-head);
+      font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 0.05em;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-main { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+    .logo-sub { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      padding: 8px 14px; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 500; color: var(--off-white);
+      transition: var(--transition); position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: 4px; left: 50%; right: 50%;
+      height: 2px; background: var(--gold);
+      transition: var(--transition); border-radius: 2px;
+    }
+    .nav-links a:hover::after, .nav-links a.active-nav::after { left: 14px; right: 14px; }
+    .nav-links a:hover, .nav-links a.active-nav { color: var(--gold); }
+    .nav-links .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy) !important; font-weight: 700; padding: 10px 22px;
+    }
+    .nav-links .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+    .nav-links .nav-cta::after { display: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+    .hamburger span { display: block; width: 25px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ============================================
+       FLOATING CONTACT BUTTONS
+    ============================================ */
+    .float-contacts {
+      position: fixed; right: 20px; bottom: 30px;
+      z-index: 1000; display: flex; flex-direction: column; gap: 12px;
+      opacity: 0; transform: translateX(30px); transition: all 0.4s ease;
+    }
+    .float-btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border-radius: 50px;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; transition: var(--transition);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      white-space: nowrap; overflow: hidden; max-width: 52px;
+    }
+    .float-btn:hover { max-width: 160px; transform: translateX(-5px); }
+    .float-btn i { font-size: 1.1rem; flex-shrink: 0; }
+    .float-btn.call { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; }
+    .float-btn.whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
+    .float-btn.sms { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); }
+
+    /* ============================================
+       HERO BANNER
+    ============================================ */
+    .about-hero {
+      min-height: 55vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 30px 80px;
+      text-align: center;
+    }
+    .about-hero-particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .particle {
+      position: absolute; width: 3px; height: 3px;
+      background: var(--gold); border-radius: 50%;
+      animation: floatParticle linear infinite; opacity: 0;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+    }
+    .about-hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .breadcrumb {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .breadcrumb a { color: var(--gold); }
+    .breadcrumb i { font-size: 0.6rem; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border: 1px solid var(--border); border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(201, 162, 39, 0.05); margin-bottom: 24px;
+    }
+    .hero-tag::before { content: '✦'; animation: spin 3s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .about-hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900; line-height: 1.1; margin-bottom: 24px;
+    }
+    .about-hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .about-hero p {
+      font-size: 1.1rem; color: var(--text-muted);
+      line-height: 1.8; max-width: 600px; margin: 0 auto;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.12; pointer-events: none;
+    }
+    .orb-l { width: 400px; height: 400px; background: var(--gold); top: -100px; left: -100px; animation: orbf 7s ease-in-out infinite; }
+    .orb-r { width: 300px; height: 300px; background: #1a73e8; bottom: -80px; right: -80px; animation: orbf 5s ease-in-out infinite reverse; }
+    @keyframes orbf { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-25px)} }
+
+    /* ============================================
+       SECTION COMMONS
+    ============================================ */
+    .section { padding: 90px 0; position: relative; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+    .section-tag {
+      display: inline-block; padding: 6px 18px;
+      border: 1px solid var(--border); border-radius: 50px;
+      font-size: 0.75rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 16px; background: rgba(201, 162, 39, 0.05);
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700; line-height: 1.2; margin-bottom: 16px;
+    }
+    .gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* REVEAL */
+    .reveal, .reveal-left, .reveal-right, .reveal-up {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
+    .revealed { opacity: 1 !important; transform: translate(0,0) !important; }
+
+    /* ============================================
+       1. STORY SECTION
+    ============================================ */
+    .story { background: rgba(10, 22, 40, 0.5); }
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .story-img-block { position: relative; }
+    .story-img-main {
+      width: 100%; border-radius: 20px;
+      object-fit: cover; height: 480px;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      display: block;
+      background: var(--card-bg);
+    }
+    /* Placeholder gradient image since we don't have actual files */
+    .img-placeholder {
+      width: 100%; height: 480px;
+      border-radius: 20px;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, var(--navy-3) 0%, var(--navy-4) 50%, rgba(201,162,39,0.1) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+      color: var(--gold);
+    }
+    .img-placeholder i { font-size: 4rem; opacity: 0.5; }
+    .img-placeholder span { font-size: 0.85rem; color: var(--text-muted); }
+    .story-badge {
+      position: absolute; bottom: 30px; left: -30px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 16px; padding: 20px 28px;
+      text-align: center; box-shadow: 0 10px 40px rgba(201,162,39,0.3);
+    }
+    .story-badge .num {
+      font-family: var(--font-head);
+      font-size: 2.5rem; font-weight: 900;
+      color: var(--navy); line-height: 1; display: block;
+    }
+    .story-badge .lbl { font-size: 0.8rem; font-weight: 700; color: var(--navy); }
+    .story-img-2 {
+      position: absolute; top: 30px; right: -30px;
+      width: 160px; height: 160px;
+      border-radius: 16px; border: 2px solid var(--border);
+      box-shadow: var(--shadow); overflow: hidden;
+      background: var(--card-bg);
+    }
+    .img-sm-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--navy-4), rgba(201,162,39,0.15));
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px; color: var(--gold);
+    }
+    .img-sm-placeholder i { font-size: 2rem; opacity: 0.5; }
+    .img-sm-placeholder span { font-size: 0.7rem; color: var(--text-muted); }
+
+    .story-content .section-title { text-align: left; }
+    .story-content > p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.9; }
+    .story-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .sh-item {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px;
+      display: flex; align-items: flex-start; gap: 12px;
+      transition: var(--transition);
+    }
+    .sh-item:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .sh-item i { color: var(--gold); font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; }
+    .sh-item strong { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .sh-item span { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ============================================
+       2. MISSION / VISION / VALUES
+    ============================================ */
+    .mvv { background: var(--navy); }
+    .mvv-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .mvv-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px 32px;
+      position: relative; overflow: hidden;
+      transition: var(--transition); text-align: center;
+    }
+    .mvv-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transition: var(--transition);
+      transform-origin: left;
+    }
+    .mvv-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow); }
+    .mvv-card:hover::before { transform: scaleX(1); }
+    .mvv-icon {
+      width: 70px; height: 70px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201, 162, 39, 0.1);
+      border-radius: 50%; font-size: 1.8rem; color: var(--gold);
+      margin: 0 auto 24px; transition: var(--transition);
+    }
+    .mvv-card:hover .mvv-icon { background: rgba(201,162,39,0.2); transform: scale(1.15) rotate(10deg); }
+    .mvv-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 14px; color: var(--gold);
+    }
+    .mvv-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.8; }
+
+    /* ============================================
+       3. FOUNDER / TEAM
+    ============================================ */
+    .team { background: rgba(10, 22, 40, 0.6); }
+    .team-header { text-align: center; margin-bottom: 60px; }
+    .founder-block {
+      display: grid; grid-template-columns: 360px 1fr;
+      gap: 60px; align-items: center; margin-bottom: 70px;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 24px; overflow: hidden;
+    }
+    .founder-img-wrap {
+      position: relative; height: 100%; min-height: 420px;
+      background: linear-gradient(135deg, var(--navy-3), rgba(201,162,39,0.12));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .founder-img {
+      width: 220px; height: 220px; border-radius: 50%;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 40px rgba(201,162,39,0.3);
+      object-fit: cover;
+      background: var(--navy-4);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .founder-avatar-ph {
+      width: 220px; height: 220px; border-radius: 50%;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 40px rgba(201,162,39,0.3);
+      background: linear-gradient(135deg, var(--navy-4), var(--navy-3));
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+    }
+    .founder-avatar-ph i { font-size: 4rem; color: var(--gold); opacity: 0.5; }
+    .founder-avatar-ph span { font-size: 0.75rem; color: var(--text-muted); }
+    .founder-badge {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50px; padding: 8px 20px;
+      font-size: 0.75rem; font-weight: 700; color: var(--navy);
+      white-space: nowrap;
+    }
+    .founder-info { padding: 40px 40px 40px 0; }
+    .founder-info .role {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+    }
+    .founder-info h2 {
+      font-family: var(--font-head); font-size: 2.2rem; font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .founder-info p { color: var(--text-muted); line-height: 1.9; margin-bottom: 14px; }
+    .founder-quals { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    .qual-tag {
+      padding: 6px 16px; border-radius: 50px;
+      border: 1px solid var(--border);
+      background: rgba(201,162,39,0.05);
+      font-size: 0.8rem; color: var(--gold); font-weight: 600;
+    }
+    .founder-socials { display: flex; gap: 12px; margin-top: 20px; }
+    .soc-btn {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text-muted);
+      font-size: 1rem; transition: var(--transition);
+    }
+    .soc-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .team-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 24px;
+      text-align: center; transition: var(--transition); overflow: hidden;
+      position: relative;
+    }
+    .team-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0); transition: var(--transition);
+    }
+    .team-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow); }
+    .team-card:hover::after { transform: scaleX(1); }
+    .tc-avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 900;
+      font-family: var(--font-head);
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      box-shadow: 0 8px 24px rgba(201,162,39,0.25);
+      overflow: hidden;
+    }
+    .tc-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .team-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .team-card .tc-role { font-size: 0.8rem; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+    .team-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ============================================
+       4. STATS / MILESTONES
+    ============================================ */
+    .milestones {
+      background: linear-gradient(135deg, var(--navy-3) 0%, var(--navy-4) 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .milestones-inner { display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+    .ms-item {
+      flex: 1; min-width: 180px; text-align: center;
+      padding: 50px 20px; position: relative;
+    }
+    .ms-item:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      width: 1px; height: 60px; background: var(--border);
+    }
+    .ms-num {
+      font-family: var(--font-head); font-size: 3.5rem;
+      font-weight: 900; color: var(--gold); line-height: 1; display: block;
+    }
+    .ms-unit { color: var(--gold); font-size: 2rem; font-weight: 700; }
+    .ms-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 8px; }
+    .ms-icon { font-size: 1.5rem; color: rgba(201,162,39,0.3); margin-bottom: 12px; }
+
+    /* ============================================
+       5. JOURNEY / TIMELINE
+    ============================================ */
+    .journey { background: var(--navy); }
+    .journey-header { text-align: center; margin-bottom: 60px; }
+    .timeline { position: relative; max-width: 900px; margin: 0 auto; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+      transform: translateX(-50%);
+    }
+    .tl-item {
+      display: grid; grid-template-columns: 1fr 60px 1fr;
+      gap: 0; margin-bottom: 48px; align-items: center;
+    }
+    .tl-left { text-align: right; padding-right: 40px; }
+    .tl-right { text-align: left; padding-left: 40px; }
+    .tl-center {
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+    }
+    .tl-dot {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 0.7rem; font-weight: 900;
+      color: var(--navy); border: 3px solid var(--navy);
+      box-shadow: 0 0 20px rgba(201,162,39,0.4);
+      flex-shrink: 0;
+    }
+    .tl-item:nth-child(even) .tl-left { grid-column: 3; text-align: left; padding-left: 40px; padding-right: 0; }
+    .tl-item:nth-child(even) .tl-right { grid-column: 1; grid-row: 1; text-align: right; padding-right: 40px; padding-left: 0; }
+    .tl-item:nth-child(even) .tl-center { grid-column: 2; }
+
+    .tl-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px;
+      transition: var(--transition);
+    }
+    .tl-card:hover { border-color: var(--gold); transform: scale(1.02); box-shadow: var(--shadow); }
+    .tl-year {
+      font-size: 0.75rem; font-weight: 700; color: var(--gold);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .tl-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .tl-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .tl-empty { /* placeholder for alternating layout */ }
+
+    /* ============================================
+       6. WHY CHOOSE US
+    ============================================ */
+    .why { background: rgba(10, 22, 40, 0.6); }
+    .why-header { text-align: center; margin-bottom: 60px; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .why-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px; text-align: center;
+      transition: var(--transition); cursor: default; position: relative; overflow: hidden;
+    }
+    .why-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at top right, rgba(201,162,39,0.06), transparent 70%);
+      opacity: 0; transition: var(--transition);
+    }
+    .why-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--glow); }
+    .why-card:hover::after { opacity: 1; }
+    .wc-num {
+      position: absolute; top: 10px; right: 16px;
+      font-family: var(--font-head); font-size: 4rem; font-weight: 900;
+      color: rgba(201,162,39,0.06); line-height: 1;
+    }
+    .wc-icon { font-size: 2.4rem; color: var(--gold); display: block; margin-bottom: 20px; transition: var(--transition); }
+    .why-card:hover .wc-icon { transform: scale(1.3) rotate(10deg); }
+    .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .why-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ============================================
+       7. CTA BAND
+    ============================================ */
+    .cta-band {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+      padding: 80px 30px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cta-band h2 {
+      font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; color: var(--navy); margin-bottom: 16px; position: relative;
+    }
+    .cta-band p { color: rgba(5,13,26,0.75); font-size: 1rem; margin-bottom: 36px; position: relative; max-width: 550px; margin-left: auto; margin-right: auto; }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; background: var(--navy); color: var(--gold);
+      font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
+      border-radius: 50px; transition: var(--transition);
+    }
+    .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: rgba(37,211,102,0.15); color: var(--navy);
+      border: 2px solid rgba(5,13,26,0.3);
+      font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
+      border-radius: 50px; transition: var(--transition);
+    }
+    .btn-wa:hover { background: rgba(37,211,102,0.35); transform: translateY(-3px); }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer { background: var(--navy-2); border-top: 1px solid var(--border); }
+    .footer-top { padding: 80px 0 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
+    .footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin: 16px 0 24px; line-height: 1.7; }
+    .footer-contacts { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contacts a { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.9rem; transition: var(--transition); }
+    .footer-contacts a:hover { color: var(--gold); }
+    .footer-contacts a i { color: var(--gold); width: 16px; }
+    .footer-links h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-links ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--text-muted); font-size: 0.9rem; transition: var(--transition); }
+    .footer-links a:hover { color: var(--gold); padding-left: 6px; }
+    .footer-cta h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .footer-cta p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy); font-family: var(--font-body); font-weight: 700;
+      font-size: 0.95rem; border: none; border-radius: 50px; cursor: pointer; transition: var(--transition);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201,162,39,0.4); }
+    .btn-wa-footer {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 13px 28px;
+      background: rgba(37,211,102,0.15); border: 1px solid #25d366;
+      border-radius: 50px; color: #25d366;
+      font-weight: 700; font-size: 0.9rem; margin-top: 12px; transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .btn-wa-footer:hover { background: rgba(37,211,102,0.25); transform: translateY(-2px); }
+    .footer-bottom { border-top: 1px solid var(--border); padding: 24px 0; }
+    .footer-bottom .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { color: var(--text-muted); font-size: 0.82rem; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1100px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .story-badge { left: 20px; bottom: -20px; }
+      .story-img-2 { right: 20px; }
+      .mvv-grid { grid-template-columns: 1fr; }
+      .founder-block { grid-template-columns: 1fr; }
+      .founder-img-wrap { min-height: 260px; }
+      .founder-info { padding: 30px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .timeline::before { left: 20px; }
+      .tl-item { grid-template-columns: 0 40px 1fr; }
+      .tl-left { display: none; }
+      .tl-item:nth-child(even) .tl-left { display: none; }
+      .tl-item:nth-child(even) .tl-right { grid-column: 3; grid-row: 1; text-align: left; padding-left: 30px; padding-right: 0; }
+      .tl-item:nth-child(even) .tl-center { grid-column: 2; }
+      .tl-right { padding-left: 30px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,13,26,0.98); backdrop-filter: blur(20px); flex-direction: column; padding: 20px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .milestones-inner { flex-direction: column; }
+      .ms-item:not(:last-child)::after { display: none; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      .section { padding: 70px 0; }
+      .float-btn span { display: none; }
+      .float-btn { max-width: 52px !important; }
+      .float-btn:hover { max-width: 52px !important; transform: none; }
+      .story-highlights { grid-template-columns: 1fr; }
+      .mvv-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about-hero h1 { font-size: 2.4rem; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- FLOATING CONTACT BUTTONS -->
+  <div class="float-contacts" id="floatContacts">
+    <a href="tel:8788209773" class="float-btn call" title="Call Us"><i class="fas fa-phone"></i><span>Call</span></a>
+    <a href="https://wa.me/918788209773" target="_blank" class="float-btn whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+    <a href="sms:8788209773" class="float-btn sms" title="Message Us"><i class="fas fa-comment-sms"></i><span>Message</span></a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="window.location.href='index.html'">
+        <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR Research Consultancy Logo" />
+        <span class="logo-sir">SIR</span>
+        <div class="logo-text">
+          <span class="logo-main">Research Consultancy</span>
+          <span class="logo-sub">Nagpur</span>
+        </div>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero">
+    <div class="hero-orb orb-l"></div>
+    <div class="hero-orb orb-r"></div>
+    <div class="about-hero-particles" id="heroParticles"></div>
+    <div class="about-hero-content">
+      <div class="breadcrumb reveal">
+        <a href="index.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>About Us</span>
+      </div>
+      <div class="hero-tag reveal">Our Story &amp; Legacy</div>
+      <h1 class="reveal">
+        Turning Research Into<br><span class="gold">Recognition Since 2009</span>
+      </h1>
+      <p class="reveal">
+        We are a premier academic and research support organization based in Nagpur,
+        empowering scholars, students and institutions to achieve their highest potential.
+      </p>
+    </div>
+  </section>
+
+  <!-- 1. OUR STORY -->
+  <section class="story section" id="story">
+    <div class="container">
+      <div class="story-grid">
+        <!-- Image Side -->
+        <div class="story-img-block reveal-left">
+          <!-- Main image: replace src with actual photo when available -->
+          <div class="img-placeholder">
+            <i class="fas fa-building"></i>
+            <span>SIR Research Consultancy Office, Nagpur</span>
+             <img src="./sir research consultancy.jpg" alt="Our Office" style="width:100%;height:100%;object-fit:cover;border-radius:18px;"> -->
+          </div>
+          <div class="story-badge">
+            <span class="num">15</span>
+            <div class="lbl">Years of<br>Excellence</div>
+          </div>
+          <div class="story-img-2">
+            <div class="img-sm-placeholder">
+              <i class="fas fa-users"></i>
+              <span>Our Expert Team</span>
+               <img src="./sir research consultancy.jpg" alt="Team">
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Side -->
+        <div class="story-content reveal-right">
+          <div class="section-tag">Our Story</div>
+          <h2 class="section-title">Built on <span class="gold">Passion</span> for Research</h2>
+          <p>
+            SIR Research Consultancy was founded in Nagpur with a single, powerful mission — to make world-class
+            research support accessible to every scholar, student, and institution across India. What began as a
+            small team of passionate PhD holders has grown into one of the most trusted names in academic research consultancy.
+          </p>
+          <p>
+            Over 15 years, we have helped over 5,000 clients get published in globally indexed journals,
+            file hundreds of patents, complete their PhD theses with confidence, and achieve NAAC accreditation —
+            all with unwavering commitment to quality and confidentiality.
+          </p>
+          <p>
+            Today, our team of 40+ domain experts, writers, statisticians, and IPR professionals operates
+            round-the-clock to deliver excellence — from Nagpur to the world.
+          </p>
+
+          <div class="story-highlights">
+            <div class="sh-item">
+              <i class="fas fa-microscope"></i>
+              <div>
+                <strong>Expert-Led Research</strong>
+                <span>All work guided by PhDs & specialists</span>
+              </div>
+            </div>
+            <div class="sh-item">
+              <i class="fas fa-shield-alt"></i>
+              <div>
+                <strong>100% Confidential</strong>
+                <span>Your data is always secure with us</span>
+              </div>
+            </div>
+            <div class="sh-item">
+              <i class="fas fa-globe"></i>
+              <div>
+                <strong>Global Reach</strong>
+                <span>Scopus, WoS & IEEE publications</span>
+              </div>
+            </div>
+            <div class="sh-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>On-Time Delivery</strong>
+                <span>Deadlines are sacred to us</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. MILESTONES STATS -->
+  <section class="milestones">
+    <div class="container">
+      <div class="milestones-inner">
+        <div class="ms-item reveal">
+          <div class="ms-icon"><i class="fas fa-users"></i></div>
+          <span class="ms-num" data-target="5000">0</span><span class="ms-unit">+</span>
+          <div class="ms-label">Happy Clients</div>
+        </div>
+        <div class="ms-item reveal">
+          <div class="ms-icon"><i class="fas fa-newspaper"></i></div>
+          <span class="ms-num" data-target="1200">0</span><span class="ms-unit">+</span>
+          <div class="ms-label">Publications</div>
+        </div>
+        <div class="ms-item reveal">
+          <div class="ms-icon"><i class="fas fa-lightbulb"></i></div>
+          <span class="ms-num" data-target="300">0</span><span class="ms-unit">+</span>
+          <div class="ms-label">Patents Filed</div>
+        </div>
+        <div class="ms-item reveal">
+          <div class="ms-icon"><i class="fas fa-graduation-cap"></i></div>
+          <span class="ms-num" data-target="850">0</span><span class="ms-unit">+</span>
+          <div class="ms-label">PhD Assisted</div>
+        </div>
+        <div class="ms-item reveal">
+          <div class="ms-icon"><i class="fas fa-calendar-check"></i></div>
+          <span class="ms-num" data-target="15">0</span><span class="ms-unit">+</span>
+          <div class="ms-label">Years Experience</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MISSION / VISION / VALUES -->
+  <section class="mvv section">
+    <div class="container">
+      <div class="section-header" style="text-align:center;margin-bottom:60px;">
+        <div class="section-tag">Our Foundation</div>
+        <h2 class="section-title">Mission, Vision &amp; <span class="gold">Values</span></h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:0 auto;">The principles that drive every project, every paper, every patent we touch.</p>
+      </div>
+      <div class="mvv-grid">
+        <div class="mvv-card reveal">
+          <div class="mvv-icon"><i class="fas fa-bullseye"></i></div>
+          <h3>Our Mission</h3>
+          <p>To democratize high-quality research support for every scholar, student, and institution in India — delivering internationally recognized publications, seamless PhD guidance, and expert IPR services with integrity and precision.</p>
+        </div>
+        <div class="mvv-card reveal">
+          <div class="mvv-icon"><i class="fas fa-eye"></i></div>
+          <h3>Our Vision</h3>
+          <p>To become India's most trusted research consultancy — a place where every idea finds its published voice, every inventor gets protected, and every scholar achieves their highest academic potential through our guidance.</p>
+        </div>
+        <div class="mvv-card reveal">
+          <div class="mvv-icon"><i class="fas fa-gem"></i></div>
+          <h3>Our Values</h3>
+          <p>Confidentiality, excellence, and ethical practice are non-negotiable. We treat every client's research as our own — giving it the care, precision, and passion it deserves. Quality is not a feature; it is our promise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. TEAM / FOUNDER -->
+  <section class="team section" id="team">
+    <div class="container">
+      <div class="team-header">
+        <div class="section-tag">The People Behind SIR</div>
+        <h2 class="section-title">Meet Our <span class="gold">Expert Team</span></h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:0 auto;">A passionate team of PhDs, researchers, statisticians & IPR specialists dedicated to your success.</p>
+      </div>
+
+      <!-- Founder Card -->
+      <div class="founder-block reveal">
+        <div class="founder-img-wrap">
+          <!-- Replace with actual founder photo: <img src="founder.jpg" class="founder-img" alt="Founder"> -->
+          <div class="founder-avatar-ph">
+            <i class="fas fa-user-tie"></i>
+            <span>Founder Photo</span>
+            <!-- To use real image: <img src="founder.jpg" style="width:220px;height:220px;border-radius:50%;object-fit:cover;border:4px solid var(--gold);"> -->
+          </div>
+          <div class="founder-badge">✦ Founder & Director</div>
+        </div>
+        <div class="founder-info">
+          <div class="role">Founder &amp; Director</div>
+          <h2>Dr. [Founder Name]<br><span class="gold">PhD, Research Expert</span></h2>
+          <p>
+            With over 15 years of hands-on experience in academic research, Dr. [Name] founded SIR Research Consultancy
+            with a vision to bridge the gap between brilliant research ideas and world-class publications.
+          </p>
+          <p>
+            A prolific researcher and educator with 100+ publications to their credit, Dr. [Name] has guided
+            hundreds of PhD scholars through their academic journeys across disciplines — from Engineering and
+            Science to Management and Humanities.
+          </p>
+          <p>
+            Under their leadership, SIR has grown from a small consultancy to a nationally trusted name with
+            clients across all 28 states of India.
+          </p>
+          <div class="founder-quals">
+            <span class="qual-tag">PhD Scholar</span>
+            <span class="qual-tag">Scopus Author</span>
+            <span class="qual-tag">IPR Expert</span>
+            <span class="qual-tag">NAAC Consultant</span>
+            <span class="qual-tag">Data Analyst</span>
+          </div>
+          <div class="founder-socials">
+            <a href="#" class="soc-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="soc-btn" title="ResearchGate"><i class="fas fa-flask"></i></a>
+            <a href="mailto:sirresearchconsultancy@gmail.com" class="soc-btn" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="tel:8788209773" class="soc-btn" title="Call"><i class="fas fa-phone"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Members Grid -->
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team1.jpg" alt="Team Member"> -->
+            RS
+          </div>
+          <h4>Dr. R. Sharma</h4>
+          <div class="tc-role">Research Paper Expert</div>
+          <p>Specializes in Scopus & WoS indexed publication support across Engineering & Sciences with 80+ authored papers.</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team2.jpg" alt="Team Member"> -->
+            PK
+          </div>
+          <h4>Prof. P. Kulkarni</h4>
+          <div class="tc-role">PhD Thesis Specialist</div>
+          <p>Expert in thesis writing, synopsis preparation, and viva guidance. Assisted 200+ PhD scholars to completion.</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team3.jpg" alt="Team Member"> -->
+            AM
+          </div>
+          <h4>Ms. A. Mishra</h4>
+          <div class="tc-role">Statistical Analyst</div>
+          <p>Expert in SPSS, R, Python & MATLAB for data analysis. Delivers accurate, publication-ready results every time.</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team4.jpg" alt="Team Member"> -->
+            VD
+          </div>
+          <h4>Adv. V. Deshmukh</h4>
+          <div class="tc-role">IPR & Patent Expert</div>
+          <p>Registered Patent Agent with 300+ patents filed. Handles utility, design, and PCT international patent applications.</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team5.jpg" alt="Team Member"> -->
+            SN
+          </div>
+          <h4>Dr. S. Nagrale</h4>
+          <div class="tc-role">NAAC Consultant</div>
+          <p>Guides institutions through NAAC/NBA accreditation processes. Deep expertise in criterion documentation & SSR writing.</p>
+        </div>
+        <div class="team-card reveal">
+          <div class="tc-avatar">
+            <!-- <img src="team6.jpg" alt="Team Member"> -->
+            TJ
+          </div>
+          <h4>Ms. T. Joshi</h4>
+          <div class="tc-role">Plagiarism & Editing</div>
+          <p>Professional academic editor with expertise in plagiarism detection, removal, grammar correction, and language polishing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. JOURNEY TIMELINE -->
+  <section class="journey section">
+    <div class="container">
+      <div class="journey-header">
+        <div class="section-tag">Our Growth Story</div>
+        <h2 class="section-title">15 Years of <span class="gold">Milestones</span></h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:0 auto;">Every year brought new achievements, new clients, and a stronger commitment to research excellence.</p>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item reveal">
+          <div class="tl-left">
+            <div class="tl-card">
+              <div class="tl-year">2009 — Foundation</div>
+              <h4>SIR Research Consultancy Founded</h4>
+              <p>Started in Nagpur with a small team of 3 researchers, offering thesis and paper writing support to local university students.</p>
+            </div>
+          </div>
+          <div class="tl-center"><div class="tl-dot">09</div></div>
+          <div class="tl-right tl-empty"></div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left tl-empty"></div>
+          <div class="tl-center"><div class="tl-dot">13</div></div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <div class="tl-year">2013 — Expansion</div>
+              <h4>Launched Scopus Publication Services</h4>
+              <p>Expanded into internationally indexed journal publications, helping researchers get their work into Scopus and WoS databases.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left">
+            <div class="tl-card">
+              <div class="tl-year">2016 — IPR Division</div>
+              <h4>Patent Filing Services Launched</h4>
+              <p>Added a dedicated IPR cell with registered Patent Agents, enabling inventors and institutions to protect their innovations nationally and internationally.</p>
+            </div>
+          </div>
+          <div class="tl-center"><div class="tl-dot">16</div></div>
+          <div class="tl-right tl-empty"></div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left tl-empty"></div>
+          <div class="tl-center"><div class="tl-dot">19</div></div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <div class="tl-year">2019 — Milestone</div>
+              <h4>2000+ Clients & National Presence</h4>
+              <p>Crossed the 2000-client mark with researchers from across India. Became the preferred consultancy for universities in Maharashtra and beyond.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left">
+            <div class="tl-card">
+              <div class="tl-year">2022 — NAAC Division</div>
+              <h4>Institutional Accreditation Services</h4>
+              <p>Launched NAAC/NBA accreditation support, helping colleges and universities prepare their SSR, DVV, and IIQA documentation successfully.</p>
+            </div>
+          </div>
+          <div class="tl-center"><div class="tl-dot">22</div></div>
+          <div class="tl-right tl-empty"></div>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-left tl-empty"></div>
+          <div class="tl-center"><div class="tl-dot">24</div></div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <div class="tl-year">2024 — Today</div>
+              <h4>5000+ Clients & 300+ Patents</h4>
+              <p>Now serving 5000+ satisfied clients, with 1200+ publications, 300+ patents filed, and a growing team of 40+ experts — still based in proud Nagpur.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. WHY CHOOSE US -->
+  <section class="why section">
+    <div class="container">
+      <div class="why-header">
+        <div class="section-tag">Why SIR?</div>
+        <h2 class="section-title">What Sets Us <span class="gold">Apart</span></h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:0 auto;">5000+ clients chose us — here's why they keep coming back and recommending us.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="wc-num">01</span>
+          <i class="fas fa-user-graduate wc-icon"></i>
+          <h3>PhD-Led Expert Team</h3>
+          <p>Every project is handled by domain-specific PhD holders and specialists — not generalists. You get real academic expertise, not just writing services.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="wc-num">02</span>
+          <i class="fas fa-lock wc-icon"></i>
+          <h3>100% Confidentiality</h3>
+          <p>We sign NDAs on request. Your research, your data, and your identity are protected with military-grade confidentiality at every stage.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="wc-num">03</span>
+          <i class="fas fa-medal wc-icon"></i>
+          <h3>Guaranteed Quality</h3>
+          <p>We don't deliver until we're proud of it. Every paper, thesis, or patent goes through multiple quality checks before reaching you.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="wc-num">04</span>
+          <i class="fas fa-bolt wc-icon"></i>
+          <h3>Fast Turnaround</h3>
+          <p>We respect your deadlines. Our streamlined process ensures fast delivery without compromising quality — even for urgent requirements.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="wc-num">05</span>
+          <i class="fas fa-headset wc-icon"></i>
+          <h3>24/7 Support</h3>
+          <p>Got a query at midnight? We're here. Our dedicated support team ensures you're never left waiting for an answer when it matters most.</p>
+        </div>
+        <div class="why-card reveal">
+          <span class="wc-num">06</span>
+          <i class="fas fa-tags wc-icon"></i>
+          <h3>Affordable Pricing</h3>
+          <p>Premium research support shouldn't break the bank. We offer the best-in-class services at prices that every researcher can afford — with zero hidden charges.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CTA BAND -->
+  <section class="cta-band">
+    <h2>Ready to Begin Your Research Journey?</h2>
+    <p>Talk to our experts today — free consultation, no commitment, just clarity on how we can help you succeed.</p>
+    <div class="cta-btns">
+      <a href="tel:8788209773" class="btn-dark"><i class="fas fa-phone"></i> Call Now: 8788209773</a>
+      <a href="https://wa.me/918788209773" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="nav-logo">
+              <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR Research Consultancy Logo" />
+              <span class="logo-sir">SIR</span>
+              <div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div>
+            </div>
+            <p>Your trusted partner for research excellence, publication support, and academic advancement.</p>
+            <div class="footer-contacts">
+              <a href="tel:8788209773"><i class="fas fa-phone"></i> 8788209773</a>
+              <a href="https://wa.me/918788209773" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html#home">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="index.html#services">Services</a></li>
+              <li><a href="index.html#benefits">Benefits</a></li>
+              <li><a href="index.html#testimonials">Testimonials</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="index.html#services">Research Paper Writing</a></li>
+              <li><a href="index.html#services">Scopus/WoS Publication</a></li>
+              <li><a href="index.html#services">PhD Thesis Writing</a></li>
+              <li><a href="index.html#services">Patent Filing & IPR</a></li>
+              <li><a href="index.html#services">Data Analysis</a></li>
+              <li><a href="index.html#services">Plagiarism Removal</a></li>
+            </ul>
+          </div>
+          <div class="footer-cta">
+            <h4>Get Free Consultation</h4>
+            <p>Talk to our expert today — no charges, no commitment.</p>
+            <a href="tel:8788209773" class="btn-primary">Call Now: 8788209773</a>
+            <a href="https://wa.me/918788209773" target="_blank" class="btn-wa-footer"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2024 SIR Research Consultancy, Nagpur. All Rights Reserved.</p>
+        <p>Designed with excellence for academic advancement.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Scroll Progress
+      const progress = document.getElementById('scrollProgress');
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        progress.style.width = pct + '%';
+      });
+
+      // Navbar scroll
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+      });
+
+      // Hamburger
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      }));
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const t = document.querySelector(a.getAttribute('href'));
+          if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        });
+      });
+
+      // Particles
+      const container = document.getElementById('heroParticles');
+      if (container) {
+        for (let i = 0; i < 25; i++) {
+          const p = document.createElement('div');
+          p.className = 'particle';
+          p.style.left = Math.random() * 100 + '%';
+          p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+          p.style.animationDuration = (Math.random() * 15 + 8) + 's';
+          p.style.animationDelay = (Math.random() * 10) + 's';
+          if (Math.random() > 0.7) p.style.background = 'rgba(255,255,255,0.5)';
+          container.appendChild(p);
+        }
+      }
+
+      // Float contacts visibility
+      const fc = document.getElementById('floatContacts');
+      window.addEventListener('scroll', () => {
+        fc.style.opacity = window.scrollY > 300 ? '1' : '0';
+        fc.style.transform = window.scrollY > 300 ? 'translateX(0)' : 'translateX(30px)';
+      });
+
+      // Reveal Observer
+      const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            const siblings = [...entry.target.parentElement.querySelectorAll('.reveal,.reveal-left,.reveal-right')];
+            const idx = siblings.indexOf(entry.target);
+            setTimeout(() => entry.target.classList.add('revealed'), idx * 90);
+            revealObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => revealObs.observe(el));
+
+      // Counter
+      const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            const step = target / (2000 / 16);
+            let cur = 0;
+            const t = setInterval(() => {
+              cur += step;
+              if (cur >= target) { cur = target; clearInterval(t); }
+              el.textContent = Math.floor(cur).toLocaleString();
+            }, 16);
+            counterObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.ms-num').forEach(c => counterObs.observe(c));
+
+      // Tilt effect on cards
+      document.querySelectorAll('.why-card,.team-card,.mvv-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+          const y = ((e.clientY - r.top) / r.height - 0.5) * -8;
+          card.style.transform = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+        card.addEventListener('mouseleave', () => card.style.transform = '');
+      });
+
+      // Cursor glow
+      if (window.innerWidth > 1024) {
+        const glow = document.createElement('div');
+        glow.style.cssText = `position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.3s ease,top 0.3s ease;`;
+        document.body.appendChild(glow);
+        document.addEventListener('mousemove', e => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+      }
+
+      // Magnetic buttons
+      document.querySelectorAll('.btn-dark,.btn-wa,.btn-primary,.float-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - r.left - r.width / 2) * 0.25;
+          const y = (e.clientY - r.top - r.height / 2) * 0.25;
+          btn.style.transform = `translate(${x}px,${y}px)`;
+        });
+        btn.addEventListener('mouseleave', () => btn.style.transform = '');
+      });
+
+    });
+  </script>
+</body>
+</html>

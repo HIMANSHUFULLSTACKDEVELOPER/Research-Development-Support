@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimonials – SIR Research Consultancy, Nagpur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="./sir research consultancy.jpg" type="image/x-icon" />
+  <style>
+    :root{--navy:#050d1a;--navy-2:#0a1628;--navy-3:#0f2040;--navy-4:#162840;--gold:#c9a227;--gold-light:#e8c250;--gold-dark:#a07c10;--white:#ffffff;--off-white:#e8edf5;--text-muted:#8a9ab5;--card-bg:rgba(15,32,64,0.8);--border:rgba(201,162,39,0.2);--shadow:0 20px 60px rgba(0,0,0,0.4);--glow:0 0 30px rgba(201,162,39,0.3);--font-head:'Playfair Display',serif;--font-body:'DM Sans',sans-serif;--radius:16px;--transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:var(--font-body);background:var(--navy);color:var(--white);overflow-x:hidden;line-height:1.7}
+    a{text-decoration:none;color:inherit}ul{list-style:none}
+    ::selection{background:var(--gold);color:var(--navy)}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+    body::before{content:'';position:fixed;inset:0;z-index:-3;background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(15,32,64,0.9) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 80% 20%,rgba(201,162,39,0.08) 0%,transparent 60%),var(--navy)}
+    .bg-grid{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.4}
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:9998;width:0%;box-shadow:0 0 10px rgba(201,162,39,0.5);transition:width 0.1s ease}
+
+    /* NAVBAR */
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:900;padding:18px 0;transition:var(--transition)}.navbar.scrolled{background:rgba(5,13,26,0.95);backdrop-filter:blur(20px);padding:12px 0;box-shadow:0 4px 30px rgba(0,0,0,0.5);border-bottom:1px solid var(--border)}
+    .nav-container{max-width:1300px;margin:0 auto;padding:0 30px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}.logo-img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:rgba(255,255,255,0.06);padding:4px;box-shadow:0 6px 18px rgba(0,0,0,0.35)}.logo-sir{font-family:var(--font-head);font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:0.05em}.logo-text{display:flex;flex-direction:column;line-height:1.2}.logo-main{font-size:0.9rem;font-weight:600;color:var(--white)}.logo-sub{font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:8px}.nav-links a{padding:8px 14px;border-radius:8px;font-size:0.9rem;font-weight:500;color:var(--off-white);transition:var(--transition);position:relative}.nav-links a::after{content:'';position:absolute;bottom:4px;left:50%;right:50%;height:2px;background:var(--gold);transition:var(--transition);border-radius:2px}.nav-links a:hover::after{left:14px;right:14px}.nav-links a:hover{color:var(--gold)}.nav-links .nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy)!important;font-weight:700;padding:10px 22px}.nav-links .nav-cta:hover{transform:translateY(-2px);box-shadow:var(--glow)}.nav-links .nav-cta::after{display:none}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}.hamburger span{display:block;width:25px;height:2px;background:var(--white);border-radius:2px;transition:var(--transition)}.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+    /* FLOAT CONTACTS */
+    .float-contacts{position:fixed;right:20px;bottom:30px;z-index:1000;display:flex;flex-direction:column;gap:12px;opacity:0;transform:translateX(30px);transition:all 0.4s ease}.float-btn{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:50px;font-family:var(--font-body);font-weight:600;font-size:0.85rem;cursor:pointer;transition:var(--transition);box-shadow:0 8px 25px rgba(0,0,0,0.4);white-space:nowrap;overflow:hidden;max-width:52px}.float-btn:hover{max-width:160px;transform:translateX(-5px)}.float-btn i{font-size:1.1rem;flex-shrink:0}.float-btn.call{background:linear-gradient(135deg,#1a73e8,#0d47a1);color:white}.float-btn.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);color:white}.float-btn.sms{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy)}
+
+    /* PAGE HERO */
+    .page-hero{min-height:60vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:140px 30px 90px;text-align:center}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.12;pointer-events:none}.orb-l{width:500px;height:500px;background:var(--gold);top:-150px;left:-150px;animation:orbf 7s ease-in-out infinite}.orb-r{width:300px;height:300px;background:#1a73e8;bottom:-80px;right:-80px;animation:orbf 5s ease-in-out infinite reverse}@keyframes orbf{0%,100%{transform:translateY(0)}50%{transform:translateY(-25px)}}
+    .particle{position:absolute;width:3px;height:3px;background:var(--gold);border-radius:50%;animation:floatP linear infinite;opacity:0}@keyframes floatP{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.3}100%{transform:translateY(-100px) scale(1.5);opacity:0}}
+    .page-hero-content{position:relative;z-index:1;max-width:860px}
+    .breadcrumb{display:inline-flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--text-muted);margin-bottom:20px}.breadcrumb a{color:var(--gold)}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:50px;font-size:0.8rem;font-weight:600;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;background:rgba(201,162,39,0.05);margin-bottom:24px}.hero-tag::before{content:'✦';animation:spin 3s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .page-hero h1{font-family:var(--font-head);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:24px}
+    .gold{background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .page-hero p{font-size:1.05rem;color:var(--text-muted);line-height:1.8;max-width:620px;margin:0 auto 40px}
+    .hero-stats-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:10px}
+    .hstat{text-align:center}.hstat-num{font-family:var(--font-head);font-size:2.4rem;font-weight:900;color:var(--gold);line-height:1}.hstat-num span{color:var(--gold);font-size:1.6rem}.hstat p{font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;margin-top:4px}
+    .hstat-div{width:1px;height:60px;background:var(--border);align-self:center}
+
+    /* COMMON */
+    .section{padding:90px 0;position:relative}.container{max-width:1300px;margin:0 auto;padding:0 30px}
+    .section-tag{display:inline-block;padding:6px 18px;border:1px solid var(--border);border-radius:50px;font-size:0.75rem;font-weight:600;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;background:rgba(201,162,39,0.05)}.section-title{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:16px}
+    .sec-header{text-align:center;margin-bottom:70px}.sec-header p{color:var(--text-muted);max-width:500px;margin:0 auto}
+    .reveal,.reveal-left,.reveal-right{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}.reveal-left{transform:translateX(-50px)}.reveal-right{transform:translateX(50px)}.revealed{opacity:1!important;transform:translate(0,0)!important}
+    .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);font-family:var(--font-body);font-weight:700;font-size:0.95rem;border:none;border-radius:50px;cursor:pointer;transition:var(--transition)}.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,162,39,0.4)}
+
+    /* FEATURED TESTIMONIALS */
+    .featured-section{background:var(--navy)}
+    .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:28px}
+    .featured-card-large{grid-column:1 / -1;background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:48px;display:flex;gap:40px;align-items:flex-start;position:relative;overflow:hidden;transition:var(--transition)}
+    .featured-card-large::before{content:'"';position:absolute;top:-20px;right:40px;font-family:var(--font-head);font-size:14rem;color:rgba(201,162,39,0.05);line-height:1;pointer-events:none}
+    .featured-card-large:hover{border-color:var(--gold);box-shadow:var(--shadow);transform:translateY(-4px)}
+    .fcard-img{flex-shrink:0}
+    .avatar-wrap{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);position:relative;background:linear-gradient(135deg,var(--gold),var(--gold-dark))}
+    .avatar-wrap img{width:100%;height:100%;object-fit:cover}
+    .avatar-wrap .avatar-icon{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:2.5rem;color:var(--navy)}
+    .fcard-body{}
+    .fcard-stars{color:var(--gold);font-size:1.1rem;letter-spacing:3px;margin-bottom:14px}
+    .fcard-quote{font-size:1.1rem;line-height:1.8;color:var(--off-white);font-style:italic;margin-bottom:20px}
+    .fcard-meta strong{display:block;font-size:1rem;font-weight:700;margin-bottom:3px}
+    .fcard-meta span{font-size:0.85rem;color:var(--text-muted)}
+    .fcard-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(201,162,39,0.1);border:1px solid var(--border);border-radius:50px;font-size:0.75rem;color:var(--gold);font-weight:600;margin-top:8px}
+    .fcard-badge i{font-size:0.7rem}
+
+    .tcard-small{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:32px;transition:var(--transition);position:relative;overflow:hidden}
+    .tcard-small::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform:scaleX(0);transition:var(--transition);transform-origin:left}
+    .tcard-small:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:var(--shadow)}.tcard-small:hover::after{transform:scaleX(1)}
+    .tcard-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+    .tcard-avatar-sm{width:54px;height:54px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);background:linear-gradient(135deg,var(--gold),var(--gold-dark));flex-shrink:0}
+    .tcard-avatar-sm img{width:100%;height:100%;object-fit:cover}
+    .tcard-avatar-sm .icon-fb{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.3rem;color:var(--navy)}
+    .tcard-top strong{display:block;font-weight:700;font-size:0.95rem;margin-bottom:2px}
+    .tcard-top span{font-size:0.78rem;color:var(--text-muted)}
+    .tcard-stars{color:var(--gold);letter-spacing:2px;font-size:0.9rem;margin-bottom:12px}
+    .tcard-small p{color:var(--text-muted);font-size:0.88rem;line-height:1.7;font-style:italic}
+    .tcard-service{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:0.75rem;color:var(--gold);font-weight:600}
+    .tcard-service i{font-size:0.7rem}
+
+    /* ALL TESTIMONIALS GRID */
+    .all-section{background:rgba(10,22,40,0.5)}
+    .filter-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:50px}
+    .filter-btn{padding:9px 22px;background:var(--card-bg);border:1px solid var(--border);border-radius:50px;color:var(--text-muted);font-family:var(--font-body);font-size:0.85rem;font-weight:600;cursor:pointer;transition:var(--transition)}.filter-btn:hover,.filter-btn.active{background:rgba(201,162,39,0.1);border-color:var(--gold);color:var(--gold)}
+    .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+
+    /* VIDEO / QUOTE SECTION */
+    .quote-section{background:var(--navy);padding:80px 0}
+    .quote-banner{background:linear-gradient(135deg,var(--navy-3),var(--navy-4));border:1px solid var(--border);border-radius:24px;padding:70px 60px;text-align:center;position:relative;overflow:hidden}
+    .quote-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(201,162,39,0.07),transparent);pointer-events:none}
+    .quote-banner blockquote{font-family:var(--font-head);font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;line-height:1.5;color:var(--white);max-width:750px;margin:0 auto 28px;position:relative;z-index:1}
+    .quote-banner blockquote span{color:var(--gold)}
+    .quote-banner cite{font-size:0.9rem;color:var(--text-muted);font-style:normal;position:relative;z-index:1}
+    .quote-icon{font-size:3rem;color:var(--gold);opacity:0.4;margin-bottom:20px;display:block}
+
+    /* STATS BAND */
+    .stats-band{background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));padding:60px 0}
+    .stats-row{display:flex;justify-content:center;gap:80px;flex-wrap:wrap}
+    .sband-stat{text-align:center}
+    .sband-num{font-family:var(--font-head);font-size:3.5rem;font-weight:900;color:var(--navy);line-height:1}
+    .sband-num sup{font-size:1.8rem}
+    .sband-label{font-size:0.85rem;color:rgba(5,13,26,0.7);font-weight:600;text-transform:uppercase;letter-spacing:0.12em;margin-top:6px}
+    .sband-div{width:1px;background:rgba(5,13,26,0.2);align-self:stretch;margin:8px 0}
+
+    /* CTA BAND */
+    .cta-band{background:var(--navy-2);border-top:1px solid var(--border);padding:80px 30px;text-align:center}
+    .cta-band h2{font-family:var(--font-head);font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:16px}
+    .cta-band>p{color:var(--text-muted);font-size:1rem;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-wa{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:rgba(37,211,102,0.15);color:#25d366;border:1px solid #25d366;font-family:var(--font-body);font-weight:700;font-size:0.95rem;border-radius:50px;transition:var(--transition)}.btn-wa:hover{background:rgba(37,211,102,0.25);transform:translateY(-3px)}
+
+    /* FOOTER */
+    .footer{background:var(--navy-2);border-top:1px solid var(--border)}.footer-top{padding:80px 0 60px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:60px}
+    .footer-brand p{color:var(--text-muted);font-size:0.9rem;margin:16px 0 24px;line-height:1.7}.footer-contacts{display:flex;flex-direction:column;gap:10px}.footer-contacts a{display:flex;align-items:center;gap:10px;color:var(--text-muted);font-size:0.9rem;transition:var(--transition)}.footer-contacts a:hover{color:var(--gold)}.footer-contacts a i{color:var(--gold)}
+    .footer-links h4{font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}.footer-links ul{display:flex;flex-direction:column;gap:10px}.footer-links a{color:var(--text-muted);font-size:0.9rem;transition:var(--transition)}.footer-links a:hover{color:var(--gold);padding-left:6px}
+    .footer-cta h4{font-size:0.85rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}.footer-cta p{color:var(--text-muted);font-size:0.85rem;margin-bottom:20px}
+    .btn-wa-footer{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 28px;background:rgba(37,211,102,0.15);border:1px solid #25d366;border-radius:50px;color:#25d366;font-weight:700;font-size:0.9rem;margin-top:12px;transition:var(--transition);font-family:var(--font-body)}.btn-wa-footer:hover{background:rgba(37,211,102,0.25);transform:translateY(-2px)}
+    .footer-bottom{border-top:1px solid var(--border);padding:24px 0}.footer-bottom .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}.footer-bottom p{color:var(--text-muted);font-size:0.82rem}
+
+    /* RESPONSIVE */
+    @media(max-width:1100px){.featured-card-large{flex-direction:column;gap:24px}.featured-grid{grid-template-columns:1fr}.featured-card-large{grid-column:auto}}
+    @media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(5,13,26,0.98);backdrop-filter:blur(20px);flex-direction:column;padding:20px;border-top:1px solid var(--border)}.nav-links.open{display:flex}.hamburger{display:flex}.footer-grid{grid-template-columns:1fr;gap:30px}.float-btn span{display:none}.float-btn,.float-btn:hover{max-width:52px!important;transform:none!important}.stats-row{gap:40px}.hero-stats-row{gap:24px}.hstat-div{display:none}.quote-banner{padding:40px 24px}.tgrid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <div class="float-contacts" id="fc">
+    <a href="tel:8788209773" class="float-btn call"><i class="fas fa-phone"></i><span>Call</span></a>
+    <a href="https://wa.me/918788209773" target="_blank" class="float-btn whatsapp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+    <a href="sms:8788209773" class="float-btn sms"><i class="fas fa-comment-sms"></i><span>Message</span></a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="window.location.href='index.html'">
+        <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR Research Consultancy Logo" onerror="this.style.display='none'" />
+        <span class="logo-sir">SIR</span>
+        <div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div>
+      </div>
+        <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="benefits.html">Benefits</a></li>
+        <li><a href="process.html">Process</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="hero-orb orb-l"></div>
+    <div class="hero-orb orb-r"></div>
+    <div id="particles" style="position:absolute;inset:0;pointer-events:none;"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb reveal"><a href="index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:0.6rem"></i> <span>Testimonials</span></div>
+      <div class="hero-tag reveal">Real Stories, Real Results</div>
+      <h1 class="reveal">What Our Clients <span class="gold">Say About Us</span></h1>
+      <p class="reveal">Over 5000 researchers, scholars, and institutions have trusted SIR Research Consultancy to achieve their academic goals. Here are their stories.</p>
+      <div class="hero-stats-row reveal">
+        <div class="hstat"><div class="hstat-num">5000<span>+</span></div><p>Happy Clients</p></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-num">4.9<span>★</span></div><p>Average Rating</p></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-num">98<span>%</span></div><p>Satisfaction Rate</p></div>
+        <div class="hstat-div"></div>
+        <div class="hstat"><div class="hstat-num">15<span>+</span></div><p>Years Trusted</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stats-row">
+        <div class="sband-stat"><div class="sband-num">5000<sup>+</sup></div><div class="sband-label">Clients Served</div></div>
+        <div class="sband-div"></div>
+        <div class="sband-stat"><div class="sband-num">1200<sup>+</sup></div><div class="sband-label">Papers Published</div></div>
+        <div class="sband-div"></div>
+        <div class="sband-stat"><div class="sband-num">300<sup>+</sup></div><div class="sband-label">Patents Filed</div></div>
+        <div class="sband-div"></div>
+        <div class="sband-stat"><div class="sband-num">98<sup>%</sup></div><div class="sband-label">Satisfaction Rate</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURED TESTIMONIALS -->
+  <section class="featured-section section">
+    <div class="container">
+      <div class="sec-header reveal">
+        <div class="section-tag">Featured Reviews</div>
+        <h2 class="section-title">Client <span class="gold">Success Stories</span></h2>
+        <p>Hand-picked testimonials from our most impactful research partnerships.</p>
+      </div>
+
+      <div class="featured-grid">
+        <!-- Large Featured Card -->
+        <div class="featured-card-large reveal">
+          <div class="fcard-img">
+            <div class="avatar-wrap">
+              <!-- Profile image placeholder - replace src with actual image -->
+              <img src="https://ui-avatars.com/api/?name=Rohan+Deshmukh&background=c9a227&color=050d1a&size=200&bold=true&font-size=0.4" alt="Rohan Deshmukh" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="avatar-icon" style="display:none"><i class="fas fa-user-graduate"></i></div>
+            </div>
+          </div>
+          <div class="fcard-body">
+            <div class="fcard-stars">★★★★★</div>
+            <p class="fcard-quote">"SIR Research Consultancy transformed my academic journey completely. I was struggling with my Scopus paper for months before approaching them. Within just 2 months of their expert guidance — from topic refinement, methodology improvement, to final submission — my paper got accepted in a Q2 Scopus indexed journal. The team's domain knowledge and responsiveness is unmatched. I cannot recommend them enough to any PhD scholar."</p>
+            <div class="fcard-meta">
+              <strong>Rohan Deshmukh</strong>
+              <span>PhD Scholar, RTM Nagpur University — Computer Science</span>
+              <div class="fcard-badge"><i class="fas fa-check-circle"></i> Scopus Publication Achieved</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Cards -->
+        <div class="tcard-small reveal">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Dr+Priya+Sharma&background=c9a227&color=050d1a&size=120&bold=true" alt="Dr Priya Sharma" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-tie"></i></div>
+            </div>
+            <div>
+              <strong>Dr. Priya Sharma</strong>
+              <span>Associate Professor, Pune University</span>
+            </div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"They helped our college improve NAAC score by a full grade. The documentation support, research output improvement plan, and criterion-wise strategy was outstanding. Our institution is now A grade — all thanks to SIR Consultancy's dedicated team."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> NAAC Accreditation Support</div>
+        </div>
+
+        <div class="tcard-small reveal">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Anjali+Patil&background=1a73e8&color=ffffff&size=120&bold=true" alt="Anjali Patil" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user"></i></div>
+            </div>
+            <div>
+              <strong>Anjali Patil</strong>
+              <span>Masters Student, VNIT Nagpur</span>
+            </div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"Got my patent filed within 3 weeks! The team handled everything — from drafting the patent application to official filing with the IP office. So professional, so fast. Highly recommend for any IPR services!"</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> Patent Filing & IPR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE BANNER -->
+  <section class="quote-section">
+    <div class="container">
+      <div class="quote-banner reveal">
+        <i class="fas fa-quote-left quote-icon"></i>
+        <blockquote>"Research is not just about writing papers — it's about <span>creating impact</span>. SIR Consultancy helped us do exactly that."</blockquote>
+        <cite>— Dr. Sunita Kulkarni, Principal, Nagpur College</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL TESTIMONIALS -->
+  <section class="all-section section">
+    <div class="container">
+      <div class="sec-header reveal">
+        <div class="section-tag">All Reviews</div>
+        <h2 class="section-title">More <span class="gold">Client Reviews</span></h2>
+        <p>Testimonials from researchers across India — from students to professors.</p>
+      </div>
+
+      <div class="filter-row reveal">
+        <button class="filter-btn active" data-filter="all">All Reviews</button>
+        <button class="filter-btn" data-filter="publication">Publication</button>
+        <button class="filter-btn" data-filter="phd">PhD Support</button>
+        <button class="filter-btn" data-filter="patent">Patent / IPR</button>
+        <button class="filter-btn" data-filter="naac">NAAC / NIRF</button>
+        <button class="filter-btn" data-filter="thesis">Thesis Writing</button>
+      </div>
+
+      <div class="tgrid" id="testimonialsGrid">
+
+        <div class="tcard-small reveal" data-cat="publication">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Mohammed+Iqbal&background=c9a227&color=050d1a&size=120&bold=true" alt="Mohammed Iqbal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-graduate"></i></div>
+            </div>
+            <div><strong>Mohammed Iqbal</strong><span>Research Scholar, Mumbai University</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"My WoS paper got accepted in just 6 weeks with SIR's help. The literature review, methodology section, and statistical analysis done by their team was exceptional."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> WoS Publication</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="naac">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Dr+Sunita+Kulkarni&background=a07c10&color=ffffff&size=120&bold=true" alt="Dr Sunita Kulkarni" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-tie"></i></div>
+            </div>
+            <div><strong>Dr. Sunita Kulkarni</strong><span>Principal, Nagpur College</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"SIR helped us achieve significant NIRF ranking improvement. Their institutional research support program is truly game-changing for colleges."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> NIRF Ranking Support</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="thesis">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Kavya+Nair&background=1a73e8&color=ffffff&size=120&bold=true" alt="Kavya Nair" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user"></i></div>
+            </div>
+            <div><strong>Kavya Nair</strong><span>PhD Scholar, Kochi University</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"My entire PhD thesis was completed with zero plagiarism and perfect formatting as per university guidelines. The chapter-wise writing support was invaluable. Truly professional!"</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> PhD Thesis Writing</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="publication">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Suresh+Verma&background=c9a227&color=050d1a&size=120&bold=true" alt="Suresh Verma" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-graduate"></i></div>
+            </div>
+            <div><strong>Suresh Verma</strong><span>Assistant Professor, Delhi NCR</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"Published 3 Scopus papers in one year with SIR's guidance. Their journal selection strategy, writing quality, and reviewer response support is incredible."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> Scopus Publication</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="patent">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Radhika+Joshi&background=a07c10&color=ffffff&size=120&bold=true" alt="Radhika Joshi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user"></i></div>
+            </div>
+            <div><strong>Radhika Joshi</strong><span>Innovator & Entrepreneur, Pune</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"Filed both a utility patent and a design patent with SIR's expert team. The patent drafting quality was superb and the filing was done swiftly. Couldn't be happier!"</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> Patent Writing & Filing</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="phd">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Arjun+Singh&background=1a73e8&color=ffffff&size=120&bold=true" alt="Arjun Singh" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-graduate"></i></div>
+            </div>
+            <div><strong>Arjun Singh</strong><span>PhD Scholar, IIT Hyderabad</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"The synopsis writing and viva preparation sessions were excellent. SIR's mock viva helped me feel confident and I cleared my PhD viva with flying colors!"</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> PhD Synopsis & Viva Prep</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="naac">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Dr+Ramesh+Bhosale&background=c9a227&color=050d1a&size=120&bold=true" alt="Dr Ramesh Bhosale" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-tie"></i></div>
+            </div>
+            <div><strong>Dr. Ramesh Bhosale</strong><span>IQAC Coordinator, Aurangabad</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"The NAAC documentation support was thorough and criterion-wise. SIR team was always available to answer queries and guide us. Our college achieved A grade!"</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> NAAC Documentation</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="thesis">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Pooja+Meshram&background=a07c10&color=ffffff&size=120&bold=true" alt="Pooja Meshram" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user"></i></div>
+            </div>
+            <div><strong>Pooja Meshram</strong><span>Masters Student, Nagpur University</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"Data analysis using SPSS was done perfectly for my dissertation. The statistical interpretation and result presentation exceeded my expectations."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> Data Analysis & Thesis</div>
+        </div>
+
+        <div class="tcard-small reveal" data-cat="publication">
+          <div class="tcard-top">
+            <div class="tcard-avatar-sm">
+              <img src="https://ui-avatars.com/api/?name=Vikram+Chaudhary&background=1a73e8&color=ffffff&size=120&bold=true" alt="Vikram Chaudhary" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="icon-fb" style="display:none"><i class="fas fa-user-graduate"></i></div>
+            </div>
+            <div><strong>Vikram Chaudhary</strong><span>Research Scholar, Jaipur</span></div>
+          </div>
+          <div class="tcard-stars">★★★★★</div>
+          <p>"Review paper writing support was excellent. Got published in a UGC Care listed journal within 3 weeks. Fast, quality work, and very reasonable pricing."</p>
+          <div class="tcard-service"><i class="fas fa-circle"></i> UGC Care Publication</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Join Our <span class="gold">5000+ Happy Clients</span></h2>
+      <p>Start your research journey today. Free consultation, fast support, guaranteed results.</p>
+      <div class="cta-btns">
+        <a href="contact.html" class="btn-primary"><i class="fas fa-paper-plane"></i> Get Free Consultation</a>
+        <a href="https://wa.me/918788209773" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top"><div class="container"><div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo"><img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR" onerror="this.style.display='none'" /><span class="logo-sir">SIR</span><div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div></div>
+        <p>Your trusted partner for research excellence, publication support, and academic advancement.</p>
+        <div class="footer-contacts"><a href="tel:8788209773"><i class="fas fa-phone"></i> 8788209773</a><a href="https://wa.me/918788209773"><i class="fab fa-whatsapp"></i> WhatsApp</a></div>
+      </div>
+      <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="services.html">Services</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="process.html">Process</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-links"><h4>Services</h4><ul><li><a href="services.html">Research Paper Writing</a></li><li><a href="services.html">Scopus/WoS Publication</a></li><li><a href="services.html">PhD Thesis Writing</a></li><li><a href="services.html">Patent Filing & IPR</a></li><li><a href="services.html">Data Analysis</a></li><li><a href="services.html">Plagiarism Removal</a></li></ul></div>
+      <div class="footer-cta"><h4>Free Consultation</h4><p>No charges, no commitment.</p><a href="tel:8788209773" class="btn-primary">Call: 8788209773</a><a href="https://wa.me/918788209773" target="_blank" class="btn-wa-footer"><i class="fab fa-whatsapp"></i> WhatsApp Us</a></div>
+    </div></div></div>
+    <div class="footer-bottom"><div class="container"><p>© 2024 SIR Research Consultancy, Nagpur. All Rights Reserved.</p><p>Designed with excellence for academic advancement.</p></div></div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const sp=document.getElementById('scrollProgress');window.addEventListener('scroll',()=>{sp.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%'});
+      const nb=document.getElementById('navbar');window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',window.scrollY>60));
+      const hb=document.getElementById('hamburger'),nl=document.getElementById('navLinks');hb.addEventListener('click',()=>{hb.classList.toggle('active');nl.classList.toggle('open')});nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hb.classList.remove('active');nl.classList.remove('open')}));
+      const fc=document.getElementById('fc');window.addEventListener('scroll',()=>{fc.style.opacity=window.scrollY>300?'1':'0';fc.style.transform=window.scrollY>300?'translateX(0)':'translateX(30px)'});
+      const pc=document.getElementById('particles');for(let i=0;i<28;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.width=p.style.height=(Math.random()*3+1)+'px';p.style.animationDuration=(Math.random()*15+8)+'s';p.style.animationDelay=(Math.random()*10)+'s';if(Math.random()>0.7)p.style.background='rgba(255,255,255,0.5)';pc.appendChild(p)}
+      const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const s=[...e.target.parentElement.querySelectorAll('.reveal,.reveal-left,.reveal-right')];setTimeout(()=>e.target.classList.add('revealed'),s.indexOf(e.target)*90);ro.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+      document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+      // Filter
+      const filterBtns=document.querySelectorAll('.filter-btn');const cards=document.querySelectorAll('#testimonialsGrid .tcard-small');
+      filterBtns.forEach(btn=>{btn.addEventListener('click',()=>{filterBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;cards.forEach(c=>{if(f==='all'||c.dataset.cat===f){c.style.display='';setTimeout(()=>c.classList.add('revealed'),50)}else{c.style.display='none'}})})});
+      if(window.innerWidth>1024){const g=document.createElement('div');g.style.cssText='position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.3s,top 0.3s;';document.body.appendChild(g);document.addEventListener('mousemove',e=>{g.style.left=e.clientX+'px';g.style.top=e.clientY+'px'})}
+    });
+  </script>
+</body>
+</html>
