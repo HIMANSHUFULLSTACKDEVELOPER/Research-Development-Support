@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dean Academics Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+<style>
+    /* ═══════════════════════════════════════════════════
+   DEAN ACADEMICS DASHBOARD — styles.css
+   Theme: Dark Purple / Pink Gradient
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --primary: #7c3aed;
+  --primary-dark: #5b21b6;
+  --primary-light: #ede9fe;
+  --secondary: #ec4899;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  --cyan: #06b6d4;
+  --dark: #0f172a;
+  --gray: #64748b;
+  --gray-2: #94a3b8;
+  --light-gray: #f1f5f9;
+  --border: #e2e8f0;
+  --white: #fff;
+  --sidebar-width: 272px;
+  --grad-main: linear-gradient(135deg, #7c3aed, #ec4899);
+  --grad-amber: linear-gradient(135deg, #f59e0b, #ef4444);
+  --grad-dark: linear-gradient(160deg, #0f0f23 0%, #1a1a2e 50%, #0f172a 100%);
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.18);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, ::before, ::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--grad-dark);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 99px; }
+
+.dashboard { display: flex; min-height: 100vh; }
+
+/* ══════════════════════════════
+   SIDEBAR
+══════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-width);
+  background: rgba(10, 10, 22, 0.96);
+  backdrop-filter: blur(24px);
+  color: #fff;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease);
+}
+
+.sidebar-header {
+  padding: 22px 24px 20px;
+  background: var(--grad-main);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='0.06'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10S0 14.5 0 20s4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5 4.5-10 10-10V0C17.9 0 8 9.9 8 22v18h12V20h10z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.sb-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.sb-logo-fallback {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+.sb-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.sb-brand h2 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.sb-brand p {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 2px;
+}
+
+.sb-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sb-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pdot 2s infinite;
+}
+
+@keyframes pdot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
+}
+
+/* Sidebar profile mini */
+.sb-profile-mini {
+  margin: 14px 14px 2px;
+  padding: 13px 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+}
+
+.sb-profile-mini:hover {
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(124, 58, 237, 0.5);
+  transform: translateX(3px);
+}
+
+/* Avatar Circles */
+.av-circle {
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  background: var(--grad-main);
+}
+
+.av-circle img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.av-sm { width: 36px; height: 36px; font-size: 0.85rem; box-shadow: 0 3px 8px rgba(124, 58, 237, 0.4); }
+.av-md { width: 42px; height: 42px; font-size: 1rem; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35); }
+
+.sb-info { flex: 1; min-width: 0; }
+.sb-name { font-size: 0.8rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sb-role-txt { font-size: 0.66rem; color: rgba(255, 255, 255, 0.5); margin-top: 1px; }
+
+.sb-section {
+  padding: 16px 22px 5px;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.menu-item {
+  padding: 12px 22px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-weight: 500;
+  font-size: 0.88rem;
+  border-left: 3px solid transparent;
+  transition: all 0.25s var(--ease);
+}
+
+.menu-item i { width: 18px; text-align: center; font-size: 0.95rem; flex-shrink: 0; }
+
+.menu-item:hover,
+.menu-item.active {
+  color: #fff;
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.22), transparent);
+  border-left-color: var(--primary);
+}
+
+.menu-item.active { font-weight: 700; }
+
+.sb-footer {
+  margin-top: auto;
+  padding: 16px 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════
+   MAIN CONTENT
+══════════════════════════════ */
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 28px 30px;
+  min-width: 0;
+}
+
+/* TOP BAR */
+.top-bar {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px);
+  padding: 20px 28px;
+  border-radius: var(--radius);
+  margin-bottom: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+  gap: 16px;
+  border: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.top-bar h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.top-bar-sub { font-size: 0.82rem; color: var(--gray); margin-top: 2px; }
+
+.user-info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.tb-date {
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--light-gray);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tb-date i { color: var(--primary); }
+
+.logout-btn {
+  background: var(--grad-amber);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  transition: all 0.25s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+  text-decoration: none;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(239, 68, 68, 0.45);
+}
+
+/* ══════════════════════════════
+   NOTICE STRIP
+══════════════════════════════ */
+.notice-strip {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  flex-wrap: wrap;
+}
+
+.notice-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+  flex-shrink: 0;
+}
+
+.notice-text strong { display: block; font-size: 0.95rem; font-weight: 800; color: var(--dark); }
+.notice-text span { font-size: 0.78rem; color: var(--gray); }
+
+.notice-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  align-items: center;
+}
+
+.notice-pill {
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.notice-link {
+  background: var(--grad-main);
+  color: #fff;
+  border-radius: 999px;
+  padding: 7px 14px;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  transition: all 0.25s var(--ease);
+}
+
+.notice-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(124, 58, 237, 0.35);
+}
+
+.notice-list {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.notice-item {
+  background: var(--light-gray);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.8rem;
+  color: var(--dark);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.notice-item small { color: var(--gray); font-size: 0.72rem; display: block; margin-top: 3px; }
+
+/* ══════════════════════════════
+   HERO BANNER
+══════════════════════════════ */
+.hero-banner {
+  background: var(--grad-main);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: 180px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hero-left { display: flex; align-items: center; gap: 18px; position: relative; }
+
+.hero-text .greet {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero-text h2 { font-size: 1.75rem; font-weight: 800; color: #fff; margin: 5px 0 4px; }
+.hero-text p { font-size: 0.86rem; color: rgba(255, 255, 255, 0.75); }
+
+.hero-kpis { display: flex; gap: 16px; flex-wrap: wrap; position: relative; }
+
+.hero-kpi {
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  text-align: center;
+  min-width: 82px;
+}
+
+.hero-kpi .kv {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.hero-kpi .kl { font-size: 0.68rem; color: rgba(255, 255, 255, 0.7); margin-top: 3px; font-weight: 600; }
+
+/* ══════════════════════════════
+   STAT CARDS
+══════════════════════════════ */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(188px, 1fr));
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+.stat-card {
+  background: var(--white);
+  padding: 22px 20px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.28s var(--ease);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, var(--cc, var(--primary)), var(--ccl, var(--secondary)));
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.stat-card:hover { transform: translateY(-7px); box-shadow: var(--shadow-lg); }
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--cc, var(--primary)), var(--ccl, var(--secondary)));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.stat-label { color: var(--gray); font-size: 0.83rem; font-weight: 600; }
+.stat-sub { font-size: 0.72rem; color: var(--gray-2); margin-top: 3px; }
+
+/* Card color themes */
+.stat-card.students  { --cc: #3b82f6; --ccl: #60a5fa; }
+.stat-card.teachers  { --cc: #10b981; --ccl: #34d399; }
+.stat-card.departments { --cc: #f59e0b; --ccl: #fbbf24; }
+.stat-card.notices   { --cc: #ef4444; --ccl: #f87171; }
+.stat-card.attendance { --cc: #7c3aed; --ccl: #a78bfa; }
+.stat-card.year-1    { --cc: #8b5cf6; --ccl: #a78bfa; }
+.stat-card.year-2    { --cc: #14b8a6; --ccl: #2dd4bf; }
+.stat-card.year-3    { --cc: #f97316; --ccl: #fb923c; }
+.stat-card.year-4    { --cc: #06b6d4; --ccl: #22d3ee; }
+
+/* ══════════════════════════════
+   SECTION TITLE
+══════════════════════════════ */
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i { color: rgba(255, 255, 255, 0.6); }
+.year-stats-section { margin-bottom: 26px; }
+
+/* ══════════════════════════════
+   CHARTS SECTION
+══════════════════════════════ */
+.charts-section { margin-bottom: 26px; }
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.chart-card {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.chart-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+
+.att-summary {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.att-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.att-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.att-num.present { color: var(--success); }
+.att-num.absent  { color: var(--danger); }
+.att-num.pct     { color: var(--primary); }
+
+.att-lbl { font-size: 0.72rem; color: var(--gray); font-weight: 600; }
+
+/* ══════════════════════════════
+   TABLE SECTION
+══════════════════════════════ */
+.table-section { margin-bottom: 26px; }
+
+.table-card {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.data-table { width: 100%; border-collapse: collapse; }
+
+.data-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--gray);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--border);
+}
+
+.data-table td {
+  padding: 12px 12px;
+  font-size: 0.85rem;
+  color: var(--dark);
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table tr:hover td { background: rgba(124, 58, 237, 0.03); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.chip.p { background: rgba(16, 185, 129, 0.12); color: #047857; }
+.chip.a { background: rgba(239, 68, 68, 0.12); color: #b91c1c; }
+
+.subj-badge {
+  background: rgba(124, 58, 237, 0.08);
+  color: var(--primary-dark);
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* ══════════════════════════════
+   QUICK ACTIONS
+══════════════════════════════ */
+.quick-actions-section { margin-bottom: 26px; }
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.action-card {
+  background: var(--white);
+  padding: 22px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.28s var(--ease);
+  border: 2px solid transparent;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--card-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.action-card:hover::before { transform: scaleX(1); }
+
+.action-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+.action-card i {
+  font-size: 2.2rem;
+  margin-bottom: 13px;
+  color: var(--card-accent);
+  transition: transform 0.3s var(--ease);
+}
+
+.action-card:hover i { transform: scale(1.12); }
+.action-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+.action-card p  { font-size: 0.8rem; color: var(--gray); margin: 0; }
+
+/* Action card accent colors */
+.notices-card    { --card-accent: #ef4444; }
+.attendance-card { --card-accent: #7c3aed; }
+.review-card     { --card-accent: #10b981; }
+.analytics-card  { --card-accent: #3b82f6; }
+.dept-card       { --card-accent: #f59e0b; }
+.student-card    { --card-accent: #06b6d4; }
+.teacher-card    { --card-accent: #8b5cf6; }
+.hod-card        { --card-accent: #f97316; }
+.parent-card     { --card-accent: #14b8a6; }
+.profile-card-ac { --card-accent: #7c3aed; }
+
+/* ══════════════════════════════
+   MODALS
+══════════════════════════════ */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  background: var(--white);
+  margin: 5% auto;
+  width: 90%;
+  max-width: 820px;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.35);
+  max-height: 82vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.3s var(--ease);
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.modal-header {
+  padding: 22px 28px;
+  background: var(--grad-main);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.modal-header h2 { font-size: 1.25rem; font-weight: 800; }
+
+.close-modal {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s var(--ease);
+}
+
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(90deg);
+}
+
+.modal-body { padding: 28px; overflow-y: auto; }
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 18px;
+}
+
+.section-card {
+  background: var(--light-gray);
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  transition: all 0.28s var(--ease);
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.section-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(236, 72, 153, 0.06));
+}
+
+.section-card h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 8px; }
+.section-card p  { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--dark); }
+.section-card span { font-size: 0.8rem; color: var(--gray); }
+
+/* Student list inside modal */
+.student-list-container { max-height: 460px; overflow-y: auto; }
+
+.student-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(236, 72, 153, 0.05));
+  border-radius: var(--radius-sm);
+}
+
+.student-count-badge {
+  background: var(--grad-main);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.student-table { width: 100%; border-collapse: collapse; }
+.student-table thead { background: var(--light-gray); position: sticky; top: 0; }
+
+.student-table th {
+  padding: 10px 12px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--dark);
+  border-bottom: 2px solid var(--primary);
+  font-size: 0.8rem;
+}
+
+.student-table td {
+  padding: 10px 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84rem;
+}
+
+.student-table tbody tr:hover { background: rgba(124, 58, 237, 0.04); }
+
+.student-photo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+
+.student-photo-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--grad-main);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  margin: 0 auto;
+  font-size: 0.88rem;
+}
+
+/* Empty state */
+.empty-state { text-align: center; padding: 40px; color: var(--gray); }
+.empty-state i { font-size: 3.5rem; margin-bottom: 16px; opacity: 0.35; display: block; }
+
+/* ══════════════════════════════
+   ANIMATIONS
+══════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up  { animation: fadeInUp 0.5s var(--ease) both; }
+.d1 { animation-delay: 0.08s; }
+.d2 { animation-delay: 0.16s; }
+.d3 { animation-delay: 0.24s; }
+
+/* ══════════════════════════════
+   MOBILE TOGGLE
+══════════════════════════════ */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1200;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  border: none;
+  background: var(--grad-main);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 999;
+  backdrop-filter: blur(3px);
+}
+
+.sidebar-overlay.active { display: block; }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.active { transform: translateX(0) !important; }
+  .main-content { margin-left: 0; padding: 80px 16px 16px; }
+  .top-bar { padding: 16px; flex-direction: column; align-items: flex-start; }
+  .top-bar h1 { font-size: 1.35rem; }
+  .quick-stats { grid-template-columns: repeat(2, 1fr); }
+  .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-banner { padding: 22px; }
+  .hero-left { flex-direction: column; align-items: center; text-align: center; }
+  .hero-text h2 { font-size: 1.3rem; }
+  .charts-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .quick-stats { grid-template-columns: 1fr; }
+  .quick-actions-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+    /* ═══════════════════════════════════════════════════
+   DEAN ACADEMICS DASHBOARD — script.js
+   ═══════════════════════════════════════════════════ */
+
+/* ── Demo Data ──────────────────────────────────── */
+const YEAR_DATA = {
+  1: [
+    { section_id: 101, section_name: 'Section A', student_count: 58 },
+    { section_id: 102, section_name: 'Section B', student_count: 56 },
+    { section_id: 103, section_name: 'Section C', student_count: 55 },
+    { section_id: 104, section_name: 'Section D', student_count: 49 }
+  ],
+  2: [
+    { section_id: 201, section_name: 'Section A', student_count: 52 },
+    { section_id: 202, section_name: 'Section B', student_count: 54 },
+    { section_id: 203, section_name: 'Section C', student_count: 53 },
+    { section_id: 204, section_name: 'Section D', student_count: 48 }
+  ],
+  3: [
+    { section_id: 301, section_name: 'Section A', student_count: 55 },
+    { section_id: 302, section_name: 'Section B', student_count: 51 },
+    { section_id: 303, section_name: 'Section C', student_count: 54 },
+    { section_id: 304, section_name: 'Section D', student_count: 54 }
+  ],
+  4: [
+    { section_id: 401, section_name: 'Section A', student_count: 52 },
+    { section_id: 402, section_name: 'Section B', student_count: 50 },
+    { section_id: 403, section_name: 'Section C', student_count: 51 },
+    { section_id: 404, section_name: 'Section D', student_count: 50 }
+  ]
+};
+
+const YEAR_NAMES = { 1: '1st Year', 2: '2nd Year', 3: '3rd Year', 4: '4th Year' };
+
+/* Sample students per section */
+const SECTION_STUDENTS = {
+  101: [
+    { full_name: 'Aarav Sharma',     admission_number: '24CS001', email: 'aarav@college.edu',   phone: '9876543210' },
+    { full_name: 'Ananya Verma',     admission_number: '24CS002', email: 'ananya@college.edu',  phone: '9876543211' },
+    { full_name: 'Arjun Patil',      admission_number: '24CS003', email: 'arjun@college.edu',   phone: '9876543212' },
+    { full_name: 'Bhavya Nair',      admission_number: '24CS004', email: 'bhavya@college.edu',  phone: '9876543213' },
+    { full_name: 'Chetan Joshi',     admission_number: '24CS005', email: 'chetan@college.edu',  phone: '9876543214' },
+    { full_name: 'Deepika Mehta',    admission_number: '24CS006', email: 'deepika@college.edu', phone: '9876543215' },
+    { full_name: 'Dev Kumar',        admission_number: '24CS007', email: 'dev@college.edu',     phone: '9876543216' },
+    { full_name: 'Divya Singh',      admission_number: '24CS008', email: 'divya@college.edu',   phone: '9876543217' }
+  ],
+  201: [
+    { full_name: 'Esha Pandey',      admission_number: '23EC001', email: 'esha@college.edu',    phone: '9898001234' },
+    { full_name: 'Farhan Khan',      admission_number: '23EC002', email: 'farhan@college.edu',  phone: '9898001235' },
+    { full_name: 'Gauri Desai',      admission_number: '23EC003', email: 'gauri@college.edu',   phone: '9898001236' },
+    { full_name: 'Harsh Gupta',      admission_number: '23EC004', email: 'harsh@college.edu',   phone: '9898001237' }
+  ],
+  301: [
+    { full_name: 'Ishaan Bose',      admission_number: '22ME001', email: 'ishaan@college.edu',  phone: '9911223344' },
+    { full_name: 'Jhanvi Kapoor',    admission_number: '22ME002', email: 'jhanvi@college.edu',  phone: '9911223345' },
+    { full_name: 'Karan Malhotra',   admission_number: '22ME003', email: 'karan@college.edu',   phone: '9911223346' }
+  ],
+  401: [
+    { full_name: 'Lakshmi Iyer',     admission_number: '21CE001', email: 'lakshmi@college.edu', phone: '9922334455' },
+    { full_name: 'Manav Trivedi',    admission_number: '21CE002', email: 'manav@college.edu',   phone: '9922334456' }
+  ]
+};
+
+/* ── Utility: Get current greeting ──────────────── */
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 12) return 'Morning';
+  if (h < 17) return 'Afternoon';
+  return 'Evening';
+}
+
+/* ── Update live clock & date ───────────────────── */
+function updateClock() {
+  const now = new Date();
+
+  // Sidebar time
+  const timeEl = document.getElementById('sb-time');
+  if (timeEl) {
+    timeEl.textContent = 'Online · ' + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // Top bar date
+  const dateEl = document.getElementById('currentDate');
+  if (dateEl) {
+    dateEl.textContent = now.toLocaleDateString('en-IN', {
+      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+    });
+  }
+}
+
+/* ── Update greeting ────────────────────────────── */
+function updateGreeting() {
+  const el = document.getElementById('greetingText');
+  if (el) el.textContent = `Good ${getGreeting()}, Dr. Manish Awasthi`;
+}
+
+/* ── Footer year ────────────────────────────────── */
+function setFooterYear() {
+  const el = document.getElementById('footerYear');
+  if (el) el.textContent = new Date().getFullYear();
+}
+
+/* ── Sidebar toggle (mobile) ────────────────────── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+  document.querySelector('.sidebar-overlay').classList.toggle('active');
+}
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('sidebar').classList.remove('active');
+    document.querySelector('.sidebar-overlay').classList.remove('active');
+  }
+});
+
+/* ── Year Breakdown Modal ───────────────────────── */
+function showYearBreakdown(year) {
+  document.getElementById('modalTitle').textContent = YEAR_NAMES[year] + ' — Section Breakdown';
+  const body = document.getElementById('modalBody');
+  const sections = YEAR_DATA[year];
+
+  if (sections && sections.length > 0) {
+    let html = '<div class="section-grid">';
+    sections.forEach(sec => {
+      html += `
+        <div class="section-card" onclick="showStudentList(${sec.section_id}, '${sec.section_name}', ${year})">
+          <h3>${sec.section_name}</h3>
+          <p>${sec.student_count}</p>
+          <span>Students — Click to view</span>
+        </div>`;
+    });
+    html += '</div>';
+    body.innerHTML = html;
+  } else {
+    body.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <p>No students in ${YEAR_NAMES[year]}</p>
+      </div>`;
+  }
+
+  document.getElementById('yearModal').style.display = 'block';
+}
+
+/* ── Student List Modal ─────────────────────────── */
+function showStudentList(sectionId, sectionName, year) {
+  document.getElementById('studentModalTitle').innerHTML =
+    `<i class="fas fa-users"></i> ${sectionName} — ${YEAR_NAMES[year]} Students`;
+
+  const body = document.getElementById('studentModalBody');
+  body.innerHTML = `
+    <div class="empty-state">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Loading…</p>
+    </div>`;
+  document.getElementById('studentListModal').style.display = 'block';
+
+  /* Simulate async fetch (in production, replace with real fetch) */
+  setTimeout(() => {
+    const students = SECTION_STUDENTS[sectionId] || generateDemoStudents(sectionId, sectionName, year);
+
+    if (students && students.length > 0) {
+      let html = `
+        <div class="student-list-container">
+          <div class="student-list-header">
+            <h3>Total: <span class="student-count-badge">${students.length} students</span></h3>
+          </div>
+          <table class="student-table">
+            <thead>
+              <tr>
+                <th>SR</th><th>Photo</th><th>Name</th>
+                <th>Adm No.</th><th>Email</th><th>Phone</th>
+              </tr>
+            </thead>
+            <tbody>`;
+
+      students.forEach((s, i) => {
+        const initial = (s.full_name || 'S').charAt(0).toUpperCase();
+        const photo = `<div class="student-photo-placeholder">${initial}</div>`;
+        html += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${photo}</td>
+            <td>${escapeHtml(s.full_name)}</td>
+            <td>${escapeHtml(s.admission_number)}</td>
+            <td><small>${escapeHtml(s.email || 'N/A')}</small></td>
+            <td><small>${escapeHtml(s.phone || 'N/A')}</small></td>
+          </tr>`;
+      });
+
+      html += '</tbody></table></div>';
+      body.innerHTML = html;
+    } else {
+      body.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-user-slash"></i>
+          <p>No students in this section.</p>
+        </div>`;
+    }
+  }, 400);
+}
+
+/* ── Generate demo students if section not in map ── */
+function generateDemoStudents(sectionId, sectionName, year) {
+  const firstNames = ['Aarav','Ananya','Arjun','Bhavya','Chetan','Deepika','Dev','Divya',
+                      'Esha','Farhan','Gauri','Harsh','Ishaan','Jhanvi','Karan','Lakshmi'];
+  const lastNames  = ['Sharma','Verma','Patil','Nair','Joshi','Mehta','Kumar','Singh',
+                      'Pandey','Khan','Desai','Gupta','Bose','Kapoor','Malhotra','Iyer'];
+  const depts = { 1:'CS', 2:'EC', 3:'ME', 4:'CE' };
+  const count = Math.floor(Math.random() * 8) + 4;
+  const students = [];
+  const yearCode = 24 - (year - 1);
+
+  for (let i = 0; i < count; i++) {
+    const fn = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const ln = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const admNo = `${yearCode}${depts[year] || 'XX'}${String(sectionId).slice(-1)}${String(i + 1).padStart(3, '0')}`;
+    students.push({
+      full_name: `${fn} ${ln}`,
+      admission_number: admNo,
+      email: `${fn.toLowerCase()}.${ln.toLowerCase()}@college.edu`,
+      phone: `98${Math.floor(10000000 + Math.random() * 89999999)}`
+    });
+  }
+  return students;
+}
+
+/* ── HTML escape helper ─────────────────────────── */
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/* ── Close Modals ───────────────────────────────── */
+function closeModal() {
+  document.getElementById('yearModal').style.display = 'none';
+}
+
+function closeStudentModal() {
+  document.getElementById('studentListModal').style.display = 'none';
+}
+
+window.onclick = function(e) {
+  if (e.target === document.getElementById('yearModal'))        closeModal();
+  if (e.target === document.getElementById('studentListModal')) closeStudentModal();
+};
+
+/* ── Attendance Doughnut Chart ──────────────────── */
+function initAttendanceChart() {
+  const ctx = document.getElementById('attChart');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Present', 'Absent'],
+      datasets: [{
+        data: [735, 107],
+        backgroundColor: ['#10b981', '#ef4444'],
+        borderColor: ['#fff', '#fff'],
+        borderWidth: 3,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '68%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 16,
+            font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' },
+            color: '#64748b'
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.parsed} students`
+          }
+        }
+      }
+    }
+  });
+}
+
+/* ── Department Bar Chart ───────────────────────── */
+function initDeptChart() {
+  const ctx = document.getElementById('deptChart');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['CSE', 'ECE', 'MECH', 'CIVIL', 'EE', 'IT', 'MBA'],
+      datasets: [{
+        label: 'Students',
+        data: [186, 142, 134, 118, 96, 104, 62],
+        backgroundColor: [
+          'rgba(124,58,237,0.8)',
+          'rgba(236,72,153,0.8)',
+          'rgba(16,185,129,0.8)',
+          'rgba(59,130,246,0.8)',
+          'rgba(245,158,11,0.8)',
+          'rgba(6,182,212,0.8)',
+          'rgba(239,68,68,0.8)'
+        ],
+        borderRadius: 8,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.parsed.y} students`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' },
+            color: '#64748b'
+          }
+        },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.05)' },
+          ticks: {
+            font: { family: 'Plus Jakarta Sans', size: 11 },
+            color: '#94a3b8'
+          }
+        }
+      }
+    }
+  });
+}
+
+/* ── Stagger card animations ────────────────────── */
+function staggerCards() {
+  document.querySelectorAll('.stat-card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.07) + 's';
+    card.style.animation = 'fadeInUp 0.5s cubic-bezier(0.4,0,0.2,1) both';
+  });
+
+  document.querySelectorAll('.action-card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.style.animation = 'fadeInUp 0.5s cubic-bezier(0.4,0,0.2,1) both';
+  });
+}
+
+/* ── Counter animation on stat values ───────────── */
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-value');
+  counters.forEach(counter => {
+    const target = parseInt(counter.textContent.replace(/,/g, ''), 10);
+    if (isNaN(target)) return;
+    let current = 0;
+    const duration = 900;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      counter.textContent = Math.floor(current).toLocaleString('en-IN');
+    }, 16);
+  });
+}
+
+/* ── Active menu item highlight ─────────────────── */
+function setActiveMenuItem() {
+  const path = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu-item').forEach(item => {
+    const href = item.getAttribute('href') || '';
+    if (href === path) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+}
+
+/* ── Keyboard: ESC closes modals ────────────────── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeStudentModal();
+  }
+});
+
+/* ── Initialise everything on DOMContentLoaded ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  setFooterYear();
+  updateClock();
+  updateGreeting();
+  staggerCards();
+  animateCounters();
+  initAttendanceChart();
+  initDeptChart();
+
+  // Live clock update every second
+  setInterval(updateClock, 1000);
+});
+</script>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<div class="dashboard">
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sb-logo-wrap">
+      <div id="sbFb" class="sb-logo-fallback">🎓</div>
+    </div>
+    <div class="sb-brand">
+      <h2>Dean Academics Panel</h2>
+      <p>Executive Dashboard</p>
+    </div>
+    <div class="sb-status"><span id="sb-time">Online · 10:30 AM</span></div>
+  </div>
+
+  <a href="#" class="sb-profile-mini">
+    <div class="av-circle av-sm" id="sidebarAvatar">MA</div>
+    <div class="sb-info">
+      <div class="sb-name">Dr. Manish Awasthi</div>
+      <div class="sb-role-txt">Dean Academics</div>
+    </div>
+    <i class="fas fa-chevron-right" style="color:rgba(255,255,255,.4);font-size:.72rem;flex-shrink:0"></i>
+  </a>
+
+  <nav>
+    <div class="sb-section">Overview</div>
+    <a href="#" class="menu-item active"><i class="fas fa-gauge-high"></i>Dashboard</a>
+
+    <div class="sb-section">Academics</div>
+    <a href="#" class="menu-item"><i class="fas fa-calendar-alt"></i>Academic Calendar</a>
+    <a href="#" class="menu-item"><i class="fas fa-user-graduate"></i>Students</a>
+    <a href="#" class="menu-item"><i class="fas fa-chalkboard-teacher"></i>Teachers</a>
+    <a href="#" class="menu-item"><i class="fas fa-building-columns"></i>Departments</a>
+    <a href="#" class="menu-item"><i class="fas fa-book-open-reader"></i>Teaching Plan</a>
+    <a href="#" class="menu-item"><i class="fas fa-chart-pie"></i>Syllabus Coverage</a>
+
+    <div class="sb-section">Electives</div>
+    <a href="#" class="menu-item"><i class="fas fa-chart-line"></i>Electives Report</a>
+    <a href="#" class="menu-item"><i class="fas fa-lock"></i>Elective Lock &amp; Controls</a>
+
+    <div class="sb-section">Examination</div>
+    <a href="#" class="menu-item"><i class="fas fa-calendar-days"></i>Exam Timetable</a>
+    <a href="#" class="menu-item"><i class="fas fa-qrcode"></i>Exam Attendance QR Code</a>
+    <a href="#" class="menu-item"><i class="fas fa-clipboard-list"></i>Exam Admission Report</a>
+    <a href="#" class="menu-item"><i class="fas fa-trophy"></i>Exam Results</a>
+
+    <div class="sb-section">Administration</div>
+    <a href="#" class="menu-item"><i class="fas fa-calendar-check"></i>Apply Leave</a>
+    <a href="#" class="menu-item"><i class="fas fa-handshake"></i>TG Overview</a>
+    <a href="#" class="menu-item"><i class="fas fa-file-circle-plus"></i>Teacher Feedback Setup</a>
+    <a href="#" class="menu-item"><i class="fas fa-chart-line"></i>Teacher Feedback Results</a>
+    <a href="#" class="menu-item"><i class="fas fa-clipboard-list"></i>Activity Management</a>
+    <a href="#" class="menu-item"><i class="fas fa-briefcase"></i>Internship Management</a>
+    <a href="#" class="menu-item"><i class="fas fa-flask"></i>R&amp;D Management</a>
+    <a href="#" class="menu-item"><i class="fas fa-id-card"></i>Gate Pass Approvals</a>
+    <a href="#" class="menu-item"><i class="fas fa-phone-alt"></i>Staff Directory</a>
+
+    <div class="sb-section">Reports</div>
+    <a href="#" class="menu-item"><i class="fas fa-chart-line"></i>Attendance Reports</a>
+    <a href="#" class="menu-item"><i class="fas fa-bullhorn"></i>Notice Board</a>
+
+    <div class="sb-section">Account</div>
+    <a href="#" class="menu-item"><i class="fas fa-user-circle"></i>My Profile</a>
+    <a href="#" class="menu-item"><i class="fas fa-power-off"></i>Logout</a>
+  </nav>
+  <div class="sb-footer">Dr. Manish Awasthi · Dean Academics<br>College ERP &copy; <span id="footerYear"></span></div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main-content">
+
+  <!-- TOP BAR -->
+  <div class="top-bar fade-up">
+    <div>
+      <h1>📊 Dean Academics Dashboard</h1>
+      <div class="top-bar-sub">Welcome back, Dr. Manish! Here's your institution overview.</div>
+    </div>
+    <div class="user-info">
+      <div class="tb-date"><i class="fas fa-calendar"></i><span id="currentDate">Loading...</span></div>
+      <a href="#" class="logout-btn"><i class="fas fa-power-off"></i>Logout</a>
+    </div>
+  </div>
+
+  
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner fade-up d1">
+    <div class="hero-left">
+      <div class="av-circle" style="width:64px;height:64px;font-size:1.5rem;border:3px solid rgba(255,255,255,.4);box-shadow:0 6px 22px rgba(0,0,0,.3);flex-shrink:0">MA</div>
+      <div class="hero-text">
+        <h2 id="greetingText">Good Morning, Dr. Manish Awasthi</h2>
+        <p>Developed by Mr. Himanshu Patil and Mr. Pranay Panore under the guidance of Dr. Manish Awasthi.</p>
+      </div>
+    </div>
+    <div class="hero-kpis">
+      <div class="hero-kpi">
+        <div class="kv" id="heroAttendance">87.4%</div>
+        <div class="kl">Today's Attendance</div>
+      </div>
+      <div class="hero-kpi">
+        <div class="kv">4</div>
+        <div class="kl">Active Years</div>
+      </div>
+      <div class="hero-kpi">
+        <div class="kv" id="heroNotices">12</div>
+        <div class="kl">Active Notices</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats fade-up d2">
+    <div class="stat-card students">
+      <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
+      <div class="stat-value">842</div>
+      <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-card teachers">
+      <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+      <div class="stat-value">64</div>
+      <div class="stat-label">Total Teachers</div>
+    </div>
+    <div class="stat-card teachers">
+      <div class="stat-icon"><i class="fas fa-user-tie"></i></div>
+      <div class="stat-value">8</div>
+      <div class="stat-label">Total HODs</div>
+    </div>
+    <div class="stat-card teachers">
+      <div class="stat-icon"><i class="fas fa-users-gear"></i></div>
+      <div class="stat-value">23</div>
+      <div class="stat-label">Support Staff</div>
+    </div>
+    <div class="stat-card departments">
+      <div class="stat-icon"><i class="fas fa-building"></i></div>
+      <div class="stat-value">7</div>
+      <div class="stat-label">Departments</div>
+    </div>
+  </div>
+
+
+
+
+  
+
+</main>
+</div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

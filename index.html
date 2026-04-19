@@ -1,15 +1,666 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIR Research Consultancy – Nagpur</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Technical Paper Writing Services – SIR Research Consultancy</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-   <link rel="icon" href="./sir research consultancy.jpg" type="image/x-icon" />
+  <link rel="icon" href="./sir research consultancy.jpg" type="image/x-icon" />
+  <style>
+    /* === CSS VARIABLES (matching index.html) === */
+    :root {
+      --navy: #050d1a;
+      --navy-2: #0a1628;
+      --navy-3: #0f2040;
+      --navy-4: #162840;
+      --gold: #c9a227;
+      --gold-light: #e8c250;
+      --gold-dark: #a07c10;
+      --white: #ffffff;
+      --off-white: #e8edf5;
+      --text-muted: #8a9ab5;
+      --card-bg: rgba(15, 32, 64, 0.8);
+      --border: rgba(201, 162, 39, 0.2);
+      --shadow: 0 20px 60px rgba(0,0,0,0.4);
+      --glow: 0 0 30px rgba(201, 162, 39, 0.3);
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { max-width: 100%; }
+    ::selection { background: var(--gold); color: var(--navy); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* === GLOBAL BACKGROUND === */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -3;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(15,32,64,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(201,162,39,0.08) 0%, transparent 60%),
+        var(--navy);
+    }
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -2;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* === SCROLL PROGRESS === */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 9999; width: 0%;
+      box-shadow: 0 0 10px rgba(201,162,39,0.5);
+      transition: width 0.1s ease;
+    }
+
+    /* === LOADER === */
+    .loader {
+      position: fixed; inset: 0; z-index: 9998;
+      background: var(--navy);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo { font-family: var(--font-head); font-size: 5rem; font-weight: 900; letter-spacing: 0.1em; }
+    .loader-s { color: var(--gold); animation: popIn 0.3s 0.2s both; }
+    .loader-i { color: var(--white); animation: popIn 0.3s 0.4s both; }
+    .loader-r { color: var(--gold); animation: popIn 0.3s 0.6s both; }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.3) translateY(30px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+    .loader-fill {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 3px;
+      animation: loadFill 1.5s 0.8s ease forwards;
+    }
+    @keyframes loadFill { to { width: 100%; } }
+    .loader-text { color: var(--text-muted); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; animation: fadeIn 0.5s 1s both; }
+
+    /* === FLOATING BUTTONS === */
+    .float-contacts {
+      position: fixed; right: 20px; bottom: 30px;
+      z-index: 1000;
+      display: flex; flex-direction: column; gap: 12px;
+      opacity: 0; transform: translateX(30px);
+      transition: all 0.4s ease;
+    }
+    .float-btn {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px; border-radius: 50px;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; transition: var(--transition);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      white-space: nowrap; overflow: hidden; max-width: 52px;
+    }
+    .float-btn:hover { max-width: 160px; transform: translateX(-5px); }
+    .float-btn i { font-size: 1.1rem; flex-shrink: 0; }
+    .float-btn.call { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; }
+    .float-btn.whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
+    .float-btn.sms { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); }
+
+    /* === NAVBAR === */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 900; padding: 18px 0;
+      transition: var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(5,13,26,0.95);
+      backdrop-filter: blur(20px);
+      padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-container {
+      max-width: 1300px; margin: 0 auto; padding: 0 30px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .logo-img {
+      width: 44px; height: 44px; object-fit: contain;
+      border-radius: 8px; background: rgba(255,255,255,0.06);
+      padding: 4px; box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .logo-sir {
+      font-family: var(--font-head); font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 0.05em;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-main { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+    .logo-sub { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      padding: 8px 14px; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 500; color: var(--off-white);
+      transition: var(--transition); position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 4px; left: 50%; right: 50%;
+      height: 2px; background: var(--gold);
+      transition: var(--transition); border-radius: 2px;
+    }
+    .nav-links a:hover::after { left: 14px; right: 14px; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links .nav-cta {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy) !important; font-weight: 700; padding: 10px 22px;
+    }
+    .nav-links .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+    .nav-links .nav-cta::after { display: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+    .hamburger span { display: block; width: 25px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    /* === MARQUEE === */
+    .marquee-strip { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); padding: 14px 0; overflow: hidden; }
+    .marquee-track {
+      display: flex; gap: 40px; align-items: center;
+      width: max-content; animation: marquee 25s linear infinite;
+      font-size: 0.85rem; font-weight: 600; color: var(--navy);
+      letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+    }
+    .marquee-track .dot { color: rgba(0,0,0,0.4); font-size: 0.6rem; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* === COMMON SECTIONS === */
+    .section { padding: 100px 0; position: relative; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-tag {
+      display: inline-block; padding: 6px 18px;
+      border: 1px solid var(--border); border-radius: 50px;
+      font-size: 0.75rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
+      background: rgba(201,162,39,0.05);
+    }
+    .section-title { font-family: var(--font-head); font-size: clamp(2rem,4vw,3rem); font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-header p { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+    /* Reveal animations */
+    .reveal, .reveal-left, .reveal-right {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
+    .revealed { opacity: 1 !important; transform: translate(0,0) !important; }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--navy); font-family: var(--font-body); font-weight: 700;
+      font-size: 0.95rem; border: none; border-radius: 50px;
+      cursor: pointer; transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      opacity: 0; transition: var(--transition);
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201,162,39,0.4); }
+    .btn-primary span, .btn-primary i { position: relative; z-index: 1; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; background: transparent; color: var(--white);
+      font-family: var(--font-body); font-weight: 600; font-size: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 50px;
+      cursor: pointer; transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,162,39,0.05); transform: translateY(-3px); }
+
+    /* ============================================
+       HERO SECTION
+    ============================================ */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center;
+      overflow: hidden; padding: 120px 30px 80px;
+      max-width: 1300px; margin: 0 auto;
+    }
+    .hero-content { flex: 1; z-index: 1; max-width: 760px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border: 1px solid var(--border); border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(201,162,39,0.05); margin-bottom: 24px;
+    }
+    .hero-badge::before { content: '✦'; animation: spin 3s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900; line-height: 1.05; margin-bottom: 24px;
+    }
+    .hero-title span { display: block; }
+    .hero-title .line1 { color: var(--white); animation: slideRight 0.8s 0.3s both; }
+    .hero-title .line2 { color: var(--off-white); animation: slideRight 0.8s 0.5s both; }
+    .hero-title .line3 {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: slideRight 0.8s 0.7s both;
+    }
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .hero-subtitle { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 36px; max-width: 580px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+    .hero-stats { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-family: var(--font-head); font-size: 2.2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat span { color: var(--gold); font-size: 1.4rem; font-weight: 700; }
+    .stat p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+    .stat-div { width: 1px; height: 50px; background: var(--border); }
+    .hero-floating-cards {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 16px; z-index: 1;
+    }
+    .hfc {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 22px;
+      background: rgba(10,22,40,0.92);
+      border: 1px solid var(--border); border-radius: 14px;
+      font-size: 0.85rem; font-weight: 600;
+      backdrop-filter: blur(20px);
+      animation: cardFloat 4s ease-in-out infinite;
+      transition: var(--transition);
+    }
+    .hfc:hover { border-color: var(--gold); box-shadow: var(--glow); transform: scale(1.04) !important; }
+    .hfc i { color: var(--gold); font-size: 1.3rem; }
+    .hfc:nth-child(1) { animation-delay: 0s; }
+    .hfc:nth-child(2) { animation-delay: 1s; }
+    .hfc:nth-child(3) { animation-delay: 2s; }
+    .hfc:nth-child(4) { animation-delay: 3s; }
+    @keyframes cardFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.12; animation: orbFloat 7s ease-in-out infinite; }
+    .orb1 { width: 500px; height: 500px; background: var(--gold); top: -100px; right: -200px; }
+    .orb2 { width: 250px; height: 250px; background: #1a73e8; bottom: 50px; right: 200px; animation-delay: 3s; }
+    @keyframes orbFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
+
+    /* ============================================
+       INCLUDES SECTION (What's Included)
+    ============================================ */
+    .includes { background: rgba(10,22,40,0.5); }
+    .includes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 24px;
+    }
+    .include-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 30px;
+      transition: var(--transition); position: relative; overflow: hidden;
+      cursor: default;
+    }
+    .include-card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: var(--transition);
+    }
+    .include-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: var(--gold); }
+    .include-card:hover::before { width: 100%; }
+    .ic-num {
+      font-family: var(--font-head); font-size: 3.5rem; font-weight: 900;
+      color: rgba(201,162,39,0.08); position: absolute; top: 8px; right: 16px; line-height: 1;
+    }
+    .ic-icon {
+      width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+      background: rgba(201,162,39,0.1); border-radius: 12px;
+      font-size: 1.4rem; color: var(--gold); margin-bottom: 18px;
+      transition: var(--transition);
+    }
+    .include-card:hover .ic-icon { background: rgba(201,162,39,0.2); transform: rotate(8deg) scale(1.1); }
+    .include-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .include-card p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+
+    /* ============================================
+       PROCESS SECTION
+    ============================================ */
+    .process { background: var(--navy); }
+    .process-steps { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .process-steps::before {
+      content: ''; position: absolute; left: 34px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--gold), transparent);
+    }
+    .proc-step {
+      display: flex; gap: 28px; align-items: flex-start;
+      padding: 32px; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 16px; transition: var(--transition);
+      position: relative; cursor: default;
+    }
+    .proc-step:hover { border-color: var(--gold); transform: translateX(8px); box-shadow: var(--shadow); }
+    .proc-step:last-child { margin-bottom: 0; }
+    .ps-circle {
+      width: 68px; height: 68px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%; font-family: var(--font-head);
+      font-size: 1.5rem; font-weight: 900; color: var(--navy);
+      position: relative; z-index: 1;
+      box-shadow: 0 8px 24px rgba(201,162,39,0.35);
+      transition: var(--transition);
+    }
+    .proc-step:hover .ps-circle { transform: scale(1.12); box-shadow: 0 0 30px rgba(201,162,39,0.6); }
+    .ps-body { flex: 1; }
+    .ps-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .ps-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+    .ps-body .ps-tag {
+      display: inline-block; margin-top: 10px; padding: 4px 12px;
+      background: rgba(201,162,39,0.1); border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; color: var(--gold);
+      border: 1px solid var(--border); letter-spacing: 0.05em;
+    }
+    .ps-icon { font-size: 1.4rem; color: rgba(201,162,39,0.4); margin-top: 4px; transition: var(--transition); }
+    .proc-step:hover .ps-icon { color: var(--gold); }
+
+    /* ============================================
+       TIMELINE SECTION
+    ============================================ */
+    .timeline-sec { background: rgba(10,22,40,0.6); }
+    .timeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+    .tl-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; transition: var(--transition);
+      position: relative; overflow: hidden; cursor: default;
+    }
+    .tl-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at top right, rgba(201,162,39,0.06), transparent 70%);
+      opacity: 0; transition: var(--transition);
+    }
+    .tl-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: var(--shadow); }
+    .tl-card:hover::after { opacity: 1; }
+    .tl-week {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tl-week::before { content: ''; width: 24px; height: 2px; background: var(--gold); }
+    .tl-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .tl-card p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+    .tl-total {
+      margin-top: 40px; padding: 32px;
+      background: linear-gradient(135deg, rgba(201,162,39,0.12), rgba(201,162,39,0.04));
+      border: 1px solid var(--gold); border-radius: var(--radius);
+      text-align: center;
+    }
+    .tl-total i { font-size: 2.5rem; color: var(--gold); margin-bottom: 12px; display: block; }
+    .tl-total h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .tl-total p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* ============================================
+       PRICING SECTION
+    ============================================ */
+    .pricing { background: var(--navy); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: start; }
+    .price-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px 32px;
+      transition: var(--transition); position: relative; overflow: hidden;
+      cursor: default;
+    }
+    .price-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(180deg, rgba(201,162,39,0.08) 0%, var(--card-bg) 100%);
+      transform: scale(1.03);
+      box-shadow: var(--glow), var(--shadow);
+    }
+    .price-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: var(--shadow); }
+    .price-card.featured:hover { transform: scale(1.03) translateY(-10px); }
+    .price-badge {
+      position: absolute; top: 20px; right: 20px;
+      padding: 4px 14px; background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 20px; font-size: 0.72rem; font-weight: 700;
+      color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .price-icon {
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      background: rgba(201,162,39,0.1); border-radius: 14px;
+      font-size: 1.6rem; color: var(--gold); margin-bottom: 22px;
+      transition: var(--transition);
+    }
+    .price-card:hover .price-icon { transform: rotate(8deg) scale(1.1); background: rgba(201,162,39,0.2); }
+    .price-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+    .price-card .price-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+    .price-amount {
+      font-family: var(--font-head); font-size: 2.4rem; font-weight: 900;
+      color: var(--gold); line-height: 1; margin-bottom: 4px;
+    }
+    .price-amount span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
+    .price-range { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 28px; }
+    .price-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+    .pf-item { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; }
+    .pf-item i { color: var(--gold); font-size: 0.8rem; flex-shrink: 0; }
+
+    /* ============================================
+       DELIVERABLES SECTION
+    ============================================ */
+    .deliverables { background: rgba(10,22,40,0.5); }
+    .deliv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .deliv-card {
+      display: flex; align-items: center; gap: 18px;
+      padding: 24px; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      transition: var(--transition); cursor: default;
+    }
+    .deliv-card:hover { border-color: var(--gold); transform: translateX(6px); box-shadow: var(--glow); }
+    .deliv-icon {
+      width: 52px; height: 52px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201,162,39,0.1); border-radius: 12px;
+      font-size: 1.3rem; color: var(--gold); transition: var(--transition);
+    }
+    .deliv-card:hover .deliv-icon { transform: scale(1.15) rotate(8deg); background: rgba(201,162,39,0.2); }
+    .deliv-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .deliv-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ============================================
+       JOURNAL TYPES
+    ============================================ */
+    .journals { background: var(--navy); }
+    .journals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+    .journal-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; text-align: center;
+      transition: var(--transition); cursor: default;
+    }
+    .journal-card:hover { border-color: var(--gold); transform: translateY(-8px); box-shadow: var(--glow); }
+    .journal-card i { font-size: 2.4rem; color: var(--gold); margin-bottom: 18px; display: block; transition: var(--transition); }
+    .journal-card:hover i { transform: scale(1.3) rotate(10deg); }
+    .journal-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .journal-card p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+    .journal-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+    .jtag {
+      padding: 4px 12px; border-radius: 20px;
+      background: rgba(201,162,39,0.1); border: 1px solid var(--border);
+      font-size: 0.72rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================
+       WHY US
+    ============================================ */
+    .why-us { background: rgba(5,13,26,0.8); position: relative; }
+    .why-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(201,162,39,0.04), transparent); pointer-events: none; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .why-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px; text-align: center;
+      transition: var(--transition); cursor: default;
+    }
+    .why-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--glow); }
+    .why-card i { font-size: 2.4rem; color: var(--gold); display: block; margin-bottom: 20px; transition: var(--transition); }
+    .why-card:hover i { transform: scale(1.3) rotate(10deg); }
+    .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+    .why-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ============================================
+       DOCUMENTS REQUIRED
+    ============================================ */
+    .docs-required { background: rgba(10,22,40,0.6); }
+    .docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .docs-visual { position: relative; }
+    .docs-icon-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .dig-item {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); font-size: 1.8rem; color: var(--gold);
+      cursor: default; transition: var(--transition);
+    }
+    .dig-item:hover { background: rgba(201,162,39,0.1); border-color: var(--gold); transform: scale(1.08) rotate(5deg); box-shadow: var(--glow); }
+    .docs-list { display: flex; flex-direction: column; gap: 16px; }
+    .doc-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px; background: var(--card-bg);
+      border: 1px solid var(--border); border-radius: 12px;
+      transition: var(--transition); cursor: default;
+    }
+    .doc-item:hover { border-color: var(--gold); transform: translateX(6px); }
+    .doc-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201,162,39,0.1); border-radius: 10px;
+      font-size: 1.1rem; color: var(--gold); transition: var(--transition);
+    }
+    .doc-item:hover .doc-icon { transform: scale(1.2); }
+    .doc-body h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .doc-body p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; }
+    .optional-badge {
+      display: inline-block; padding: 2px 10px;
+      background: rgba(201,162,39,0.1); border: 1px solid var(--border);
+      border-radius: 20px; font-size: 0.7rem; color: var(--gold);
+      font-weight: 600; margin-left: 8px; vertical-align: middle;
+    }
+
+    /* ============================================
+       CONTACT CTA
+    ============================================ */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(201,162,39,0.08) 0%, rgba(10,22,40,0.9) 100%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 100px 0; text-align: center;
+    }
+    .cta-section .section-title { font-size: clamp(2rem,4vw,3rem); margin-bottom: 20px; }
+    .cta-section p { color: var(--text-muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto 40px; line-height: 1.8; }
+    .cta-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; background: rgba(37,211,102,0.15);
+      border: 1px solid #25d366; border-radius: 50px;
+      color: #25d366; font-family: var(--font-body); font-weight: 700;
+      font-size: 0.95rem; transition: var(--transition); cursor: pointer;
+    }
+    .btn-wa:hover { background: rgba(37,211,102,0.25); transform: translateY(-3px); }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer { background: var(--navy-2); border-top: 1px solid var(--border); }
+    .footer-top { padding: 80px 0 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; }
+    .footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin: 16px 0 24px; line-height: 1.7; }
+    .footer-contacts { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contacts a { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.9rem; transition: var(--transition); }
+    .footer-contacts a:hover { color: var(--gold); }
+    .footer-contacts a i { color: var(--gold); width: 16px; }
+    .footer-links h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .footer-links ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--text-muted); font-size: 0.9rem; transition: var(--transition); }
+    .footer-links a:hover { color: var(--gold); padding-left: 6px; }
+    .footer-cta h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .footer-cta p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
+    .btn-wa-footer {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 13px 28px; background: rgba(37,211,102,0.15);
+      border: 1px solid #25d366; border-radius: 50px;
+      color: #25d366; font-weight: 700; font-size: 0.9rem;
+      margin-top: 12px; transition: var(--transition); font-family: var(--font-body);
+    }
+    .btn-wa-footer:hover { background: rgba(37,211,102,0.25); transform: translateY(-2px); }
+    .footer-bottom { border-top: 1px solid var(--border); padding: 24px 0; }
+    .footer-bottom .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { color: var(--text-muted); font-size: 0.82rem; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 1100px) {
+      .hero { flex-direction: column; text-align: center; padding-top: 120px; }
+      .hero-content { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-floating-cards { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card.featured { transform: scale(1); }
+      .docs-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,13,26,0.98); backdrop-filter: blur(20px); flex-direction: column; padding: 20px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      .float-btn span { display: none; }
+      .float-btn { max-width: 52px !important; }
+      .float-btn:hover { max-width: 52px !important; transform: none; }
+      .section { padding: 70px 0; }
+      .process-steps::before { left: 28px; }
+      .ps-circle { width: 56px; height: 56px; font-size: 1.2rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+      .cta-btns { flex-direction: column; }
+      .btn-wa { justify-content: center; }
+    }
+  </style>
 </head>
 <body>
+  <div class="bg-grid"></div>
+  <div id="scroll-progress"></div>
 
   <!-- LOADER -->
   <div class="loader" id="loader">
@@ -21,7 +672,7 @@
   </div>
 
   <!-- FLOATING CONTACT BUTTONS -->
-  <div class="float-contacts">
+  <div class="float-contacts" id="floatContacts">
     <a href="tel:8788209773" class="float-btn call" title="Call Us"><i class="fas fa-phone"></i><span>Call</span></a>
     <a href="https://wa.me/918788209773" target="_blank" class="float-btn whatsapp" title="WhatsApp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
     <a href="sms:8788209773" class="float-btn sms" title="Message Us"><i class="fas fa-comment-sms"></i><span>Message</span></a>
@@ -30,7 +681,7 @@
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
-      <div class="nav-logo">
+      <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
         <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR Research Consultancy Logo" />
         <span class="logo-sir">SIR</span>
         <div class="logo-text">
@@ -38,242 +689,142 @@
           <span class="logo-sub">Nagpur</span>
         </div>
       </div>
-       <ul class="nav-links" id="navLinks">
-        <li><a href="#home">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="benefits.html">Benefits</a></li>
-        <li><a href="process.html">Process</a></li>
-        <li><a href="testimonials.html">Testimonials</a></li>
-        <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#services">Services</a></li>
+        <li><a href="../index.html#benefits">Benefits</a></li>
+        <li><a href="../index.html#process">Process</a></li>
+        <li><a href="../index.html#testimonials">Testimonials</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact Us</a></li>
       </ul>
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </div>
   </nav>
 
+  <!-- MARQUEE STRIP (below hero will be at top after nav) -->
+
   <!-- HERO SECTION -->
   <section class="hero" id="home">
-    <div class="hero-bg-grid"></div>
-    <div class="particles" id="particles"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
     <div class="hero-content">
-      <div class="hero-badge reveal">Trusted by 5000+ Researchers</div>
-      <h1 class="hero-title reveal">
-        <span class="line1">Research &</span>
-        <span class="line2">Development</span>
-        <span class="line3 gold">Support</span>
+      <div class="hero-badge reveal">Technical Writing Experts · Scopus & WoS Specialists</div>
+      <h1 class="hero-title">
+        <span class="line1">Technical Paper</span>
+        <span class="line2">Writing Services</span>
+        <span class="line3 gold">(Q1–Q4 Journals)</span>
       </h1>
       <p class="hero-subtitle reveal">
-        Empowering students, scholars & institutions with Scopus/WoS publications,
-        PhD assistance, IPR services & more — from Nagpur to the world.
+        End-to-end support from idea to publication in Scopus & Web of Science journals.
+        Expert PhD writers, high acceptance rate, full confidentiality guaranteed.
       </p>
       <div class="hero-btns reveal">
-        <a href="#contact" class="btn-primary">Get Free Consultation</a>
-        <a href="#services" class="btn-outline">Explore Services</a>
+        <a href="#contact-cta" class="btn-primary"><span>Start Your Project</span><i class="fas fa-arrow-right"></i></a>
+        <a href="https://wa.me/918788209773" target="_blank" class="btn-outline"><i class="fab fa-whatsapp"></i> Talk to Expert</a>
       </div>
       <div class="hero-stats reveal">
-        <div class="stat"><span class="stat-num" data-target="5000">0</span><span>+</span><p>Clients</p></div>
+        <div class="stat"><span class="stat-num" data-target="500">0</span><span>+</span><p>Papers Published</p></div>
         <div class="stat-div"></div>
-        <div class="stat"><span class="stat-num" data-target="1200">0</span><span>+</span><p>Publications</p></div>
-        <div class="stat-div"></div>
-        <div class="stat"><span class="stat-num" data-target="300">0</span><span>+</span><p>Patents Filed</p></div>
+        <div class="stat"><span class="stat-num" data-target="95">0</span><span>%</span><p>Acceptance Rate</p></div>
         <div class="stat-div"></div>
         <div class="stat"><span class="stat-num" data-target="15">0</span><span>+</span><p>Years Exp.</p></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num" data-target="100">0</span><span>+</span><p>PhD Experts</p></div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="orb orb1"></div>
-      <div class="orb orb2"></div>
-      <div class="orb orb3"></div>
-      <div class="hero-card hc1"><i class="fas fa-graduation-cap"></i><span>PhD Assistance</span></div>
-      <div class="hero-card hc2"><i class="fas fa-newspaper"></i><span>Scopus Publication</span></div>
-      <div class="hero-card hc3"><i class="fas fa-lightbulb"></i><span>Patent Filing</span></div>
-      <div class="hero-card hc4"><i class="fas fa-chart-bar"></i><span>Data Analysis</span></div>
-    
+    <div class="hero-floating-cards">
+      <div class="hfc"><i class="fas fa-globe"></i><span>Scopus Q1–Q4</span></div>
+      <div class="hfc"><i class="fas fa-star"></i><span>Web of Science</span></div>
+      <div class="hfc"><i class="fas fa-microchip"></i><span>IEEE Journals</span></div>
+      <div class="hfc"><i class="fas fa-shield-alt"></i><span>0% Plagiarism</span></div>
     </div>
   </section>
 
   <!-- MARQUEE STRIP -->
   <div class="marquee-strip">
     <div class="marquee-track">
-      <span class="marquee-logo">
-        <img src="./sir research consultancy.jpg" alt="SIR Logo" />
-      </span>
-      <span class="dot">◆</span>
-      <span>Scopus Publications</span><span class="dot">◆</span>
-      <span>WoS Indexed Journals</span><span class="dot">◆</span>
-      <span>Patent Filing</span><span class="dot">◆</span>
-      <span>PhD Thesis Writing</span><span class="dot">◆</span>
-      <span>NAAC Support</span><span class="dot">◆</span>
-      <span>Data Analysis</span><span class="dot">◆</span>
-      <span>Plagiarism Removal</span><span class="dot">◆</span>
-      <span>AI Content Removal</span><span class="dot">◆</span>
-      <span>ISBN Publication</span><span class="dot">◆</span>
-      <span>NIRF Ranking Help</span><span class="dot">◆</span>
-      <span class="marquee-logo">
-        <img src="./sir research consultancy.jpg" alt="SIR Logo" />
-      </span>
-      <span class="dot">◆</span>
-      <span>Scopus Publications</span><span class="dot">◆</span>
-      <span>WoS Indexed Journals</span><span class="dot">◆</span>
-      <span>Patent Filing</span><span class="dot">◆</span>
-      <span>PhD Thesis Writing</span><span class="dot">◆</span>
-      <span>NAAC Support</span><span class="dot">◆</span>
-      <span>Data Analysis</span><span class="dot">◆</span>
-      <span>Plagiarism Removal</span><span class="dot">◆</span>
+      <span class="dot">◆</span><span>Scopus Q1–Q4 Papers</span>
+      <span class="dot">◆</span><span>WoS Indexed Journals</span>
+      <span class="dot">◆</span><span>IEEE Publications</span>
+      <span class="dot">◆</span><span>Plagiarism &lt;10%</span>
+      <span class="dot">◆</span><span>100% Confidential</span>
+      <span class="dot">◆</span><span>PhD Expert Writers</span>
+      <span class="dot">◆</span><span>Fast Turnaround</span>
+      <span class="dot">◆</span><span>Reviewer Support</span>
+      <span class="dot">◆</span><span>Scopus Q1–Q4 Papers</span>
+      <span class="dot">◆</span><span>WoS Indexed Journals</span>
+      <span class="dot">◆</span><span>IEEE Publications</span>
+      <span class="dot">◆</span><span>Plagiarism &lt;10%</span>
+      <span class="dot">◆</span><span>100% Confidential</span>
+      <span class="dot">◆</span><span>PhD Expert Writers</span>
+      <span class="dot">◆</span><span>Fast Turnaround</span>
+      <span class="dot">◆</span><span>Reviewer Support</span>
     </div>
   </div>
 
-  <!-- ABOUT SECTION -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-visual reveal-left">
-          <div class="about-img-wrapper">
-            <div class="about-icon-grid">
-              <div class="aig-item"><i class="fas fa-microscope"></i></div>
-              <div class="aig-item"><i class="fas fa-book-open"></i></div>
-              <div class="aig-item"><i class="fas fa-award"></i></div>
-              <div class="aig-item"><i class="fas fa-flask"></i></div>
-              <div class="aig-item"><i class="fas fa-shield-alt"></i></div>
-              <div class="aig-item"><i class="fas fa-users"></i></div>
-            </div>
-            <div class="about-circle">
-              <span>15+</span>
-              <p>Years of Excellence</p>
-            </div>
-          </div>
-        </div>
-        <div class="about-content reveal-right">
-          <div class="section-tag">About SIR Consultancy</div>
-          <h2 class="section-title">We Turn Research into <span class="gold">Recognition</span></h2>
-          <p>SIR Research Consultancy, based in Nagpur, is a premier academic and research support organization. We have been helping students, PhD scholars, and educational institutions achieve their research goals with expert guidance, precision, and confidentiality.</p>
-          <p>From writing internationally indexed research papers to filing patents and supporting NAAC accreditation — we are your complete research partner.</p>
-          <div class="about-pillars">
-            <div class="pillar"><i class="fas fa-check-circle"></i><span>Expert Team of PhDs & Specialists</span></div>
-            <div class="pillar"><i class="fas fa-check-circle"></i><span>100% Confidential & Ethical Work</span></div>
-            <div class="pillar"><i class="fas fa-check-circle"></i><span>Fast Turnaround, Quality Guaranteed</span></div>
-            <div class="pillar"><i class="fas fa-check-circle"></i><span>5000+ Satisfied Clients Nationwide</span></div>
-          </div>
-          <a href="about.html" class="btn-primary">Know More</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES SECTION -->
-  <section class="services section" id="services">
-    <div class="container">
-      <div class="section-header reveal revealed">
-        <div class="section-tag">What We Offer</div>
-        <h2 class="section-title">Our <span class="gold">Services</span></h2>
-        <p>Comprehensive research support solutions for every academic stage</p>
-      </div>
-
-      <div class="service-tabs reveal">
-        <button class="tab-btn active" data-tab="writing"><i class="fas fa-pen-nib"></i> Writing</button>
-        <button class="tab-btn" data-tab="publication"><i class="fas fa-newspaper"></i> Publication</button>
-        <button class="tab-btn" data-tab="phd"><i class="fas fa-graduation-cap"></i> PhD</button>
-        <button class="tab-btn" data-tab="ipr"><i class="fas fa-shield-alt"></i> IPR</button>
-        <button class="tab-btn" data-tab="editing"><i class="fas fa-spell-check"></i> Editing</button>
-        <button class="tab-btn" data-tab="books"><i class="fas fa-book"></i> Books</button>
-      </div>
-
-      <div class="tab-content active" id="tab-writing">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-file-alt"></i></div><h3>Technical Paper Writing</h3><p>Q1–Q4 Scopus & WoS quality research papers with precise methodology and impactful findings.</p><a href="./services/technicalwriting.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-search"></i></div><h3>Research Paper Writing</h3><p>Comprehensive research papers designed for publication in top-indexed international journals.</p><a href="./services/researchwriting.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-list-alt"></i></div><h3>Review Paper Writing</h3><p>Systematic and narrative literature review papers crafted by subject matter experts.</p><a href="./services/reviewwriting.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-scroll"></i></div><h3>Thesis & Dissertation</h3><p>Full thesis writing, chapter-wise support, and dissertation writing for PhD & Masters.</p><a href="./services/thesiswriting.html" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-publication">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-globe"></i></div><h3>Scopus Publication</h3><p>End-to-end Scopus indexed journal publication support from selection to acceptance.</p><a href="./services/scopuspublication.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-star"></i></div><h3>Web of Science</h3><p>WoS indexed publication assistance with high impact factor journals worldwide.</p><a href="./services/webofscience.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-microphone"></i></div><h3>Conference Papers</h3><p>Research paper preparation for national and international conferences with presentation support.</p><a href="./services/conferencepapers.html" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chart-line"></i></div><h3>UGC Care Journals</h3><p>Publication support for UGC Care List journals for faculty and scholars.</p><a href="./services/ugccarejournals.html" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-phd">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-lightbulb"></i></div><h3>Topic Selection</h3><p>Expert guidance to identify innovative, publishable, and gap-filling research topics.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-file-signature"></i></div><h3>Synopsis Writing</h3><p>Structured synopsis and research proposal writing for PhD registration approval.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-chalkboard-teacher"></i></div><h3>Viva Preparation</h3><p>Mock viva sessions, question banks, and presentation support for PhD viva voce.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-book-reader"></i></div><h3>Literature Review</h3><p>Comprehensive literature review writing with proper citation and gap analysis.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-ipr">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-certificate"></i></div><h3>Patent Writing & Filing</h3><p>Complete patent drafting, application writing, and official filing with IP offices.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-trademark"></i></div><h3>Trademark Registration</h3><p>End-to-end trademark search, application, and registration process management.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-palette"></i></div><h3>Design Patent</h3><p>Industrial design and ornamental design patent filing and registration.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-exchange-alt"></i></div><h3>Technology Transfer</h3><p>Assistance in technology licensing, transfer agreements, and commercialization.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-editing">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-spell-check"></i></div><h3>Proofreading</h3><p>Grammar, language, syntax, and coherence editing by expert academic editors.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-align-left"></i></div><h3>Formatting</h3><p>Journal-specific formatting (APA, IEEE, Elsevier, Springer, etc.) done precisely.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-copy"></i></div><h3>Plagiarism Check</h3><p>Turnitin/iThenticate reports with similarity reduction below 10% guaranteed.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-robot"></i></div><h3>AI Content Removal</h3><p>Detection and rewriting of AI-generated content for journal acceptance compliance.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-      <div class="tab-content" id="tab-books">
-        <div class="services-grid">
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-pen-fancy"></i></div><h3>Book Writing</h3><p>Academic, educational, and professional book writing support for authors.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-paint-brush"></i></div><h3>Design & Formatting</h3><p>Professional book design, layout, typesetting, and cover design services.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-barcode"></i></div><h3>ISBN & Barcode</h3><p>Official ISBN number registration and barcode generation for publication.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-          <div class="service-card reveal"><div class="sc-icon"><i class="fas fa-upload"></i></div><h3>Digital Publishing</h3><p>E-book formatting and publishing on digital platforms for wider reach.</p><a href="#contact" class="sc-link">Get Started →</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BENEFITS SECTION -->
-  <section class="benefits section" id="benefits">
+  <!-- WHAT'S INCLUDED SECTION -->
+  <section class="includes section" id="includes">
     <div class="container">
       <div class="section-header reveal">
-        <div class="section-tag">Institutional Support</div>
-        <h2 class="section-title">We Help Your Institution <span class="gold">Excel</span></h2>
+        <div class="section-tag">Service Overview</div>
+        <h2 class="section-title">What's <span class="gold">Included</span></h2>
+        <p>Everything you need from idea to accepted publication — handled by domain experts</p>
       </div>
-      <div class="benefits-grid">
-        <div class="benefit-card reveal">
-          <div class="bc-num">01</div>
-          <i class="fas fa-university bc-icon"></i>
-          <h3>NAAC Accreditation</h3>
-          <p>Comprehensive documentation, research output improvement, and criterion-wise support for NAAC grades.</p>
+      <div class="includes-grid">
+        <div class="include-card reveal">
+          <div class="ic-num">01</div>
+          <div class="ic-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Topic Selection</h3>
+          <p>We help identify innovative, publishable, and research-gap filling topics aligned with your domain and target journal.</p>
         </div>
-        <div class="benefit-card reveal">
-          <div class="bc-num">02</div>
-          <i class="fas fa-trophy bc-icon"></i>
-          <h3>NIRF Ranking</h3>
-          <p>Strategic improvement plans for NIRF parameters including research, publications, and outreach.</p>
+        <div class="include-card reveal">
+          <div class="ic-num">02</div>
+          <div class="ic-icon"><i class="fas fa-book-open"></i></div>
+          <h3>Literature Review</h3>
+          <p>Comprehensive systematic literature review with gap analysis, proper citations (APA/IEEE), and reference management.</p>
         </div>
-        <div class="benefit-card reveal">
-          <div class="bc-num">03</div>
-          <i class="fas fa-medal bc-icon"></i>
-          <h3>NBA Accreditation</h3>
-          <p>Program-level accreditation support with outcome-based education and documentation preparation.</p>
+        <div class="include-card reveal">
+          <div class="ic-num">03</div>
+          <div class="ic-icon"><i class="fas fa-flask"></i></div>
+          <h3>Methodology Design</h3>
+          <p>Expert-designed research methodology — quantitative, qualitative, or mixed — customized for your domain and journal.</p>
         </div>
-        <div class="benefit-card reveal">
-          <div class="bc-num">04</div>
-          <i class="fas fa-rocket bc-icon"></i>
-          <h3>ARIIA Ranking</h3>
-          <p>Atal Ranking improvement through innovation, incubation, and IP activity documentation.</p>
+        <div class="include-card reveal">
+          <div class="ic-num">04</div>
+          <div class="ic-icon"><i class="fas fa-microscope"></i></div>
+          <h3>Experimentation Guidance</h3>
+          <p>Step-by-step guidance on setting up experiments, simulations, or surveys with proper controls and parameters.</p>
         </div>
-        <div class="benefit-card reveal">
-          <div class="bc-num">05</div>
-          <i class="fas fa-hand-holding-usd bc-icon"></i>
-          <h3>Funding Support</h3>
-          <p>Research proposal writing for DST, SERB, CSIR, and other government/private funding bodies.</p>
+        <div class="include-card reveal">
+          <div class="ic-num">05</div>
+          <div class="ic-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>Results & Analysis</h3>
+          <p>Statistical analysis using SPSS, MATLAB, Python, R — with tables, graphs, and interpretation for publication.</p>
         </div>
-        <div class="benefit-card reveal">
-          <div class="bc-num">06</div>
-          <i class="fas fa-chart-pie bc-icon"></i>
-          <h3>Data Analysis</h3>
-          <p>SPSS, AMOS, R, Python statistical analysis and visualization for research papers.</p>
+        <div class="include-card reveal">
+          <div class="ic-num">06</div>
+          <div class="ic-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Paper Drafting</h3>
+          <p>Full paper written in IEEE / Elsevier / Springer format — abstract, introduction, methodology, results, conclusion.</p>
+        </div>
+        <div class="include-card reveal">
+          <div class="ic-num">07</div>
+          <div class="ic-icon"><i class="fas fa-copy"></i></div>
+          <h3>Plagiarism Check</h3>
+          <p>Turnitin / iThenticate report included. Similarity guaranteed below 10% for journal compliance.</p>
+        </div>
+        <div class="include-card reveal">
+          <div class="ic-num">08</div>
+          <div class="ic-icon"><i class="fas fa-globe"></i></div>
+          <h3>Journal Selection</h3>
+          <p>Strategic selection of the best-fit Scopus/WoS journal based on your topic, domain, and budget.</p>
+        </div>
+        <div class="include-card reveal">
+          <div class="ic-num">09</div>
+          <div class="ic-icon"><i class="fas fa-paper-plane"></i></div>
+          <h3>Submission Support</h3>
+          <p>End-to-end journal submission — cover letter, author forms, copyright, and submission portal assistance.</p>
         </div>
       </div>
     </div>
@@ -283,213 +834,390 @@
   <section class="process section" id="process">
     <div class="container">
       <div class="section-header reveal">
-        <div class="section-tag">How It Works</div>
-        <h2 class="section-title">Our Simple <span class="gold">Process</span></h2>
+        <div class="section-tag">Step-by-Step Process</div>
+        <h2 class="section-title">Our Research <span class="gold">Process</span></h2>
+        <p>A transparent, structured workflow that ensures publication-quality output at every stage</p>
       </div>
-      <div class="process-timeline">
-        <div class="process-step reveal">
-          <div class="ps-num">1</div>
-          <div class="ps-content">
-            <i class="fas fa-paper-plane"></i>
-            <h3>Submit Requirement</h3>
-            <p>Share your research topic, deadline, and specific requirements via call, WhatsApp, or form.</p>
+      <div class="process-steps">
+        <div class="proc-step reveal">
+          <div class="ps-circle">1</div>
+          <i class="fas fa-comments ps-icon"></i>
+          <div class="ps-body">
+            <h3>Idea Discussion & Topic Finalization</h3>
+            <p>We begin with a detailed consultation to understand your domain, research goals, and journal targets. Together we finalize a novel, publishable topic that fills an existing research gap.</p>
+            <span class="ps-tag">Day 1–3</span>
           </div>
         </div>
-        <div class="process-connector"></div>
-        <div class="process-step reveal">
-          <div class="ps-num">2</div>
-          <div class="ps-content">
-            <i class="fas fa-magnifying-glass"></i>
-            <h3>Analysis & Planning</h3>
-            <p>Our experts analyze your requirement, identify the best approach, and share a detailed plan.</p>
+        <div class="proc-step reveal">
+          <div class="ps-circle">2</div>
+          <i class="fas fa-search ps-icon"></i>
+          <div class="ps-body">
+            <h3>Research & Literature Review</h3>
+            <p>Our team conducts an extensive survey of existing literature using Scopus, Google Scholar, and IEEE Xplore. We identify key papers, extract gaps, and structure a comprehensive review section.</p>
+            <span class="ps-tag">Week 1–2</span>
           </div>
         </div>
-        <div class="process-connector"></div>
-        <div class="process-step reveal">
-          <div class="ps-num">3</div>
-          <div class="ps-content">
-            <i class="fas fa-pen"></i>
-            <h3>Drafting</h3>
-            <p>Our team begins writing, researching, and crafting the content with domain expertise.</p>
+        <div class="proc-step reveal">
+          <div class="ps-circle">3</div>
+          <i class="fas fa-flask ps-icon"></i>
+          <div class="ps-body">
+            <h3>Methodology & Implementation</h3>
+            <p>We design a robust research methodology — algorithms, experimental setup, dataset selection, simulation, or survey instruments — and implement the proposed approach with proper documentation.</p>
+            <span class="ps-tag">Week 3–6</span>
           </div>
         </div>
-        <div class="process-connector"></div>
-        <div class="process-step reveal">
-          <div class="ps-num">4</div>
-          <div class="ps-content">
-            <i class="fas fa-eye"></i>
-            <h3>Review & Revisions</h3>
-            <p>You review the draft, request changes, and we revise until you are fully satisfied.</p>
+        <div class="proc-step reveal">
+          <div class="ps-circle">4</div>
+          <i class="fas fa-chart-line ps-icon"></i>
+          <div class="ps-body">
+            <h3>Results & Analysis</h3>
+            <p>Statistical tools (SPSS, MATLAB, Python, R) are used to derive results. Charts, tables, and comparative analysis are prepared with meaningful interpretations aligned with research objectives.</p>
+            <span class="ps-tag">Week 7–8</span>
           </div>
         </div>
-        <div class="process-connector"></div>
-        <div class="process-step reveal">
-          <div class="ps-num">5</div>
-          <div class="ps-content">
-            <i class="fas fa-check-double"></i>
-            <h3>Final Delivery</h3>
-            <p>Receive your polished, publication-ready document before the deadline. Guaranteed.</p>
+        <div class="proc-step reveal">
+          <div class="ps-circle">5</div>
+          <i class="fas fa-pen-nib ps-icon"></i>
+          <div class="ps-body">
+            <h3>Draft Writing</h3>
+            <p>The complete paper is drafted following the target journal's author guidelines — including abstract, keywords, all sections, references (IEEE/APA/Elsevier style), and visual formatting.</p>
+            <span class="ps-tag">Week 9–11</span>
           </div>
+        </div>
+        <div class="proc-step reveal">
+          <div class="ps-circle">6</div>
+          <i class="fas fa-eye ps-icon"></i>
+          <div class="ps-body">
+            <h3>Review & Editing</h3>
+            <p>You review the full draft. We incorporate all your feedback and apply expert language editing for grammar, clarity, flow, and technical accuracy. Unlimited revisions until you're satisfied.</p>
+            <span class="ps-tag">Week 12</span>
+          </div>
+        </div>
+        <div class="proc-step reveal">
+          <div class="ps-circle">7</div>
+          <i class="fas fa-copy ps-icon"></i>
+          <div class="ps-body">
+            <h3>Plagiarism Check</h3>
+            <p>Final paper is run through Turnitin / iThenticate. If similarity exceeds 10%, we rewrite and paraphrase to bring it within acceptable limits. You receive the official plagiarism report.</p>
+            <span class="ps-tag">Week 12–13</span>
+          </div>
+        </div>
+        <div class="proc-step reveal">
+          <div class="ps-circle">8</div>
+          <i class="fas fa-globe ps-icon"></i>
+          <div class="ps-body">
+            <h3>Journal Selection</h3>
+            <p>We select the most appropriate Scopus / WoS indexed journal based on your topic, impact factor requirement, acceptance rate, processing time, and APC budget.</p>
+            <span class="ps-tag">Week 13</span>
+          </div>
+        </div>
+        <div class="proc-step reveal">
+          <div class="ps-circle">9</div>
+          <i class="fas fa-paper-plane ps-icon"></i>
+          <div class="ps-body">
+            <h3>Paper Submission</h3>
+            <p>We handle the complete submission process — cover letter preparation, author registration on journal portals, uploading files, and confirming receipt from the editorial team.</p>
+            <span class="ps-tag">Week 14</span>
+          </div>
+        </div>
+        <div class="proc-step reveal">
+          <div class="ps-circle">10</div>
+          <i class="fas fa-comments ps-icon"></i>
+          <div class="ps-body">
+            <h3>Reviewer Comments Handling</h3>
+            <p>When reviewers respond, we prepare a point-by-point rebuttal letter and revise the paper accordingly — significantly increasing the chance of final acceptance. Full support until publication.</p>
+            <span class="ps-tag">Post-Submission</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE SECTION -->
+  <section class="timeline-sec section" id="timeline">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Project Timeline</div>
+        <h2 class="section-title">Expected <span class="gold">Timeline</span></h2>
+        <p>A clear schedule so you know exactly what to expect at every stage</p>
+      </div>
+      <div class="timeline-grid">
+        <div class="tl-card reveal">
+          <div class="tl-week">Week 1–2</div>
+          <h3>Topic + Literature Review</h3>
+          <p>Finalize research topic, conduct literature survey, and identify the research gap. Prepare a structured literature review.</p>
+        </div>
+        <div class="tl-card reveal">
+          <div class="tl-week">Week 3–8</div>
+          <h3>Research / Experiment</h3>
+          <p>Implement the proposed methodology — simulation, coding, data collection, or experimentation as required by the domain.</p>
+        </div>
+        <div class="tl-card reveal">
+          <div class="tl-week">Week 9–12</div>
+          <h3>Writing + Results</h3>
+          <p>Full draft writing, results compilation, analysis, visualization, and formatting in target journal template.</p>
+        </div>
+        <div class="tl-card reveal">
+          <div class="tl-week">Week 13–16</div>
+          <h3>Editing + Submission</h3>
+          <p>Review cycles, plagiarism check, journal finalization, and official submission with cover letter.</p>
+        </div>
+      </div>
+      <div class="tl-total reveal">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Total Duration: <span class="gold">3 – 6 Months</span></h3>
+        <p>Timeline varies based on domain complexity, journal requirements, and reviewer response time. Express options may be available — contact us for details.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING SECTION -->
+  <section class="pricing section" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Investment</div>
+        <h2 class="section-title">Transparent <span class="gold">Pricing</span></h2>
+        <p>Choose the package that fits your needs — all include expert PhD writers and quality guarantee</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Basic -->
+        <div class="price-card reveal">
+          <div class="price-icon"><i class="fas fa-file-alt"></i></div>
+          <h3>Basic Package</h3>
+          <p class="price-sub">Writing & Draft Only</p>
+          <div class="price-amount">₹50,000 <span>onwards</span></div>
+          <p class="price-range">₹50,000 – ₹80,000</p>
+          <div class="price-features">
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Literature Review</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Full Paper Draft</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>IEEE / Elsevier Format</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>2 Revision Rounds</span></div>
+            <div class="pf-item" style="opacity:0.4"><i class="fas fa-times-circle"></i><span>Plagiarism Report</span></div>
+            <div class="pf-item" style="opacity:0.4"><i class="fas fa-times-circle"></i><span>Journal Submission</span></div>
+          </div>
+          <a href="https://wa.me/918788209773" target="_blank" class="btn-outline" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+        <!-- Standard (Featured) -->
+        <div class="price-card featured reveal">
+          <div class="price-badge">Most Popular</div>
+          <div class="price-icon"><i class="fas fa-star"></i></div>
+          <h3>Standard Package</h3>
+          <p class="price-sub">Writing + Editing + Plagiarism</p>
+          <div class="price-amount">₹80,000 <span>onwards</span></div>
+          <p class="price-range">₹80,000 – ₹1,50,000</p>
+          <div class="price-features">
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Everything in Basic</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Expert Language Editing</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Plagiarism Check & Report</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Journal Recommendation</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Unlimited Revisions</span></div>
+            <div class="pf-item" style="opacity:0.4"><i class="fas fa-times-circle"></i><span>Submission + Reviewer Support</span></div>
+          </div>
+          <a href="https://wa.me/918788209773" target="_blank" class="btn-primary" style="width:100%;justify-content:center;"><span>Get Started</span></a>
+        </div>
+        <!-- Premium -->
+        <div class="price-card reveal">
+          <div class="price-icon"><i class="fas fa-trophy"></i></div>
+          <h3>Premium Package</h3>
+          <p class="price-sub">Full Support + Publication</p>
+          <div class="price-amount">₹1,50,000 <span>onwards</span></div>
+          <p class="price-range">₹1,50,000 – ₹2,50,000</p>
+          <div class="price-features">
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Everything in Standard</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Journal Submission Support</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Reviewer Comments Handling</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Rebuttal Letter Writing</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Until Publication Support</span></div>
+            <div class="pf-item"><i class="fas fa-check-circle"></i><span>Priority Queue (Faster Delivery)</span></div>
+          </div>
+          <a href="https://wa.me/918788209773" target="_blank" class="btn-outline" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERABLES SECTION -->
+  <section class="deliverables section" id="deliverables">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">What You Receive</div>
+        <h2 class="section-title">Your <span class="gold">Deliverables</span></h2>
+        <p>A complete set of documents ready for submission and publication</p>
+      </div>
+      <div class="deliv-grid">
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-file-word"></i></div>
+          <div>
+            <h4>Final Research Paper</h4>
+            <p>Formatted paper in Word (.docx) + PDF — ready for journal submission</p>
+          </div>
+        </div>
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-shield-check"></i></div>
+          <div>
+            <h4>Plagiarism Report</h4>
+            <p>Official Turnitin / iThenticate similarity report (&lt;10% guaranteed)</p>
+          </div>
+        </div>
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-folder-open"></i></div>
+          <div>
+            <h4>Journal Submission Files</h4>
+            <p>All required files formatted per the target journal's author guidelines</p>
+          </div>
+        </div>
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <div>
+            <h4>Cover Letter</h4>
+            <p>Professional cover letter addressed to the journal editor, ready to send</p>
+          </div>
+        </div>
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-reply-all"></i></div>
+          <div>
+            <h4>Reviewer Response</h4>
+            <p>Point-by-point rebuttal letter addressing all reviewer comments (Premium)</p>
+          </div>
+        </div>
+        <div class="deliv-card reveal">
+          <div class="deliv-icon"><i class="fas fa-chart-bar"></i></div>
+          <div>
+            <h4>Data & Analysis Files</h4>
+            <p>Raw analysis scripts, graphs, tables, and supporting datasets if applicable</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL TYPES SECTION -->
+  <section class="journals section" id="journals">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Publication Targets</div>
+        <h2 class="section-title">Journal Types <span class="gold">Supported</span></h2>
+        <p>We have expertise in publishing across all major international indexing platforms</p>
+      </div>
+      <div class="journals-grid">
+        <div class="journal-card reveal">
+          <i class="fas fa-globe"></i>
+          <h3>Scopus Indexed Journals</h3>
+          <p>Q1, Q2, Q3, and Q4 Scopus journals across all engineering, science, and management domains.</p>
+          <div class="journal-tags"><span class="jtag">Q1</span><span class="jtag">Q2</span><span class="jtag">Q3</span><span class="jtag">Q4</span></div>
+        </div>
+        <div class="journal-card reveal">
+          <i class="fas fa-star"></i>
+          <h3>Web of Science (WoS)</h3>
+          <p>SCIE, SSCI, ESCI indexed journals with high impact factors and global recognition.</p>
+          <div class="journal-tags"><span class="jtag">SCIE</span><span class="jtag">SSCI</span><span class="jtag">ESCI</span></div>
+        </div>
+        <div class="journal-card reveal">
+          <i class="fas fa-microchip"></i>
+          <h3>IEEE Journals & Conferences</h3>
+          <p>IEEE Transactions, Access, Letters, and international conference proceedings publication support.</p>
+          <div class="journal-tags"><span class="jtag">Transactions</span><span class="jtag">Access</span><span class="jtag">Letters</span></div>
+        </div>
+        <div class="journal-card reveal">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>UGC Care Journals</h3>
+          <p>UGC Care List publication support for faculty promotions, academic credentials, and institutional requirements.</p>
+          <div class="journal-tags"><span class="jtag">UGC Care List 1</span><span class="jtag">List 2</span></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- WHY CHOOSE US -->
-  <section class="why-us section">
+  <section class="why-us section" id="why">
     <div class="why-bg"></div>
     <div class="container">
       <div class="section-header reveal">
         <div class="section-tag">Why SIR?</div>
         <h2 class="section-title">Why Choose <span class="gold">Us</span></h2>
+        <p>Thousands of researchers trust SIR Research Consultancy for a reason</p>
       </div>
       <div class="why-grid">
-        <div class="why-card reveal"><i class="fas fa-users"></i><h3>5000+ Clients</h3><p>Trusted by thousands of students, scholars, and institutions across India.</p></div>
-        <div class="why-card reveal"><i class="fas fa-user-tie"></i><h3>Expert Team</h3><p>PhDs, domain specialists, and publication experts with years of experience.</p></div>
-        <div class="why-card reveal"><i class="fas fa-bolt"></i><h3>Fast Delivery</h3><p>On-time delivery with quality maintained — no compromise, no delays.</p></div>
-        <div class="why-card reveal"><i class="fas fa-lock"></i><h3>Confidential</h3><p>Your data, research, and identity are 100% confidential and secure with us.</p></div>
-        <div class="why-card reveal"><i class="fas fa-headset"></i><h3>24/7 Support</h3><p>WhatsApp, call, and email support round the clock for all your queries.</p></div>
-        <div class="why-card reveal"><i class="fas fa-rupee-sign"></i><h3>Affordable</h3><p>Competitive pricing with zero compromise on quality — value for money.</p></div>
+        <div class="why-card reveal"><i class="fas fa-user-graduate"></i><h3>PhD Expert Writers</h3><p>All papers are written by domain-specific PhD holders with deep understanding of current research trends.</p></div>
+        <div class="why-card reveal"><i class="fas fa-check-double"></i><h3>100+ Papers Published</h3><p>Proven track record of over 500 accepted publications in Scopus and WoS indexed journals.</p></div>
+        <div class="why-card reveal"><i class="fas fa-chart-line"></i><h3>High Acceptance Rate</h3><p>Our research papers achieve a 95%+ acceptance rate due to rigorous quality control and expert review.</p></div>
+        <div class="why-card reveal"><i class="fas fa-lock"></i><h3>100% Confidential</h3><p>Your identity, data, and research are fully protected. We sign NDAs on request. Zero data sharing.</p></div>
+        <div class="why-card reveal"><i class="fas fa-headset"></i><h3>End-to-End Support</h3><p>From topic to publication — we walk with you at every stage including handling reviewer comments.</p></div>
+        <div class="why-card reveal"><i class="fas fa-rupee-sign"></i><h3>Affordable Pricing</h3><p>Competitive rates with flexible payment options. No hidden charges. Value guaranteed.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials section" id="testimonials">
+  <!-- DOCUMENTS REQUIRED SECTION -->
+  <section class="docs-required section" id="docs">
     <div class="container">
       <div class="section-header reveal">
-        <div class="section-tag">Client Stories</div>
-        <h2 class="section-title">What Our Clients <span class="gold">Say</span></h2>
+        <div class="section-tag">Before We Begin</div>
+        <h2 class="section-title">Documents <span class="gold">Required from You</span></h2>
+        <p>We keep it minimal — most of these are optional and we can work without them</p>
       </div>
-      <div class="testimonial-slider reveal">
-        <div class="testimonial-track" id="testimonialTrack">
-          <div class="testimonial-card">
-            <div class="tcard-top">
-              <div class="tcard-avatar"><i class="fas fa-user-graduate"></i></div>
-              <div><strong>Rohan Deshmukh</strong><span>PhD Scholar, RTM Nagpur University</span></div>
-            </div>
-            <p>"My Scopus paper got accepted within 2 months. SIR Consultancy guided me from topic selection to publication. Exceptional support!"</p>
-            <div class="stars">★★★★★</div>
-          </div>
-          <div class="testimonial-card">
-            <div class="tcard-top">
-              <div class="tcard-avatar"><i class="fas fa-user-tie"></i></div>
-              <div><strong>Dr. Priya Sharma</strong><span>Associate Professor, Pune</span></div>
-            </div>
-            <p>"They helped our college improve NAAC score by a full grade. The documentation support and research output improvement was outstanding."</p>
-            <div class="stars">★★★★★</div>
-          </div>
-          <div class="testimonial-card">
-            <div class="tcard-top">
-              <div class="tcard-avatar"><i class="fas fa-user"></i></div>
-              <div><strong>Anjali Patil</strong><span>Masters Student, VNIT</span></div>
-            </div>
-            <p>"Got my patent filed within 3 weeks! The team is professional, fast, and very helpful. Highly recommend for any IPR services."</p>
-            <div class="stars">★★★★★</div>
-          </div>
-          <div class="testimonial-card">
-            <div class="tcard-top">
-              <div class="tcard-avatar"><i class="fas fa-user-graduate"></i></div>
-              <div><strong>Mohammed Iqbal</strong><span>Research Scholar, Mumbai</span></div>
-            </div>
-            <p>"My thesis was completed on time with zero plagiarism. The writing quality and formatting were exactly as per university guidelines."</p>
-            <div class="stars">★★★★★</div>
-          </div>
-          <div class="testimonial-card">
-            <div class="tcard-top">
-              <div class="tcard-avatar"><i class="fas fa-user-tie"></i></div>
-              <div><strong>Dr. Sunita Kulkarni</strong><span>Principal, Nagpur College</span></div>
-            </div>
-            <p>"SIR helped us achieve NIRF ranking improvement significantly. Their institutional research support program is truly game-changing."</p>
-            <div class="stars">★★★★★</div>
+      <div class="docs-grid">
+        <div class="docs-visual reveal-left">
+          <div class="docs-icon-grid">
+            <div class="dig-item"><i class="fas fa-lightbulb"></i></div>
+            <div class="dig-item"><i class="fas fa-database"></i></div>
+            <div class="dig-item"><i class="fas fa-cogs"></i></div>
+            <div class="dig-item"><i class="fas fa-file-code"></i></div>
+            <div class="dig-item"><i class="fas fa-user-tie"></i></div>
+            <div class="dig-item"><i class="fas fa-handshake"></i></div>
           </div>
         </div>
-        <div class="slider-controls">
-          <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-          <div class="slider-dots" id="sliderDots"></div>
-          <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        <div class="docs-list reveal-right">
+          <div class="doc-item">
+            <div class="doc-icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="doc-body">
+              <h4>Research Topic <span class="optional-badge">Optional</span></h4>
+              <p>If you have a topic in mind, share it. If not, we'll suggest innovative topics based on your domain.</p>
+            </div>
+          </div>
+          <div class="doc-item">
+            <div class="doc-icon"><i class="fas fa-cogs"></i></div>
+            <div class="doc-body">
+              <h4>Your Domain / Field <span style="color:var(--gold);font-size:0.8rem;margin-left:4px;">Required</span></h4>
+              <p>CSE, ECE, Mechanical, Civil, MBA, Pharmacy, Biotech, Agriculture — mention your specialization.</p>
+            </div>
+          </div>
+          <div class="doc-item">
+            <div class="doc-icon"><i class="fas fa-database"></i></div>
+            <div class="doc-body">
+              <h4>Dataset <span class="optional-badge">Optional</span></h4>
+              <p>If you have collected data or have access to a dataset, share it. We can also arrange datasets.</p>
+            </div>
+          </div>
+          <div class="doc-item">
+            <div class="doc-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="doc-body">
+              <h4>Previous / Related Work <span class="optional-badge">Optional</span></h4>
+              <p>Any prior work, synopsis, or reports you've done that can give context to the current research.</p>
+            </div>
+          </div>
+          <div class="doc-item">
+            <div class="doc-icon"><i class="fas fa-calendar"></i></div>
+            <div class="doc-body">
+              <h4>Deadline & Budget</h4>
+              <p>Let us know your submission deadline and approximate budget so we can plan the right package.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT SECTION -->
-  <section class="contact section" id="contact">
+  <!-- CTA SECTION -->
+  <section class="cta-section" id="contact-cta">
     <div class="container">
-      <div class="section-header reveal">
-        <div class="section-tag">Get In Touch</div>
-        <h2 class="section-title">Start Your <span class="gold">Research Journey</span></h2>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-info reveal-left revealed">
-          <h3>Contact SIR Research Consultancy</h3>
-          <p>Reach out to us via any of the channels below. We respond fast!</p>
-          <div class="contact-cards">
-            <a href="tel:8788209773" class="cinfo-card call-card">
-              <div class="cinfo-icon"><i class="fas fa-phone"></i></div>
-              <div><strong>Call Us</strong><span>8788209773</span></div>
-            </a>
-            <a href="https://wa.me/918788209773" target="_blank" class="cinfo-card wa-card">
-              <div class="cinfo-icon"><i class="fab fa-whatsapp"></i></div>
-              <div><strong>WhatsApp</strong><span>8788209773</span></div>
-            </a>
-            <a href="sms:8788209773" class="cinfo-card sms-card">
-              <div class="cinfo-icon"><i class="fas fa-comment-sms"></i></div>
-              <div><strong>Send Message</strong><span>8788209773</span></div>
-            </a>
-            <a href="mailto:sirresearch@email.com" class="cinfo-card email-card">
-              <div class="cinfo-icon"><i class="fas fa-envelope"></i></div>
-              <div><strong>Email Us</strong><span>sirresearch@email.com</span></div>
-            </a>
-            <div class="cinfo-card loc-card">
-              <div class="cinfo-icon"><i class="fas fa-map-marker-alt"></i></div>
-              <div><strong>Location</strong><span>Nagpur, Maharashtra, India</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="contact-form-wrap reveal-right revealed">
-          <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <input type="text" id="fname" placeholder=" " required />
-              <label for="fname">Your Full Name</label>
-            </div>
-            <div class="form-group">
-              <input type="tel" id="fphone" placeholder=" " required />
-              <label for="fphone">Phone / WhatsApp Number</label>
-            </div>
-            <div class="form-group">
-              <input type="email" id="femail" placeholder=" " />
-              <label for="femail">Email Address</label>
-            </div>
-            <div class="form-group">
-              <select id="fservice" required>
-                <option value="" disabled selected></option>
-                <option>Research Paper Writing</option>
-                <option>Scopus Publication</option>
-                <option>PhD Thesis Writing</option>
-                <option>Patent Filing</option>
-                <option>Data Analysis</option>
-                <option>NAAC/NIRF Support</option>
-                <option>Plagiarism Removal</option>
-                <option>Other</option>
-              </select>
-              <label for="fservice">Select Service</label>
-            </div>
-            <div class="form-group">
-              <textarea id="fmsg" rows="4" placeholder=" "></textarea>
-              <label for="fmsg">Your Message / Requirement</label>
-            </div>
-            <button type="submit" class="btn-primary form-submit">
-              <span>Submit Enquiry</span><i class="fas fa-arrow-right"></i>
-            </button>
-          </form>
-          <div class="form-success" id="formSuccess">
-            <i class="fas fa-check-circle"></i>
-            <h3>Thank You!</h3>
-            <p>We've received your enquiry. Our team will contact you within 2 hours.</p>
-            <a href="https://wa.me/918788209773" target="_blank" class="btn-primary">Chat on WhatsApp</a>
-          </div>
-        </div>
+      <div class="section-tag reveal" style="display:inline-block;margin-bottom:20px;">Get In Touch</div>
+      <h2 class="section-title reveal">Ready to Get Your <span class="gold">Paper Published?</span></h2>
+      <p class="reveal">Talk to our expert today — free consultation, no commitment. We'll guide you from scratch to a published research paper in a Scopus / WoS journal.</p>
+      <div class="cta-btns reveal">
+        <a href="tel:9881047800" class="btn-primary"><i class="fas fa-phone"></i><span>Call: 9881047800</span></a>
+        <a href="https://wa.me/919881047800" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us Now</a>
+        <a href="index.html#contact" class="btn-outline"><i class="fas fa-envelope"></i> Send Enquiry</a>
       </div>
     </div>
   </section>
@@ -500,44 +1228,45 @@
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <div class="nav-logo">
+            <div class="nav-logo" style="cursor:default;">
               <img class="logo-img" src="sir%20research%20consultancy.jpg" alt="SIR Research Consultancy Logo" />
               <span class="logo-sir">SIR</span>
               <div class="logo-text"><span class="logo-main">Research Consultancy</span><span class="logo-sub">Nagpur</span></div>
             </div>
             <p>Your trusted partner for research excellence, publication support, and academic advancement.</p>
             <div class="footer-contacts">
-              <a href="tel:8788209773"><i class="fas fa-phone"></i> 8788209773</a>
-              <a href="https://wa.me/918788209773" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+              <a href="tel:9881047800"><i class="fas fa-phone"></i> 9881047800</a>
+              <a href="https://wa.me/919881047800" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
             </div>
           </div>
           <div class="footer-links">
             <h4>Quick Links</h4>
-            <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#benefits">Benefits</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
+             <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../benefits.html">Benefits</a></li>
+        <li><a href="../process.html">Process</a></li>
+        <li><a href="../testimonials.html">Testimonials</a></li>
+        <li><a href="../contact.html" class="nav-cta">Contact Us</a></li>
+      </ul>
           </div>
           <div class="footer-links">
-            <h4>Our Services</h4>
+            <h4>Services</h4>
             <ul>
-              <li><a href="#services">Research Paper Writing</a></li>
-              <li><a href="#services">Scopus/WoS Publication</a></li>
-              <li><a href="#services">PhD Thesis Writing</a></li>
-              <li><a href="#services">Patent Filing & IPR</a></li>
-              <li><a href="#services">Data Analysis</a></li>
-              <li><a href="#services">Plagiarism Removal</a></li>
+              <li><a href="#">Technical Paper Writing</a></li>
+              <li><a href="../index.html#services">Scopus/WoS Publication</a></li>
+              <li><a href="../index.html#services">PhD Thesis Writing</a></li>
+              <li><a href="../index.html#services">Patent Filing & IPR</a></li>
+              <li><a href="../index.html#services">Data Analysis</a></li>
+              <li><a href="../index.html#services">Plagiarism Removal</a></li>
             </ul>
           </div>
           <div class="footer-cta">
-            <h4>Get Free Consultation</h4>
+            <h4>Free Consultation</h4>
             <p>Talk to our expert today — no charges, no commitment.</p>
-            <a href="tel:8788209773" class="btn-primary">Call Now: 8788209773</a>
-            <a href="https://wa.me/918788209773" target="_blank" class="btn-wa-footer">WhatsApp Us</a>
+            <a href="../index.html#contact" class="btn-primary" style="display:flex;justify-content:center;">Call: 9881047800</a>
+            <a href="https://wa.me/919881047800" target="_blank" class="btn-wa-footer"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
           </div>
         </div>
       </div>
@@ -550,1394 +1279,125 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
-  <style>
-    /* ============================================
-   SIR RESEARCH CONSULTANCY - style.css
-   Dark Blue + Gold | Premium Research Theme
-   ============================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
-
-/* === CSS VARIABLES === */
-:root {
-  --navy: #050d1a;
-  --navy-2: #0a1628;
-  --navy-3: #0f2040;
-  --navy-4: #162840;
-  --gold: #c9a227;
-  --gold-light: #e8c250;
-  --gold-dark: #a07c10;
-  --white: #ffffff;
-  --off-white: #e8edf5;
-  --text-muted: #8a9ab5;
-  --card-bg: rgba(15, 32, 64, 0.8);
-  --border: rgba(201, 162, 39, 0.2);
-  --shadow: 0 20px 60px rgba(0,0,0,0.4);
-  --glow: 0 0 30px rgba(201, 162, 39, 0.3);
-  --font-head: 'Playfair Display', serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius: 16px;
-  --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* === RESET & BASE === */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--navy);
-  color: var(--white);
-  overflow-x: hidden;
-  line-height: 1.7;
-}
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-img { max-width: 100%; }
-
-/* === SELECTION === */
-::selection { background: var(--gold); color: var(--navy); }
-
-/* === SCROLLBAR === */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--navy); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-
-/* ============================================
-   LOADER
-   ============================================ */
-.loader {
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--navy);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 20px;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-}
-.loader.hidden { opacity: 0; visibility: hidden; }
-
-.loader-logo {
-  font-family: var(--font-head);
-  font-size: 5rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-}
-.loader-s { color: var(--gold); animation: popIn 0.3s 0.2s both; }
-.loader-i { color: var(--white); animation: popIn 0.3s 0.4s both; }
-.loader-r { color: var(--gold); animation: popIn 0.3s 0.6s both; }
-@keyframes popIn {
-  from { opacity: 0; transform: scale(0.3) translateY(30px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-.loader-bar {
-  width: 200px; height: 3px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 3px; overflow: hidden;
-}
-.loader-fill {
-  height: 100%; width: 0;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius: 3px;
-  animation: loadFill 1.5s 0.8s ease forwards;
-}
-@keyframes loadFill { to { width: 100%; } }
-.loader-text {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  animation: fadeIn 0.5s 1s both;
-}
-
-/* ============================================
-   FLOATING CONTACT BUTTONS
-   ============================================ */
-.float-contacts {
-  position: fixed;
-  right: 20px; bottom: 30px;
-  z-index: 1000;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.float-btn {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 18px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 52px;
-}
-.float-btn:hover { max-width: 160px; transform: translateX(-5px); }
-.float-btn i { font-size: 1.1rem; flex-shrink: 0; }
-.float-btn span { white-space: nowrap; }
-
-.float-btn.call { background: linear-gradient(135deg, #1a73e8, #0d47a1); color: white; }
-.float-btn.whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); color: white; }
-.float-btn.sms { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); }
-
-/* ============================================
-   NAVBAR
-   ============================================ */
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 900;
-  padding: 18px 0;
-  transition: var(--transition);
-}
-.navbar.scrolled {
-  background: rgba(5, 13, 26, 0.95);
-  backdrop-filter: blur(20px);
-  padding: 12px 0;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-  border-bottom: 1px solid var(--border);
-}
-.nav-container {
-  max-width: 1300px; margin: 0 auto;
-  padding: 0 30px;
-  display: flex; align-items: center;
-  justify-content: space-between;
-}
-.nav-logo { display: flex; align-items: center; gap: 12px; }
-.logo-img {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  padding: 4px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-}
-.logo-sir {
-  font-family: var(--font-head);
-  font-size: 2rem; font-weight: 900;
-  color: var(--gold);
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  letter-spacing: 0.05em;
-}
-.logo-text { display: flex; flex-direction: column; line-height: 1.2; }
-.logo-main { font-size: 0.9rem; font-weight: 600; color: var(--white); }
-.logo-sub { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
-
-.nav-links { display: flex; align-items: center; gap: 8px; }
-.nav-links a {
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--off-white);
-  transition: var(--transition);
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute; bottom: 4px; left: 50%; right: 50%;
-  height: 2px; background: var(--gold);
-  transition: var(--transition); border-radius: 2px;
-}
-.nav-links a:hover::after { left: 14px; right: 14px; }
-.nav-links a:hover { color: var(--gold); }
-.nav-links .nav-cta {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--navy) !important;
-  font-weight: 700;
-  padding: 10px 22px;
-}
-.nav-links .nav-cta:hover { transform: translateY(-2px); box-shadow: var(--glow); }
-.nav-links .nav-cta::after { display: none; }
-
-.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
-.hamburger span { display: block; width: 25px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-/* ============================================
-   HERO SECTION
-   ============================================ */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  display: flex; align-items: center;
-  overflow: hidden;
-  padding: 100px 30px 60px;
-  max-width: 1300px; margin: 0 auto;
-}
-.hero-bg-grid {
-  position: fixed; inset: 0; z-index: -2;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: 0.4;
-}
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: -3;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(15, 32, 64, 0.9) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(201, 162, 39, 0.08) 0%, transparent 60%),
-    var(--navy);
-}
-
-/* Floating Particles */
-.particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.particle {
-  position: absolute;
-  width: 3px; height: 3px;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: floatParticle linear infinite;
-  opacity: 0;
-}
-@keyframes floatParticle {
-  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
-  10%  { opacity: 0.6; }
-  90%  { opacity: 0.3; }
-  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
-}
-
-.hero-content { flex: 1; z-index: 1; max-width: 650px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 18px;
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: rgba(201, 162, 39, 0.05);
-  margin-bottom: 24px;
-}
-.hero-badge::before { content: '✦'; animation: spin 3s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.hero-title {
-  font-family: var(--font-head);
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 900;
-  line-height: 1.05;
-  margin-bottom: 24px;
-}
-.hero-title span { display: block; }
-.hero-title .line1 { color: var(--white); animation: slideRight 0.8s 0.3s both; }
-.hero-title .line2 { color: var(--off-white); animation: slideRight 0.8s 0.5s both; }
-.hero-title .line3 {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: slideRight 0.8s 0.7s both;
-}
-@keyframes slideRight {
-  from { opacity: 0; transform: translateX(-40px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 36px;
-  max-width: 520px;
-}
-.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
-
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 32px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: var(--navy);
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative; overflow: hidden;
-}
-.btn-primary::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  opacity: 0; transition: var(--transition);
-}
-.btn-primary:hover::before { opacity: 1; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201, 162, 39, 0.4); }
-.btn-primary span, .btn-primary i { position: relative; z-index: 1; }
-
-.btn-outline {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 14px 32px;
-  background: transparent;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.btn-outline:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201, 162, 39, 0.05);
-  transform: translateY(-3px);
-}
-
-.hero-stats { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-.stat { text-align: center; }
-.stat-num {
-  font-family: var(--font-head);
-  font-size: 2.2rem;
-  font-weight: 900;
-  color: var(--gold);
-  line-height: 1;
-}
-.stat span { color: var(--gold); font-size: 1.4rem; font-weight: 700; }
-.stat p { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
-.stat-div { width: 1px; height: 50px; background: var(--border); }
-
-/* Hero Visual */
-.hero-visual {
-  flex: 1; position: relative;
-  height: 500px; min-width: 400px;
-}
-.orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(60px); opacity: 0.15;
-  animation: orbFloat 6s ease-in-out infinite;
-}
-.orb1 { width: 400px; height: 400px; background: var(--gold); top: -50px; right: -100px; animation-delay: 0s; }
-.orb2 { width: 200px; height: 200px; background: #1a73e8; bottom: 0; right: 100px; animation-delay: 2s; }
-.orb3 { width: 150px; height: 150px; background: var(--gold-light); top: 200px; right: 50px; animation-delay: 4s; }
-@keyframes orbFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-.hero-card {
-  position: absolute;
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 20px;
-  background: rgba(10, 22, 40, 0.9);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  backdrop-filter: blur(20px);
-  animation: cardFloat 4s ease-in-out infinite;
-  transition: var(--transition);
-  cursor: default;
-}
-.hero-card:hover { transform: scale(1.05) !important; border-color: var(--gold); box-shadow: var(--glow); }
-.hero-card i { color: var(--gold); font-size: 1.2rem; }
-.hc1 { top: 80px; right: 80px; animation-delay: 0s; }
-.hc2 { top: 180px; right: 20px; animation-delay: 1s; }
-.hc3 { bottom: 200px; right: 100px; animation-delay: 2s; }
-.hc4 { bottom: 100px; right: 30px; animation-delay: 3s; }
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* ============================================
-   MARQUEE STRIP
-   ============================================ */
-.marquee-strip {
-  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-  padding: 14px 0; overflow: hidden;
-}
-.marquee-track {
-  display: flex; gap: 40px; align-items: center;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.marquee-logo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  flex: 0 0 auto;
-}
-.marquee-logo img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-.marquee-track .dot { color: rgba(0,0,0,0.4); font-size: 0.6rem; }
-@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* ============================================
-   SECTION COMMON
-   ============================================ */
-.section { padding: 100px 0; position: relative; }
-.container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
-.section-header { text-align: center; margin-bottom: 60px; }
-.section-tag {
-  display: inline-block;
-  padding: 6px 18px;
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--gold);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  background: rgba(201, 162, 39, 0.05);
-}
-.section-title {
-  font-family: var(--font-head);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-.gold {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.section-header p { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
-
-/* ============================================
-   REVEAL ANIMATIONS
-   ============================================ */
-.reveal, .reveal-left, .reveal-right {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal-left { transform: translateX(-40px); }
-.reveal-right { transform: translateX(40px); }
-.revealed { opacity: 1 !important; transform: translate(0, 0) !important; }
-
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
-.about { background: rgba(10, 22, 40, 0.5); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-.about-img-wrapper { position: relative; }
-.about-icon-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 16px; margin-bottom: 30px;
-}
-.aig-item {
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 1.8rem;
-  color: var(--gold);
-  cursor: default;
-  transition: var(--transition);
-}
-.aig-item:hover {
-  background: rgba(201, 162, 39, 0.1);
-  border-color: var(--gold);
-  transform: scale(1.08) rotate(5deg);
-  box-shadow: var(--glow);
-}
-.about-circle {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  border-radius: var(--radius);
-  padding: 30px;
-  text-align: center;
-}
-.about-circle span {
-  display: block;
-  font-family: var(--font-head);
-  font-size: 3rem;
-  font-weight: 900;
-  color: var(--navy);
-  line-height: 1;
-}
-.about-circle p { color: var(--navy); font-weight: 600; font-size: 0.9rem; margin-top: 6px; }
-
-.about-content .section-tag { display: inline-block; }
-.about-content .section-title { text-align: left; }
-.about-content p { color: var(--text-muted); margin-bottom: 16px; }
-.about-pillars { display: flex; flex-direction: column; gap: 12px; margin: 24px 0 32px; }
-.pillar { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 500; }
-.pillar i { color: var(--gold); }
-
-/* ============================================
-   SERVICES SECTION
-   ============================================ */
-.services { background: var(--navy); }
-
-.service-tabs {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  justify-content: center; margin-bottom: 50px;
-}
-.tab-btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 10px 22px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.tab-btn:hover, .tab-btn.active {
-  background: rgba(201, 162, 39, 0.1);
-  border-color: var(--gold);
-  color: var(--gold);
-  transform: translateY(-2px);
-}
-
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-}
-.service-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: var(--transition);
-  position: relative; overflow: hidden;
-  cursor: default;
-}
-.service-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0;
-  width: 0; height: 3px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  transition: var(--transition);
-}
-.service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: var(--gold); }
-.service-card:hover::before { width: 100%; }
-
-.sc-icon {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(201, 162, 39, 0.1);
-  border-radius: 12px;
-  font-size: 1.5rem;
-  color: var(--gold);
-  margin-bottom: 20px;
-  transition: var(--transition);
-}
-.service-card:hover .sc-icon { background: rgba(201, 162, 39, 0.2); transform: rotate(10deg) scale(1.1); }
-
-.service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
-.service-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-.sc-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 18px;
-  color: var(--gold);
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: var(--transition);
-}
-.sc-link:hover { gap: 12px; }
-
-/* ============================================
-   BENEFITS SECTION
-   ============================================ */
-.benefits { background: rgba(10, 22, 40, 0.6); }
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-}
-.benefit-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 36px;
-  transition: var(--transition);
-  position: relative; overflow: hidden;
-}
-.benefit-card::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at top right, rgba(201, 162, 39, 0.06), transparent 70%);
-  opacity: 0; transition: var(--transition);
-}
-.benefit-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: var(--shadow); }
-.benefit-card:hover::after { opacity: 1; }
-
-.bc-num {
-  font-family: var(--font-head);
-  font-size: 4rem;
-  font-weight: 900;
-  color: rgba(201, 162, 39, 0.1);
-  position: absolute; top: 10px; right: 20px;
-  line-height: 1;
-}
-.bc-icon {
-  font-size: 2rem;
-  color: var(--gold);
-  margin-bottom: 20px;
-  display: block;
-  transition: var(--transition);
-}
-.benefit-card:hover .bc-icon { transform: scale(1.2) rotate(-5deg); }
-.benefit-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-.benefit-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
-
-/* ============================================
-   PROCESS SECTION
-   ============================================ */
-.process { background: var(--navy); }
-.process-timeline {
-  display: flex; align-items: flex-start;
-  gap: 0; position: relative;
-  flex-wrap: wrap; justify-content: center;
-}
-.process-step {
-  flex: 1; min-width: 160px; max-width: 200px;
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; gap: 16px;
-}
-.ps-num {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  border-radius: 50%;
-  font-family: var(--font-head);
-  font-size: 1.3rem;
-  font-weight: 900;
-  color: var(--navy);
-  position: relative; z-index: 1;
-  transition: var(--transition);
-  flex-shrink: 0;
-}
-.process-step:hover .ps-num { transform: scale(1.2); box-shadow: 0 0 30px rgba(201,162,39,0.5); }
-
-.ps-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-.ps-content i { font-size: 1.6rem; color: var(--gold); opacity: 0.8; }
-.ps-content h3 { font-size: 0.95rem; font-weight: 700; }
-.ps-content p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
-
-.process-connector {
-  flex: 0 0 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  margin-top: 27px;
-  position: relative;
-}
-.process-connector::after {
-  content: '';
-  position: absolute; right: 0; top: 50%;
-  transform: translateY(-50%);
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-}
-
-/* ============================================
-   WHY US SECTION
-   ============================================ */
-.why-us { background: rgba(5, 13, 26, 0.8); }
-.why-bg {
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(201, 162, 39, 0.04), transparent);
-  pointer-events: none;
-}
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-}
-.why-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 36px;
-  text-align: center;
-  transition: var(--transition);
-  cursor: default;
-}
-.why-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--glow); }
-.why-card i {
-  font-size: 2.4rem; color: var(--gold);
-  display: block; margin-bottom: 20px;
-  transition: var(--transition);
-}
-.why-card:hover i { transform: scale(1.3) rotate(10deg); }
-.why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
-.why-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-
-/* ============================================
-   TESTIMONIALS SECTION
-   ============================================ */
-.testimonials { background: rgba(10, 22, 40, 0.6); }
-.testimonial-slider { overflow: hidden; position: relative; }
-.testimonial-track {
-  display: flex; gap: 24px;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.testimonial-card {
-  min-width: calc(33.333% - 16px);
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: var(--transition);
-  flex-shrink: 0;
-}
-.testimonial-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-.tcard-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-.tcard-avatar {
-  width: 52px; height: 52px;
-  display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  border-radius: 50%;
-  font-size: 1.2rem;
-  color: var(--navy);
-  flex-shrink: 0;
-}
-.tcard-top strong { display: block; font-weight: 700; margin-bottom: 2px; }
-.tcard-top span { font-size: 0.8rem; color: var(--text-muted); }
-.testimonial-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; font-style: italic; }
-.stars { color: var(--gold); margin-top: 16px; letter-spacing: 2px; }
-
-.slider-controls {
-  display: flex; align-items: center; justify-content: center;
-  gap: 16px; margin-top: 32px;
-}
-.slider-btn {
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  color: var(--white);
-  cursor: pointer; font-size: 1rem;
-  transition: var(--transition);
-}
-.slider-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); transform: scale(1.1); }
-.slider-dots { display: flex; gap: 8px; }
-.dot-btn {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--border);
-  border: none; cursor: pointer;
-  transition: var(--transition);
-}
-.dot-btn.active { background: var(--gold); width: 24px; border-radius: 4px; }
-
-/* ============================================
-   CONTACT SECTION
-   ============================================ */
-.contact { background: var(--navy); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: start; }
-.contact-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
-.contact-info > p { color: var(--text-muted); margin-bottom: 30px; }
-
-.contact-cards { display: flex; flex-direction: column; gap: 14px; }
-.cinfo-card {
-  display: flex; align-items: center; gap: 16px;
-  padding: 16px 20px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  transition: var(--transition);
-  cursor: pointer;
-}
-.cinfo-card:hover { border-color: var(--gold); transform: translateX(6px); }
-.cinfo-card.call-card:hover { border-color: #1a73e8; background: rgba(26, 115, 232, 0.08); }
-.cinfo-card.wa-card:hover { border-color: #25d366; background: rgba(37, 211, 102, 0.08); }
-.cinfo-card.sms-card:hover { border-color: var(--gold); }
-.cinfo-card.email-card:hover { border-color: #ea4335; background: rgba(234, 67, 53, 0.08); }
-
-.cinfo-icon {
-  width: 46px; height: 46px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(201, 162, 39, 0.1);
-  border-radius: 10px;
-  font-size: 1.2rem;
-  color: var(--gold);
-  flex-shrink: 0;
-  transition: var(--transition);
-}
-.call-card .cinfo-icon { color: #1a73e8; background: rgba(26,115,232,0.1); }
-.wa-card .cinfo-icon { color: #25d366; background: rgba(37,211,102,0.1); }
-.sms-card .cinfo-icon { color: var(--gold); }
-.email-card .cinfo-icon { color: #ea4335; background: rgba(234,67,53,0.1); }
-.loc-card .cinfo-icon { color: #ff6b6b; background: rgba(255,107,107,0.1); }
-.cinfo-card:hover .cinfo-icon { transform: scale(1.2) rotate(10deg); }
-
-.cinfo-card strong { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
-.cinfo-card span { font-size: 0.8rem; color: var(--text-muted); }
-
-/* CONTACT FORM */
-.contact-form-wrap { position: relative; }
-.contact-form { display: flex; flex-direction: column; gap: 20px; }
-.form-group { position: relative; }
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 18px 20px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: var(--transition);
-  outline: none;
-}
-.form-group select option { background: var(--navy-2); color: var(--white); }
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--gold);
-  background: rgba(201, 162, 39, 0.05);
-  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
-}
-.form-group label {
-  position: absolute;
-  top: 18px; left: 20px;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  pointer-events: none;
-  transition: var(--transition);
-  background: transparent;
-  padding: 0 4px;
-}
-.form-group input:not(:placeholder-shown) ~ label,
-.form-group input:focus ~ label,
-.form-group select:focus ~ label,
-.form-group select:not([value=""]) ~ label,
-.form-group textarea:not(:placeholder-shown) ~ label,
-.form-group textarea:focus ~ label {
-  top: -10px;
-  font-size: 0.75rem;
-  color: var(--gold);
-  background: var(--navy-3);
-}
-.form-submit { align-self: flex-start; justify-content: center; padding: 16px 40px; }
-
-.form-success {
-  display: none;
-  flex-direction: column; align-items: center;
-  text-align: center; gap: 16px;
-  padding: 60px 40px;
-  background: var(--card-bg);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius);
-}
-.form-success i { font-size: 3rem; color: var(--gold); }
-.form-success h3 { font-size: 1.5rem; font-weight: 700; }
-.form-success p { color: var(--text-muted); }
-
-/* ============================================
-   FOOTER
-   ============================================ */
-.footer { background: var(--navy-2); border-top: 1px solid var(--border); }
-.footer-top { padding: 80px 0 60px; }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 60px;
-}
-.footer-brand p { color: var(--text-muted); font-size: 0.9rem; margin: 16px 0 24px; line-height: 1.7; }
-.footer-contacts { display: flex; flex-direction: column; gap: 10px; }
-.footer-contacts a {
-  display: flex; align-items: center; gap: 10px;
-  color: var(--text-muted); font-size: 0.9rem;
-  transition: var(--transition);
-}
-.footer-contacts a:hover { color: var(--gold); }
-.footer-contacts a i { color: var(--gold); width: 16px; }
-
-.footer-links h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-.footer-links ul { display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { color: var(--text-muted); font-size: 0.9rem; transition: var(--transition); }
-.footer-links a:hover { color: var(--gold); padding-left: 6px; }
-
-.footer-cta h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-.footer-cta p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
-.btn-wa-footer {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 13px 28px;
-  background: rgba(37, 211, 102, 0.15);
-  border: 1px solid #25d366;
-  border-radius: 50px;
-  color: #25d366;
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin-top: 12px;
-  transition: var(--transition);
-  font-family: var(--font-body);
-}
-.btn-wa-footer:hover { background: rgba(37, 211, 102, 0.25); transform: translateY(-2px); }
-
-.footer-bottom {
-  border-top: 1px solid var(--border);
-  padding: 24px 0;
-}
-.footer-bottom .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.footer-bottom p { color: var(--text-muted); font-size: 0.82rem; }
-
-/* ============================================
-   ANIMATIONS
-   ============================================ */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 1100px) {
-  .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-  .hero-content { max-width: 100%; }
-  .hero-btns { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .hero-visual { display: none; }
-  .about-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .testimonial-card { min-width: calc(50% - 12px); }
-  .process-connector { display: none; }
-  .process-timeline { gap: 24px; }
-}
-
-@media (max-width: 768px) {
-  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,13,26,0.98); backdrop-filter: blur(20px); flex-direction: column; padding: 20px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .nav-links.open { display: flex; }
-  .hamburger { display: flex; }
-  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-  .testimonial-card { min-width: 100%; }
-  .process-step { min-width: 140px; }
-  .float-btn span { display: none; }
-  .float-btn { max-width: 52px !important; }
-  .float-btn:hover { max-width: 52px !important; transform: none; }
-  .section { padding: 70px 0; }
-  .benefits-grid, .why-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 480px) {
-  .hero-title { font-size: 2.5rem; }
-  .hero-btns { flex-direction: column; }
-  .btn-primary, .btn-outline { width: 100%; justify-content: center; }
-  .service-tabs { flex-wrap: wrap; }
-  .tab-btn { font-size: 0.78rem; padding: 8px 14px; }
-}
-  </style>
-
   <script>
-    /* ============================================
-   SIR RESEARCH CONSULTANCY - script.js
-   Full Animations, Interactions & Logic
-   ============================================ */
+    document.addEventListener('DOMContentLoaded', () => {
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  // =============================================
-  // 1. LOADER
-  // =============================================
-  const loader = document.getElementById('loader');
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      document.body.style.overflow = '';
-    }, 2200);
-  });
-  document.body.style.overflow = 'hidden';
-
-  // =============================================
-  // 2. PARTICLES GENERATOR
-  // =============================================
-  const particleContainer = document.getElementById('particles');
-  if (particleContainer) {
-    const count = 30;
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
-      p.style.animationDuration = (Math.random() * 15 + 8) + 's';
-      p.style.animationDelay = (Math.random() * 10) + 's';
-      // Some particles are white-ish
-      if (Math.random() > 0.7) p.style.background = 'rgba(255,255,255,0.6)';
-      particleContainer.appendChild(p);
-    }
-  }
-
-  // =============================================
-  // 3. NAVBAR SCROLL EFFECT
-  // =============================================
-  const navbar = document.getElementById('navbar');
-  const handleNavbarScroll = () => {
-    if (window.scrollY > 60) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  };
-  window.addEventListener('scroll', handleNavbarScroll);
-
-  // Active nav link highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinksAll = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
-    });
-    navLinksAll.forEach(link => {
-      link.classList.remove('active-nav');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('active-nav');
-    });
-  });
-
-  // =============================================
-  // 4. HAMBURGER MENU
-  // =============================================
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
-    });
-  });
-
-  // =============================================
-  // 5. SMOOTH SCROLL
-  // =============================================
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-  // =============================================
-  // 6. REVEAL ON SCROLL (Intersection Observer)
-  // =============================================
-  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
-      if (entry.isIntersecting) {
-        // Stagger sibling cards
-        const parent = entry.target.parentElement;
-        const siblings = [...parent.querySelectorAll('.reveal, .reveal-left, .reveal-right')];
-        const sibIdx = siblings.indexOf(entry.target);
+      // LOADER
+      const loader = document.getElementById('loader');
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('load', () => {
         setTimeout(() => {
-          entry.target.classList.add('revealed');
-        }, sibIdx * 80);
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-  revealElements.forEach(el => revealObserver.observe(el));
-
-  // =============================================
-  // 7. COUNTER ANIMATION
-  // =============================================
-  const counters = document.querySelectorAll('.stat-num');
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target);
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            current = target;
-            clearInterval(timer);
-          }
-          el.textContent = Math.floor(current).toLocaleString();
-        }, 16);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(c => counterObserver.observe(c));
-
-  // =============================================
-  // 8. SERVICE TABS
-  // =============================================
-  const tabBtns = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabContents.forEach(tc => tc.classList.remove('active'));
-      btn.classList.add('active');
-      const tabId = 'tab-' + btn.dataset.tab;
-      const content = document.getElementById(tabId);
-      if (content) {
-        content.classList.add('active');
-        // Re-observe reveals inside the tab
-        content.querySelectorAll('.reveal').forEach((el, i) => {
-          el.classList.remove('revealed');
-          setTimeout(() => el.classList.add('revealed'), i * 100);
-        });
-      }
-    });
-  });
-
-  // Trigger initial tab reveal
-  const initialTab = document.getElementById('tab-writing');
-  if (initialTab) {
-    initialTab.querySelectorAll('.reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('revealed'), i * 100 + 500);
-    });
-  }
-
-  // =============================================
-  // 9. TESTIMONIAL SLIDER
-  // =============================================
-  const track = document.getElementById('testimonialTrack');
-  const dotsContainer = document.getElementById('sliderDots');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  if (track) {
-    const cards = track.querySelectorAll('.testimonial-card');
-    let current = 0;
-    let perView = getPerView();
-    const total = cards.length;
-    const maxSlide = total - perView;
-
-    function getPerView() {
-      if (window.innerWidth < 768) return 1;
-      if (window.innerWidth < 1100) return 2;
-      return 3;
-    }
-
-    function createDots() {
-      dotsContainer.innerHTML = '';
-      for (let i = 0; i <= maxSlide; i++) {
-        const d = document.createElement('button');
-        d.className = 'dot-btn' + (i === 0 ? ' active' : '');
-        d.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(d);
-      }
-    }
-
-    function goTo(idx) {
-      current = Math.max(0, Math.min(idx, maxSlide));
-      const cardWidth = cards[0].offsetWidth + 24;
-      track.style.transform = `translateX(-${current * cardWidth}px)`;
-      dotsContainer.querySelectorAll('.dot-btn').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
+          loader.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 2200);
       });
-    }
 
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
+      // SCROLL PROGRESS
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        progressBar.style.width = scrolled + '%';
+      });
 
-    // Auto-play
-    let autoPlay = setInterval(() => goTo(current >= maxSlide ? 0 : current + 1), 4000);
-    track.addEventListener('mouseenter', () => clearInterval(autoPlay));
-    track.addEventListener('mouseleave', () => {
-      autoPlay = setInterval(() => goTo(current >= maxSlide ? 0 : current + 1), 4000);
-    });
+      // NAVBAR SCROLL
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+      });
 
-    // Touch/swipe support
-    let touchStartX = 0;
-    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
-    });
+      // HAMBURGER
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
 
-    window.addEventListener('resize', () => {
-      perView = getPerView();
-      createDots();
-      goTo(0);
-    });
+      // REVEAL ON SCROLL
+      const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const parent = entry.target.parentElement;
+            const siblings = [...parent.querySelectorAll('.reveal, .reveal-left, .reveal-right')];
+            const idx = siblings.indexOf(entry.target);
+            setTimeout(() => entry.target.classList.add('revealed'), idx * 90);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+      revealEls.forEach(el => observer.observe(el));
 
-    createDots();
-  }
+      // COUNTER ANIMATION
+      const counters = document.querySelectorAll('.stat-num');
+      const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            const step = target / (2000 / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) { current = target; clearInterval(timer); }
+              el.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+            counterObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(c => counterObs.observe(c));
 
-  // =============================================
-  // 10. CONTACT FORM
-  // =============================================
-  const contactForm = document.getElementById('contactForm');
-  const formSuccess = document.getElementById('formSuccess');
-
-  if (contactForm) {
-    contactForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const btn = contactForm.querySelector('.form-submit');
-      btn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
-      btn.style.pointerEvents = 'none';
-
-      // Simulate form submission (replace with real PHP/AJAX)
-      setTimeout(() => {
-        contactForm.style.display = 'none';
-        formSuccess.style.display = 'flex';
-        formSuccess.style.animation = 'fadeIn 0.5s ease';
-      }, 1500);
-    });
-  }
-
-  // =============================================
-  // 11. CURSOR GLOW EFFECT (desktop only)
-  // =============================================
-  if (window.innerWidth > 1024) {
-    const glow = document.createElement('div');
-    glow.style.cssText = `
-      position: fixed; width: 300px; height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,162,39,0.06) 0%, transparent 70%);
-      pointer-events: none; z-index: 0;
-      transform: translate(-50%, -50%);
-      transition: left 0.3s ease, top 0.3s ease;
-    `;
-    document.body.appendChild(glow);
-    document.addEventListener('mousemove', e => {
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
-    });
-  }
-
-  // =============================================
-  // 12. TILT EFFECT ON CARDS
-  // =============================================
-  const tiltCards = document.querySelectorAll('.service-card, .why-card, .benefit-card');
-  tiltCards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
-      card.style.transform = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // =============================================
-  // 13. FLOATING CONTACT BUTTON VISIBILITY
-  // =============================================
-  const floatContacts = document.querySelector('.float-contacts');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      floatContacts.style.opacity = '1';
-      floatContacts.style.transform = 'translateX(0)';
-    } else {
-      floatContacts.style.opacity = '0';
-      floatContacts.style.transform = 'translateX(30px)';
-    }
-  });
-  // Initial state
-  floatContacts.style.opacity = '0';
-  floatContacts.style.transform = 'translateX(30px)';
-  floatContacts.style.transition = 'all 0.4s ease';
-
-  // =============================================
-  // 14. HERO TITLE TYPEWRITER HIGHLIGHT
-  // =============================================
-  const heroTitle = document.querySelector('.hero-title .line3');
-  if (heroTitle) {
-    setTimeout(() => {
-      heroTitle.style.transition = 'all 0.5s ease';
-    }, 1500);
-  }
-
-  // =============================================
-  // 15. MAGNETIC BUTTONS
-  // =============================================
-  const magnetBtns = document.querySelectorAll('.btn-primary, .btn-outline, .float-btn');
-  magnetBtns.forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const rect = btn.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
-    });
-  });
-
-  // =============================================
-  // 16. SCROLL PROGRESS INDICATOR
-  // =============================================
-  const progressBar = document.createElement('div');
-  progressBar.style.cssText = `
-    position: fixed; top: 0; left: 0; height: 3px;
-    background: linear-gradient(90deg, #c9a227, #e8c250);
-    z-index: 9998; width: 0%; transition: width 0.1s ease;
-    box-shadow: 0 0 10px rgba(201,162,39,0.5);
-  `;
-  document.body.appendChild(progressBar);
-  window.addEventListener('scroll', () => {
-    const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-    progressBar.style.width = scrolled + '%';
-  });
-
-  // =============================================
-  // 17. ANIMATE SELECT LABEL
-  // =============================================
-  const selects = document.querySelectorAll('.form-group select');
-  selects.forEach(sel => {
-    sel.addEventListener('change', () => {
-      const label = sel.parentElement.querySelector('label');
-      if (sel.value) {
-        if (label) {
-          label.style.top = '-10px';
-          label.style.fontSize = '0.75rem';
-          label.style.color = 'var(--gold)';
-          label.style.background = 'var(--navy-3)';
+      // FLOATING CONTACTS VISIBILITY
+      const floatContacts = document.getElementById('floatContacts');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          floatContacts.style.opacity = '1';
+          floatContacts.style.transform = 'translateX(0)';
+        } else {
+          floatContacts.style.opacity = '0';
+          floatContacts.style.transform = 'translateX(30px)';
         }
+      });
+
+      // CURSOR GLOW (desktop only)
+      if (window.innerWidth > 1024) {
+        const glow = document.createElement('div');
+        glow.style.cssText = `position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,0.06) 0%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left 0.3s ease,top 0.3s ease;`;
+        document.body.appendChild(glow);
+        document.addEventListener('mousemove', e => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
       }
+
+      // TILT ON CARDS
+      document.querySelectorAll('.include-card, .why-card, .price-card, .journal-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * -8;
+          card.style.transform = `translateY(-7px) rotateX(${y}deg) rotateY(${x}deg)`;
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+
+      // MAGNETIC BUTTONS
+      document.querySelectorAll('.btn-primary, .btn-outline, .btn-wa, .float-btn').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const rect = btn.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+          const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+          btn.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      });
+
+      console.log('%c SIR Research Consultancy 🎓 — Technical Writing Page', 'color: #c9a227; font-size: 16px; font-weight: bold;');
     });
-  });
-
-  // =============================================
-  // 18. BACK TO TOP ON LOGO CLICK
-  // =============================================
-  document.querySelector('.nav-logo').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  console.log('%c SIR Research Consultancy 🎓', 'color: #c9a227; font-size: 20px; font-weight: bold;');
-  console.log('%c Website built with precision & excellence.', 'color: #8a9ab5;');
-
-});
   </script>
 </body>
-
 </html>
